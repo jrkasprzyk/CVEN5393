@@ -1,5 +1,5 @@
-# RiverWare_Model 9.4
-# Created 12:51 February 4, 2025
+# RiverWare_Model 9.4.1
+# Created 14:36 February 4, 2025
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -36,7 +36,7 @@ ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {josep} {02-04-2025 12:51:29} {RiverWare 9.4} 
+$ws.Model.FileInfo saveInfo 1 {josep} {02-04-2025 14:36:05} {RiverWare 9.4.1} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
 $ws.Model.RunHistoryRecord 1 0 {RiverWare 9.4} {josep} \
@@ -63,8 +63,8 @@ DisplayProperties 0
 EpochBeginYear 1800
 OverrideDefaultPlotAxesForVertDist 0
 CurrCanvasType SIMULATION
-InitCanvasSpec SIMULATION {\
-<InitialViewSpec CanvId="SIMULATION" LocType="LocType_CenterAveObj">\
+InitCanvasSpec CanvasID_UND {\
+<InitialViewSpec CanvId="CanvasID_UND" LocType="LocType_CenterAveObj">\
  <Zoom factor="1"/>\
  <CenterPos x="0" y="0"/>\
  <WorkspaceInitDateTime ena="0" symbolicDT=""/>\
