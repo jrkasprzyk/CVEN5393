@@ -153,3 +153,4 @@ cython_debug/
 
 # RiverWare model backup files
 .mdl.bak
+*.bak
