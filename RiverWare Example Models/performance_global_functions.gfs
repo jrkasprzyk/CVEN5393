@@ -1,0 +1,372 @@
+# RiverWare_Ruleset 9.4.1
+# Created 17:20 March 6, 2025
+# 
+RULESET
+NAME "Performance Metrics";
+AGENDA_ORDER ASCENDING;
+DESCRIPTION "";
+PRECISION   2;
+IS_GLOBAL   TRUE;
+NOTES "";
+BEGIN
+
+  UTILITY_GROUP "Performance Metrics";
+  DESCRIPTION   "";
+  ACTIVE        TRUE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "TimeBasedReliability" ( SLOT slot, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "GetNumberOfSatisfactoryTimesteps"( slot, target, direction ) COMMENTED_BY "An acceptable state is defined as 'slot' having a value greater than or equal to 'threshold'. <br>Time-based reliability is the number of timesteps with acceptable performance divided by <br>the total number of timesteps in the simulation; 1.0 is the best possible value and 0.0 is the <br>worst. <br>" / "GetNumberOfTimesteps"(  );
+
+    END
+    UUID "{7104b33d-76d3-4866-bbcc-cc92983b45d9}";;
+
+    FUNCTION       "VolRelGivenTimeseries" ( SLOT provided_vol, SLOT requested_vol )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "SumFlowsToVolume"( provided_vol, @"Start Timestep", @"Finish Timestep" ) COMMENTED_BY "If both the water received and requested are stored in series slots, calculate a ratio where <br>water received is in the numerator and water requested is in the denominator. Perfect <br>performance is 1.0  <br>" / "SumFlowsToVolume"( requested_vol, @"Start Timestep", @"Finish Timestep" );
+
+    END
+    UUID "{245eed2e-5c89-4815-b9cb-df6388bd4b08}";;
+
+    FUNCTION       "VolRelGivenDeficit" ( NUMERIC threshold, SLOT deficit_ts )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      ( ( "FlowToVolume"( threshold, @"Start Timestep" ) * LENGTH @"Start Timestep" TO @"Finish Timestep" ) - "SumFlowsToVolume"( deficit_ts, @"Start Timestep", @"Finish Timestep" ) ) / ( "FlowToVolume"( threshold, @"Start Timestep" ) * LENGTH @"Start Timestep" TO @"Finish Timestep" );
+
+    END
+    UUID "{53b5a03e-f906-46cf-bd3d-d4dc03b24d5d}";;
+
+    FUNCTION       "Resilience" ( SLOT slot, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "GetNumberOfTransitions"( slot, target, direction ) COMMENTED_BY "An acceptable state is defined as 'slot' having a value greater than or equal to 'threshold'. <br>Time-based reliability is the number of timesteps with acceptable performance divided by <br>the total number of timesteps in the simulation; 1.0 is the best possible value and 0.0 is the <br>worst. <br>" / ( "GetNumberOfTimesteps"(  ) - "GetNumberOfSatisfactoryTimesteps"( slot, target, direction ) );
+
+    END
+    UUID "{41e087cc-b04a-4ef1-b248-583df1b06a1c}";;
+
+    FUNCTION       "VulnerabilityGivenDeficitTimeseries" ( SLOT deficit_ts )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "MaxOverTime"( deficit_ts );
+
+    END
+    UUID "{29727e29-b33a-4263-82c9-7527508aef32}";;
+
+    FUNCTION       "MaxOverTime" ( SLOT slot )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "MaxItem"( "GetSlotVals"( slot, @"Start Timestep", @"Finish Timestep" ) ) COMMENTED_BY "The maximum value of slot within the timeseries, for all timesteps. <br>";
+
+    END
+    UUID "{6b988b2f-cc84-4e91-803f-5927175bfaf3}";;
+
+    FUNCTION       "MinOverTime" ( SLOT slot )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "MinItem"( "GetSlotVals"( slot, @"Start Timestep", @"Finish Timestep" ) ) COMMENTED_BY "The minimum value of slot within the timeseries, for all timesteps.  <br>";
+
+    END
+    UUID "{68defdcc-443a-466a-ab63-fcbdccae2a45}";;
+
+    FUNCTION       "TotalDeficit" ( SLOT slot, NUMERIC desired_flowrate )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      FOR ( DATETIME date IN "GetTimeRange"(  ) ) WITH NUMERIC total_deficit = 0.00000000 DO
+  total_deficit + "GetVolDeficitFromFlowrate"( slot [date], desired_flowrate, date )
+ ENDFOR;
+
+    END
+    UUID "{a16b65ec-6b19-4ba6-8c6d-3fd5b4e6b413}";;
+
+  END
+  UUID "{35cb19b7-bd9e-4d7f-9b30-a1f695cb6d0f}";;
+
+  UTILITY_GROUP "Helper Functions - Integer Flag";
+  DESCRIPTION   "";
+  ACTIVE        TRUE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "IsTransitionToSatisfactory" ( NUMERIC current_value, NUMERIC next_value, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( "IsSatisfactory"( current_value, target, direction ) == 0.00000000 AND "IsSatisfactory"( next_value, target, direction ) == 1.00000000 )
+ THEN
+  1.00000000
+ ELSE
+  0.00000000
+ ENDIF COMMENTED_BY "A &quot;transition to satisfactory&quot; is when the 'current_value' is unsatisfactory but the <br>'next_value' is satisfactory. Used in resilience calculations (Hashimoto et al 1982) <br>";
+
+    END
+    UUID "{375abdc0-43aa-41b0-8f53-117e133e2228}";;
+
+    FUNCTION       "IsSatisfactory" ( NUMERIC value, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( direction == "geq" )
+ THEN
+  IF ( value >= target )
+  THEN
+   1.00000000
+  ELSE
+   0.00000000
+  ENDIF
+ ELSE
+  999.00000000 COMMENTED_BY "Currently the only valid values for direction are &quot;geq&quot;, &quot;leq&quot; and &quot;eq&quot; <br>"
+ ENDIF
+ ELSEIF_COND ( direction == "leq" )
+ ELSEIF_CLAUSE ( IF ( value <= target )
+ THEN
+  1.00000000
+ ELSE
+  0.00000000
+ ENDIF )
+ END_ELSEIF
+ ELSEIF_COND ( direction == "eq" )
+ ELSEIF_CLAUSE ( IF ( value == target )
+ THEN
+  1.00000000
+ ELSE
+  0.00000000
+ ENDIF )
+ END_ELSEIF;
+
+    END
+    UUID "{07dee5dc-12f0-4c1a-a5b9-9a5b1471152a}";;
+
+  END
+  UUID "{89c196e9-7feb-4d2f-8715-64cccc6cbee4}";;
+
+  UTILITY_GROUP "Helper Functions - Numeric";
+  DESCRIPTION   "";
+  ACTIVE        TRUE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "GetVolDeficitFromFlowrate" ( NUMERIC flowrate, NUMERIC desired_flowrate, DATETIME date )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( flowrate < desired_flowrate )
+ THEN
+  "FlowToVolume"( desired_flowrate - flowrate, date )
+ ELSE
+  0.00000000 "MCM"
+ ENDIF;
+
+    END
+    UUID "{e6d54e39-570e-4bce-9157-9d3b9caf26a9}";;
+
+    FUNCTION       "GetNumberOfTimesteps" (  )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      LENGTH @"Start Timestep" TO @"Finish Timestep";
+
+    END
+    UUID "{2b4d27de-3d6a-435d-b83e-68496ed16366}";;
+
+    FUNCTION       "GetTimeRange" (  )
+    RETURN_TYPE    LIST;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      @"Start Timestep" TO @"Finish Timestep";
+
+    END
+    UUID "{be744388-74c5-421c-8ed6-1033dfe3b557}";;
+
+    FUNCTION       "GetNumberOfSatisfactoryTimesteps" ( SLOT slot, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      FOR ( DATETIME date IN "GetTimeRange"(  ) ) WITH NUMERIC result = 0.00000000 DO
+  result + "IsSatisfactory"( slot [date], target, direction )
+ ENDFOR;
+
+    END
+    UUID "{664acc35-ef85-443b-b2a0-69bfec03aca3}";;
+
+    FUNCTION       "GetNumberOfTransitions" ( SLOT slot, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      FOR ( DATETIME date IN @"Start Timestep" TO @"Finish Timestep - 1" ) WITH NUMERIC result = 0.00000000 DO
+  result + "IsTransitionToSatisfactory"( slot [date], slot [date + 1.00000000 "day"], target, direction )
+ ENDFOR;
+
+    END
+    UUID "{235c3ae9-1caf-4a12-9c8a-2aacc51e2bed}";;
+
+  END
+  UUID "{374d6452-a951-47d5-a844-30c07c41325b}";;
+
+  UTILITY_GROUP "Functions that assume GEQ (deprecated)";
+  DESCRIPTION   "";
+  ACTIVE        FALSE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "IsSatisfactoryAssumesGEQ" ( NUMERIC value, NUMERIC target, STRING direction )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( value >= target )
+ THEN
+  1.00000000
+ ELSE
+  0.00000000
+ ENDIF;
+
+    END
+    UUID "{7bfc8935-8c8d-4066-9519-7231f0f46b75}";;
+
+    FUNCTION       "IsTransitionToSatisfactoryAssumesGEQ" ( NUMERIC current_value, NUMERIC next_value, NUMERIC target )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( current_value < target AND next_value >= target )
+ THEN
+  1.00000000
+ ELSE
+  0.00000000
+ ENDIF;
+
+    END
+    UUID "{f0cdd080-049b-4050-af76-910429b8f8b0}";;
+
+    FUNCTION       "ResilienceAssumesGEQ" ( SLOT slot, NUMERIC target )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "GetNumberOfTransitions"( slot, target ) COMMENTED_BY "An acceptable state is defined as 'slot' having a value greater than or equal to 'threshold'. <br>Time-based reliability is the number of timesteps with acceptable performance divided by <br>the total number of timesteps in the simulation; 1.0 is the best possible value and 0.0 is the <br>worst. <br>" / ( "GetNumberOfTimesteps"(  ) - "GetNumberOfSatisfactoryTimesteps"( slot, target ) );
+
+    END
+    UUID "{58693b4a-2cb0-4a21-a624-d81b31cf484c}";;
+
+  END
+  UUID "{1123a354-5bc2-414e-a90d-a77877664662}";;
+
+END
+UUID "{894485d5-3b39-45e7-a7ed-b5da8ad07823}";
