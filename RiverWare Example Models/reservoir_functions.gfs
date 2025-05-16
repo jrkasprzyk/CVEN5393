@@ -1,0 +1,68 @@
+# RiverWare_Ruleset 9.4.3
+# Created 13:57 May 16, 2025
+# 
+RULESET
+NAME "Reservoir Functions";
+AGENDA_ORDER ASCENDING;
+DESCRIPTION "";
+PRECISION   2;
+IS_GLOBAL   TRUE;
+NOTES "";
+BEGIN
+
+  UTILITY_GROUP "Reservoir Functions";
+  DESCRIPTION   "";
+  ACTIVE        TRUE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "GetPossibleRelease" ( OBJECT obj, NUMERIC rel )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "Min"( rel, "GetMaxReleaseGivenInflow"( obj, obj & "Inflow" [], @"t" ) ) COMMENTED_BY "In order to set a release of quantity 'rel', this function checks to make sure that <br>the reservoir can physically release 'rel'. <br><br>Note: in order for GetMaxReleaseGivenInflow() to work properly, all mass balance <br>elements of the reservoir should be valid at time t <br>";
+
+    END
+    UUID "{a280d012-a2fd-4f58-9ea8-dc2b23b1b507}";;
+
+    FUNCTION       "OutflowToElevation" ( OBJECT obj, NUMERIC elev )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "SolveOutflow"( obj, obj & "Inflow" [], "ElevationToStorage"( obj, elev ), obj & "Storage" [@"t - 1"], @"t" ) COMMENTED_BY "Gives the value of outflow that it would take to make the reservoir's elevation <br>equal to 'elev' at this timestep, given knowledge of storage at t-1 and inflow at t.<br><br>Note: this does not check if it is physically possible to actually set that outflow. <br>";
+
+    END
+    UUID "{843a6baa-e4c3-44ba-ae0b-f25b2eff56e6}";;
+
+    FUNCTION       "GetPossibleOutflow" ( OBJECT obj, NUMERIC outflow )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "Min"( outflow, "GetMaxOutflowGivenInflow"( obj, obj & "Inflow" [], @"t" ) ) COMMENTED_BY "In order to set an outflow of quantity 'outflow', this function checks to make sure <br>that the reservoir can physically set an outflow of the requested value. <br><br>Note: in order for GetMaxOutflowGivenInflow() to work properly, all mass balance <br>elements of the reservoir should be valid at time t <br>";
+
+    END
+    UUID "{47f2de35-cb36-435e-b7e4-bbccca6d706b}";;
+
+  END
+  UUID "{60a40149-956c-4f3f-b63c-9447ab0c33b7}";;
+
+END
+UUID "{9a5e71c4-e8fb-499a-9e94-672729fec8f9}";
