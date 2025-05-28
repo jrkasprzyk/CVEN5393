@@ -1,5 +1,5 @@
 # RiverWare_Ruleset 9.4.3
-# Created 13:57 May 16, 2025
+# Created 14:06 May 28, 2025
 # 
 RULESET
 NAME "Reservoir Functions";
@@ -60,6 +60,21 @@ BEGIN
 
     END
     UUID "{47f2de35-cb36-435e-b7e4-bbccca6d706b}";;
+
+    FUNCTION       "FloodSeason" (  )
+    RETURN_TYPE    BOOLEAN;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      @"t" >= @"May 1" AND @"t" <= @"August 31";
+
+    END
+    UUID "{ef308d79-1f4f-49ec-ab01-b73b0e3437b1}";;
 
   END
   UUID "{60a40149-956c-4f3f-b63c-9447ab0c33b7}";;
