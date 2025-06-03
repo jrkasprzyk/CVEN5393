@@ -1,5 +1,5 @@
-# RiverWare_Ruleset 9.4.1
-# Created 17:20 March 6, 2025
+# RiverWare_Ruleset 9.4.4
+# Created 08:28 June 3, 2025
 # 
 RULESET
 NAME "Performance Metrics";
@@ -138,6 +138,23 @@ BEGIN
     END
     UUID "{a16b65ec-6b19-4ba6-8c6d-3fd5b4e6b413}";;
 
+    FUNCTION       "ShortageIndexGivenTimeseries" ( SLOT shortage_timeseries )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      FOR ( DATETIME date IN @"Start Timestep" TO @"Finish Timestep" ) WITH NUMERIC result = 0.00000000 DO
+  ( 100.00000000 / LENGTH @"Start Timestep" TO @"Finish Timestep" ) * shortage_timeseries [date] + result
+ ENDFOR;
+
+    END
+    UUID "{970a876e-44f7-4f33-a622-6b1552c9a637}";;
+
   END
   UUID "{35cb19b7-bd9e-4d7f-9b30-a1f695cb6d0f}";;
 
@@ -237,6 +254,26 @@ BEGIN
     END
     UUID "{e6d54e39-570e-4bce-9157-9d3b9caf26a9}";;
 
+    FUNCTION       "GetFlowDeficit" ( NUMERIC provided, NUMERIC requested )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( provided < requested )
+ THEN
+  requested - provided
+ ELSE
+  0.00000000 "cms"
+ ENDIF;
+
+    END
+    UUID "{a5c7b81a-a15a-4d09-bd62-fd4b9f785ddd}";;
+
     FUNCTION       "GetNumberOfTimesteps" (  )
     RETURN_TYPE    NUMERIC;
     SCALE_UNITS    "";
@@ -300,6 +337,26 @@ BEGIN
 
     END
     UUID "{235c3ae9-1caf-4a12-9c8a-2aacc51e2bed}";;
+
+    FUNCTION       "GetCurrentShortageIndex" ( NUMERIC given, NUMERIC required )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      IF ( given < required )
+ THEN
+  ( ( required - given ) / required ) ^ 2.00000000
+ ELSE
+  0.00000000
+ ENDIF COMMENTED_BY "Shortage Index (Fredrich 1975, Hsu et al 2008, as used in Matrosov et al 2015): <br>The ratio of a shortage to the demand squared. Used in an objective function <br>calculation <br>";
+
+    END
+    UUID "{bfacfa09-5afe-4184-9193-0ad352ee9a42}";;
 
   END
   UUID "{374d6452-a951-47d5-a844-30c07c41325b}";;
