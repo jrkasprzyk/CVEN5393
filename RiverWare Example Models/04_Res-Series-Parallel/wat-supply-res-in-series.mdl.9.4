@@ -1,5 +1,5 @@
-# RiverWare_Model 9.5
-# Created 15:11 July 28, 2025
+# RiverWare_Model 9.4.1
+# Created 17:35 February 11, 2025
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -32,12 +32,12 @@ Catalog {\
  </ScriptManager>\
 </Catalog>\
 } # End Catalog
-ModelSimObjCount   2
+ModelSimObjCount   3
 ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {josep} {07-28-2025 15:11:39} {RiverWare 9.5} 
+$ws.Model.FileInfo saveInfo 1 {joka0958} {02-11-2025 17:35:17} {RiverWare 9.4.1} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
 $ws.AutoSave 1 0 0 15 {C:/Users/joka0958/AppData/Local/Temp/} none
@@ -51,7 +51,6 @@ BaselineModel 0
 MrmPerTraceModel 0
 ModelLockSet 0
 ObjectListWidth 256
-WsObjListOrderMode SORT_BY_NAME
 LockedIcons 0
 SelWindowIcon {RwIconStandard}
 WorkspaceSize 6450 6450
@@ -70,6 +69,12 @@ InitCanvasSpec CanvasID_UND {\
 </InitialViewSpec>}
 WaterYearStartMonthIndex 9 YearNamedFromEnd
 SlotGroupsEnabled 1
+SlotDlgPrefs {\
+<SlotDlgPrefs>\
+ <ShowSelStatus show="1"/>\
+ <ShowNotes show="P"/>\
+ <ShowDesc_General show="P"/>\
+</SlotDlgPrefs>}
 $ws.runInfo pauseAtDate {02-11-2025 18:00:00}
 $ws.runInfo pauseAtPriority 2
 $ws.runInfo setDescription {Model Run}
@@ -417,14 +422,14 @@ set annoMgr "$ws.AnnoMgr"
 "$annoMgr" noteInstanceInfoTypeSortAscending yes
 # Section: Objects
 Section {Objects}
-set obj {Upper Reservoir}
-set o "$ws.Upper Reservoir"
+set obj {StorageReservoir1}
+set o "$ws.StorageReservoir1"
 $ws SimObj $obj {StorageReservoir} 132 532 {} 132 532 132 532
 "$o" webMapCoords 132 532
 "$o" geospatialCoords 0 0 132 532
 "$o" UUID {2af45afe-9cec-4bd7-b720-6bb9824ccade}
 "$o" objAttributes { \
-<SimObjAttributes simObjName="Upper Reservoir"/>}
+<SimObjAttributes simObjName="StorageReservoir1"/>}
 "$o" objOrd wsList 5031
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
 "$o" sDM {Alternate Hydrologies} {None} {STD}
@@ -503,7 +508,7 @@ $ws SimObj $obj {StorageReservoir} 132 532 {} 132 532 132 532
 "$o" sDM {Instantiate Storage Reservoir Optimization Slots} {Instantiate Storage Reservoir Optimization Slots} {STD}
 "$o" {SimObjMultiSlot} {Inflow}
 set s "$o.Inflow"
-"$s" order 1 
+"$s" order 500 
 "$s" UUID {534facf7-1b3e-4e1d-989c-f15253eebf56}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -513,7 +518,7 @@ set s "$o.Inflow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Outflow}
 set s "$o.Outflow"
-"$s" order 2 
+"$s" order 500 
 "$s" UUID {81935112-1efd-49b1-8e4c-10e821ba50f2}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -523,7 +528,7 @@ set s "$o.Outflow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Storage}
 set s "$o.Storage"
-"$s" order 3 
+"$s" order 500 
 "$s" UUID {d8ade216-21d5-455a-b2e8-404f572ff5ca}
 "$s" cvg 2 0.0001
 "$s" unit 6 {%f} 2
@@ -541,7 +546,7 @@ set s "$o.Previous Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Pool Elevation}
 set s "$o.Pool Elevation"
-"$s" order 4 
+"$s" order 500 
 "$s" UUID {2dbb5c13-0d2d-45b7-ae28-2ed35b05b152}
 "$s" cvg 2 0.0001
 "$s" unit 1 {%f} 2
@@ -550,7 +555,7 @@ set s "$o.Pool Elevation"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Flow FROM Pumped Storage}
 set s "$o.Flow FROM Pumped Storage"
-"$s" order 5 
+"$s" order 500 
 "$s" UUID {29df2541-ef1c-4df5-a71e-6e9cca1bd5ef}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -560,7 +565,7 @@ set s "$o.Flow FROM Pumped Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Flow TO Pumped Storage}
 set s "$o.Flow TO Pumped Storage"
-"$s" order 6 
+"$s" order 500 
 "$s" UUID {8d96ad72-5fac-47d1-9b9c-e72f24435fd2}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -570,7 +575,7 @@ set s "$o.Flow TO Pumped Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Canal Flow}
 set s "$o.Canal Flow"
-"$s" order 7 
+"$s" order 500 
 "$s" UUID {cddde849-1716-411e-917d-cd003bf3e124}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -580,7 +585,7 @@ set s "$o.Canal Flow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Total Inflows}
 set s "$o.Total Inflows"
-"$s" order 8 
+"$s" order 500 
 "$s" UUID {819741f2-b682-4398-b2ec-1ff44ebded83}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -590,7 +595,7 @@ set s "$o.Total Inflows"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Inflow Sum}
 set s "$o.Inflow Sum"
-"$s" order 9 
+"$s" order 500 
 "$s" UUID {4a452c65-c28c-4b6a-96ee-1a79f9e1b03f}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -600,7 +605,7 @@ set s "$o.Inflow Sum"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Diversion}
 set s "$o.Diversion"
-"$s" order 10 
+"$s" order 500 
 "$s" UUID {f5ea6ce8-1474-4622-a2d5-fcd6ed78ce1d}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -610,13 +615,13 @@ set s "$o.Diversion"
 "$s" allowSync 1
 "$o" {ScalarSlot} {Diversion Capacity}
 set s "$o.Diversion Capacity"
-"$s" order 11 
+"$s" order 500 
 "$s" UUID {2e8b9cbb-d407-4e02-b99e-78a7316d9567}
 "$s" units 8 {%f} 2
 "$s" value NaN {cms}
 "$o" {SimObjMultiSlot} {Return Flow}
 set s "$o.Return Flow"
-"$s" order 12 
+"$s" order 500 
 "$s" UUID {b3605e6c-cb1f-44a8-88ff-7b5a137eeca6}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -626,7 +631,7 @@ set s "$o.Return Flow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Spill}
 set s "$o.Spill"
-"$s" order 13 
+"$s" order 500 
 "$s" UUID {35daba2c-428a-4ff8-b9d7-ca36a9e35003}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -636,7 +641,7 @@ set s "$o.Spill"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Release}
 set s "$o.Release"
-"$s" order 14 
+"$s" order 500 
 "$s" UUID {517f1d38-f1c8-447a-bf42-8771d1acfcf7}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -646,7 +651,7 @@ set s "$o.Release"
 "$s" allowSync 1
 "$o" {TableSlot} {Max Iterations}
 set s "$o.Max Iterations"
-"$s" order 15 
+"$s" order 500 
 "$s" UUID {2c60195c-aacf-4067-8735-b58de2f094de}
 "$s" resize 1 1
 "$s" setRowLabels {} 
@@ -659,7 +664,7 @@ set s "$o.Max Iterations"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Convergence Percentage}
 set s "$o.Convergence Percentage"
-"$s" order 16 
+"$s" order 500 
 "$s" UUID {805bbc16-b85b-4286-912b-852da088dc27}
 "$s" resize 1 1
 "$s" setRowLabels {} 
@@ -672,7 +677,7 @@ set s "$o.Convergence Percentage"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Elevation Volume Table}
 set s "$o.Elevation Volume Table"
-"$s" order 17 
+"$s" order 500 
 "$s" UUID {9aa64772-7c63-4801-9a50-4dca2275adf1}
 "$s" resize 1 2
 "$s" setRowLabels {} 
@@ -685,7 +690,7 @@ set s "$o.Elevation Volume Table"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Max Release}
 set s "$o.Max Release"
-"$s" order 18 
+"$s" order 500 
 "$s" UUID {e770daa7-3184-4a9d-8866-3d00794338de}
 "$s" resize 1 2
 "$s" setRowLabels {} 
@@ -696,15 +701,14 @@ set s "$o.Max Release"
 "$s" setUsrFormat {%f} {%f} 
 "$s" setUsrPrecision {2} {2} 
 "$s" row -1 NaN 
-"$o" hideSlots 0 hideOff hideEmptyOff
-set obj {Lower Reservoir}
-set o "$ws.Lower Reservoir"
-$ws SimObj $obj {StorageReservoir} 274 474 {} 224 448 224 448
+set obj {StorageReservoir2}
+set o "$ws.StorageReservoir2"
+$ws SimObj $obj {StorageReservoir} 224 448 {} 224 448 224 448
 "$o" webMapCoords 146 519
 "$o" geospatialCoords 0 0 224 448
 "$o" UUID {acea5f42-1e9c-4781-a891-5f7f47a64098}
 "$o" objAttributes { \
-<SimObjAttributes simObjName="Lower Reservoir"/>}
+<SimObjAttributes simObjName="StorageReservoir2"/>}
 "$o" objOrd wsList 5032
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
 "$o" sDM {Alternate Hydrologies} {None} {STD}
@@ -783,7 +787,7 @@ $ws SimObj $obj {StorageReservoir} 274 474 {} 224 448 224 448
 "$o" sDM {Instantiate Storage Reservoir Optimization Slots} {Instantiate Storage Reservoir Optimization Slots} {STD}
 "$o" {SimObjMultiSlot} {Inflow}
 set s "$o.Inflow"
-"$s" order 500 
+"$s" order 1 
 "$s" UUID {5eeeaa28-3844-4aca-9d69-374577aa9265}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -793,7 +797,7 @@ set s "$o.Inflow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Outflow}
 set s "$o.Outflow"
-"$s" order 500 
+"$s" order 2 
 "$s" UUID {ad4ad7ea-2e73-4011-bb57-e1adf6f14da1}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -803,7 +807,7 @@ set s "$o.Outflow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Storage}
 set s "$o.Storage"
-"$s" order 500 
+"$s" order 3 
 "$s" UUID {ee03a3a9-035c-4b64-8df1-7b0ec550c5f8}
 "$s" cvg 2 0.0001
 "$s" unit 6 {%f} 2
@@ -821,7 +825,7 @@ set s "$o.Previous Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Pool Elevation}
 set s "$o.Pool Elevation"
-"$s" order 500 
+"$s" order 4 
 "$s" UUID {c2b60bbb-5740-4394-94f7-4b3570c6155f}
 "$s" cvg 2 0.0001
 "$s" unit 1 {%f} 2
@@ -830,7 +834,7 @@ set s "$o.Pool Elevation"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Flow FROM Pumped Storage}
 set s "$o.Flow FROM Pumped Storage"
-"$s" order 500 
+"$s" order 5 
 "$s" UUID {a749a809-b511-49ed-b466-0dfb56409de3}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -840,7 +844,7 @@ set s "$o.Flow FROM Pumped Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Flow TO Pumped Storage}
 set s "$o.Flow TO Pumped Storage"
-"$s" order 500 
+"$s" order 6 
 "$s" UUID {9588fbd6-09b8-4f38-a7b4-4801aa243a75}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -850,7 +854,7 @@ set s "$o.Flow TO Pumped Storage"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Canal Flow}
 set s "$o.Canal Flow"
-"$s" order 500 
+"$s" order 7 
 "$s" UUID {1ff6b655-f1c7-4271-9187-a71d47d4f667}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -860,7 +864,7 @@ set s "$o.Canal Flow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Total Inflows}
 set s "$o.Total Inflows"
-"$s" order 500 
+"$s" order 8 
 "$s" UUID {8f60d690-e85e-4897-a0aa-cd4f6a655ad2}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -870,7 +874,7 @@ set s "$o.Total Inflows"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Inflow Sum}
 set s "$o.Inflow Sum"
-"$s" order 500 
+"$s" order 9 
 "$s" UUID {8622ee2b-377e-4825-a0b3-8b1f3841959c}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -880,7 +884,7 @@ set s "$o.Inflow Sum"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Diversion}
 set s "$o.Diversion"
-"$s" order 500 
+"$s" order 10 
 "$s" UUID {ea480d31-e3cf-4f72-8eec-8243b7ce4566}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -890,13 +894,13 @@ set s "$o.Diversion"
 "$s" allowSync 1
 "$o" {ScalarSlot} {Diversion Capacity}
 set s "$o.Diversion Capacity"
-"$s" order 500 
+"$s" order 11 
 "$s" UUID {b9869305-7546-4d51-b26f-6e95f14bb111}
 "$s" units 8 {%f} 2
 "$s" value NaN {cms}
 "$o" {SimObjMultiSlot} {Return Flow}
 set s "$o.Return Flow"
-"$s" order 500 
+"$s" order 12 
 "$s" UUID {aa6fd455-e4eb-43c5-b175-79f44eebfb30}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -906,7 +910,7 @@ set s "$o.Return Flow"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Spill}
 set s "$o.Spill"
-"$s" order 500 
+"$s" order 13 
 "$s" UUID {49a01d65-a395-4b83-9456-a1fedcc472d5}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -916,7 +920,7 @@ set s "$o.Spill"
 "$s" allowSync 1
 "$o" {SeriesSlot} {Release}
 set s "$o.Release"
-"$s" order 500 
+"$s" order 14 
 "$s" UUID {5f0b7770-7283-4b5d-b5d5-12054e054d1f}
 "$s" cvg 2 0.0001
 "$s" unit 8 {%f} 2
@@ -926,7 +930,7 @@ set s "$o.Release"
 "$s" allowSync 1
 "$o" {TableSlot} {Max Iterations}
 set s "$o.Max Iterations"
-"$s" order 500 
+"$s" order 15 
 "$s" UUID {1cf71c36-33b6-479c-b255-c65a65bfd691}
 "$s" resize 1 1
 "$s" setRowLabels {} 
@@ -939,7 +943,7 @@ set s "$o.Max Iterations"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Convergence Percentage}
 set s "$o.Convergence Percentage"
-"$s" order 500 
+"$s" order 16 
 "$s" UUID {f00e0926-1026-46aa-81d5-defcf3ee7d8e}
 "$s" resize 1 1
 "$s" setRowLabels {} 
@@ -952,7 +956,7 @@ set s "$o.Convergence Percentage"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Elevation Volume Table}
 set s "$o.Elevation Volume Table"
-"$s" order 500 
+"$s" order 17 
 "$s" UUID {31cddda8-850e-42bc-9e36-4a6bb72550ac}
 "$s" resize 1 2
 "$s" setRowLabels {} 
@@ -965,7 +969,7 @@ set s "$o.Elevation Volume Table"
 "$s" row -1 NaN 
 "$o" {TableSlot} {Max Release}
 set s "$o.Max Release"
-"$s" order 500 
+"$s" order 18 
 "$s" UUID {ca999c95-dafd-4f25-9f27-9b5711abd5cc}
 "$s" resize 1 2
 "$s" setRowLabels {} 
@@ -977,23 +981,315 @@ set s "$o.Max Release"
 "$s" setUsrPrecision {2} {2} 
 "$s" row -1 NaN 
 "$o" hideSlots 0 hideOff hideEmptyOff
+set obj {StorageReservoir3}
+set o "$ws.StorageReservoir3"
+$ws SimObj $obj {StorageReservoir} 345 362 {} 345 362 345 362
+"$o" webMapCoords 164 505
+"$o" geospatialCoords 0 0 345 362
+"$o" UUID {a1bf4f9b-1079-42f4-8e7a-3e1693f36a9d}
+"$o" objAttributes { \
+<SimObjAttributes simObjName="StorageReservoir3"/>}
+"$o" objOrd wsList 5033
+"$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
+"$o" sDM {Alternate Hydrologies} {None} {STD}
+"$o" sDM {Stochastic Optimization Storage Type} {None} {STD}
+"$o" sDM {Hydrologic Inflow} {None} {STD}
+"$o" sDM {Spill} {None} {STD}
+"$o" sDM {Unregulated Spill Type} {Bare Crest Only} {STD}
+"$o" sDM {Regulated Spill Overflow} {None} {STD}
+"$o" sDM {Input Outflow Adjustment} {None} {STD}
+"$o" sDM {Evaporation and Precipitation} {None} {STD}
+"$o" sDM {Surface Area Modification} {None} {STD}
+"$o" sDM {Evap and Precip Rate Specification} {None} {STD}
+"$o" sDM {Bank Storage} {None} {STD}
+"$o" sDM {Sediment} {None} {STD}
+"$o" sDM {Seepage} {None} {STD}
+"$o" sDM {Diversion from Reservoir} {None} {STD}
+"$o" sDM {Diversion Power} {None} {STD}
+"$o" sDM {Diversion Tailwater} {None} {STD}
+"$o" sDM {Diversion Power Bypass} {None} {STD}
+"$o" sDM {Target Operation} {None} {STD}
+"$o" sDM {Surcharge Release} {None} {STD}
+"$o" sDM {Elevation Max Duration Constraints} {None} {STD}
+"$o" sDM {Rating Curves Modification} {None} {STD}
+"$o" sDM {Low Flow Releases} {None} {STD}
+"$o" sDM {Flood Control Release} {None} {STD}
+"$o" sDM {Operating Levels} {None} {STD}
+"$o" sDM {Conditional Operating Levels} {None} {STD}
+"$o" sDM {Energy in Storage} {None} {STD}
+"$o" sDM {Reservoir Account Slot Inflow} {No Method} {OLAM_NEVER}
+"$o" sDM {Reservoir Account Gain Loss} {No Method} {OLAM_NEVER}
+"$o" sDM {Sediment Transport Calculations} {None} {STD}
+"$o" sDM {Reservoir Account Reconciliation} {No Method} {OLAM_NEVER}
+"$o" sDM {Spill Lower Bound MTLE} {Piecewise} {STD}
+"$o" sDM {Spill Upper Bound MTGE} {Line} {STD}
+"$o" sDM {Optimization Spill} {None} {STD}
+"$o" sDM {Optimization Evaporation} {None} {STD}
+"$o" sDM {Evaporation Linearization Automation} {None} {STD}
+"$o" sDM {Pool Elevation Linearization Automation} {None} {STD}
+"$o" sDM {Surface Area STLE} {Substitution} {STD}
+"$o" sDM {Surface Area STGE} {Substitution} {STD}
+"$o" sDM {Surface Area MTLE} {Tangent} {STD}
+"$o" sDM {Surface Area MTGE} {Tangent} {STD}
+"$o" sDM {Energy In Storage STLE} {Substitution} {STD}
+"$o" sDM {Energy In Storage STGE} {Substitution} {STD}
+"$o" sDM {Energy In Storage MTLE} {Tangent} {STD}
+"$o" sDM {Energy In Storage MTGE} {Tangent} {STD}
+"$o" sDM {Instantiate Reservoir Optimization Slots} {Instantiate Reservoir Optimization Slots} {STD}
+"$o" sDM {Creditable Capacity Available} {None} {STD}
+"$o" sDM {Live Capacity Available} {None} {STD}
+"$o" sDM {Worst Case Outflow Available} {None} {STD}
+"$o" sDM {Reservoir Water Quality} {None} {STD}
+"$o" sDM {WQ Reservoir Routing} {Predictor-Corrector Salt} {STD}
+"$o" sDM {Bank Storage Salt} {None} {STD}
+"$o" sDM {WQ Distribute Inflow} {None} {STD}
+"$o" sDM {WQ Distribute Outflow} {None} {STD}
+"$o" sDM {Surface Heat Flux} {None} {STD}
+"$o" sDM {Optimization Total Dissolved Gas} {None} {STD}
+"$o" sDM {Generate Forecast Hydrology} {None} {STD}
+"$o" sDM {Incremental Hydrologic Inflows on Subbasin} {None} {STD}
+"$o" sDM {Tailwater} {None} {STD}
+"$o" sDM {Future Value} {None} {STD}
+"$o" sDM {Cumul Stor Val Table Automation} {None} {STD}
+"$o" sDM {Disable Reservoir Processes} {None} {STD}
+"$o" sDM {Optimization Future Value} {None} {STD}
+"$o" sDM {Cumul Stor Val Linearization Automation} {None} {STD}
+"$o" sDM {Cumulative Storage Value STGE} {Line} {STD}
+"$o" sDM {Cumulative Storage Value MTGE} {Line} {STD}
+"$o" sDM {Pool Elevation STLE} {Substitution} {STD}
+"$o" sDM {Pool Elevation STGE} {Substitution} {STD}
+"$o" sDM {Pool Elevation MTLE} {Tangent} {STD}
+"$o" sDM {Pool Elevation MTGE} {Tangent} {STD}
+"$o" sDM {Release Capacity STLE} {Substitution} {STD}
+"$o" sDM {Release Capacity STGE} {Substitution} {STD}
+"$o" sDM {Release Capacity MTLE} {Tangent} {STD}
+"$o" sDM {Release Capacity MTGE} {Tangent} {STD}
+"$o" sDM {Instantiate Storage Reservoir Optimization Slots} {Instantiate Storage Reservoir Optimization Slots} {STD}
+"$o" {SimObjMultiSlot} {Inflow}
+set s "$o.Inflow"
+"$s" order 500 
+"$s" UUID {6c6ce913-0b0f-4ac0-ba1a-0b96e1b854a1}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Outflow}
+set s "$o.Outflow"
+"$s" order 500 
+"$s" UUID {fb0bcadc-0662-4b4f-b531-0ac4afbceed4}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Storage}
+set s "$o.Storage"
+"$s" order 500 
+"$s" UUID {d5f7da3e-fe53-4d63-8827-4ad4b8d5a7b9}
+"$s" cvg 2 0.0001
+"$s" unit 6 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Previous Storage}
+set s "$o.Previous Storage"
+"$s" order 500 
+"$s" UUID {afbb0bcd-d9ea-4f3c-8f7f-1f24080759da}
+"$s" cvg 2 9.9999999999999995e-07
+"$s" unit 6 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Pool Elevation}
+set s "$o.Pool Elevation"
+"$s" order 500 
+"$s" UUID {39b71469-6639-4463-abbc-cffba23e69f1}
+"$s" cvg 2 0.0001
+"$s" unit 1 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Flow FROM Pumped Storage}
+set s "$o.Flow FROM Pumped Storage"
+"$s" order 500 
+"$s" UUID {c7a92fa8-1c2c-482d-9e77-a14107661209}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Flow TO Pumped Storage}
+set s "$o.Flow TO Pumped Storage"
+"$s" order 500 
+"$s" UUID {30ce9ecb-4497-4d5a-b188-77b0ae59c700}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Canal Flow}
+set s "$o.Canal Flow"
+"$s" order 500 
+"$s" UUID {0504944e-73b1-4d0a-8a73-99ea44ee36b3}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Total Inflows}
+set s "$o.Total Inflows"
+"$s" order 500 
+"$s" UUID {4afdb7b5-7a57-4290-b312-6abbe658493a}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Inflow Sum}
+set s "$o.Inflow Sum"
+"$s" order 500 
+"$s" UUID {f54bae1d-1afa-47ce-9669-f5e2f4c4f215}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Diversion}
+set s "$o.Diversion"
+"$s" order 500 
+"$s" UUID {eb0943be-e21c-48a2-ac1c-0a75fbfe0712}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {ScalarSlot} {Diversion Capacity}
+set s "$o.Diversion Capacity"
+"$s" order 500 
+"$s" UUID {71dcb83a-ac79-45d6-899b-852191857354}
+"$s" units 8 {%f} 2
+"$s" value NaN {cms}
+"$o" {SimObjMultiSlot} {Return Flow}
+set s "$o.Return Flow"
+"$s" order 500 
+"$s" UUID {da3e1ad3-4a7b-430c-860c-6b9f84d7e011}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Spill}
+set s "$o.Spill"
+"$s" order 500 
+"$s" UUID {e714b47a-f5fc-4aa4-834b-8fed47d9fee3}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Release}
+set s "$o.Release"
+"$s" order 500 
+"$s" UUID {a73e9331-f4fa-4741-924a-c19b93216289}
+"$s" cvg 2 0.0001
+"$s" unit 8 {%f} 2
+"$s" minMax NaN NaN
+"$s" setCSeries {02-11-2025 12:00:00} 1 6 HOUR -1 NaN 2
+"$s" alt 6 {%f} 2
+"$s" allowSync 1
+"$o" {TableSlot} {Max Iterations}
+set s "$o.Max Iterations"
+"$s" order 500 
+"$s" UUID {ca100694-8b05-491b-a16a-126f0d6edf96}
+"$s" resize 1 1
+"$s" setRowLabels {} 
+"$s" setColumnLabels {No. of Iterations} 
+"$s" setMaximums NaN 
+"$s" setMinimums NaN 
+"$s" setUnits 0 
+"$s" setUsrFormat {%f} 
+"$s" setUsrPrecision {2} 
+"$s" row -1 NaN 
+"$o" {TableSlot} {Convergence Percentage}
+set s "$o.Convergence Percentage"
+"$s" order 500 
+"$s" UUID {ccc1a0f3-b00f-453e-8724-884fe554a7c4}
+"$s" resize 1 1
+"$s" setRowLabels {} 
+"$s" setColumnLabels {Convergence Value} 
+"$s" setMaximums NaN 
+"$s" setMinimums NaN 
+"$s" setUnits 0 
+"$s" setUsrFormat {%f} 
+"$s" setUsrPrecision {2} 
+"$s" row -1 NaN 
+"$o" {TableSlot} {Elevation Volume Table}
+set s "$o.Elevation Volume Table"
+"$s" order 500 
+"$s" UUID {f3f64bd9-2aa7-42a3-9cff-4d6ff45f1ad8}
+"$s" resize 1 2
+"$s" setRowLabels {} 
+"$s" setColumnLabels {Pool Elevation} {Storage} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnits 1 6 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row -1 NaN 
+"$o" {TableSlot} {Max Release}
+set s "$o.Max Release"
+"$s" order 500 
+"$s" UUID {687952fe-73d9-4e9a-a7cf-3ededb91c667}
+"$s" resize 1 2
+"$s" setRowLabels {} 
+"$s" setColumnLabels {Pool Elevation} {Discharge} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnits 1 8 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row -1 NaN 
 # Section: Objects/Snapshots
 # Section: Object Relationships
-set obj {Upper Reservoir}
-set o "$ws.Upper Reservoir"
-set obj {Lower Reservoir}
-set o "$ws.Lower Reservoir"
+set obj {StorageReservoir1}
+set o "$ws.StorageReservoir1"
+set obj {StorageReservoir2}
+set o "$ws.StorageReservoir2"
+set obj {StorageReservoir3}
+set o "$ws.StorageReservoir3"
 # Section: Workspace Ornaments
 Section {Workspace Ornaments}
 Section {Links}
 # Section: Links
-$ws Link {Lower Reservoir.Inflow} {Upper Reservoir.Outflow} 
 # Section: Link Groups
 $ws LinkGroup {Default} {linkDisplayInfo Sty:Solid Vis:1 Wid:0 Color:0 Pri:1 Ena:1}
 $ws LinkGroup {Main Channel Links} {linkDisplayInfo Sty:Solid Vis:1 Wid:0 Color:0 Pri:0 Ena:1}
 # Section: SimObj Groups
 # Section: Multiple Run Management
 Section {Multiple Run Management}
+$ws.mrm format 2
+$ws.mrm iterRplSet {RULESET\
+NAME "Iterative MRM Rules Set";\
+AGENDA_ORDER ASCENDING;\
+DESCRIPTION "";\
+PRECISION   2;\
+NOTES "";\
+BEGIN\
+\
+END\
+UUID "{a685c4e0-4df3-4c6b-8248-c1f0035905ec}";\
+}
 # Section: Subbasin
 Section {Subbasins}
 # Section: Sim Analysis Info
@@ -1116,11 +1412,10 @@ Diag showDiagOutputOnRplNotice 0
 Diag showDiagOutputOnRplAlert 0
 # Section: Global Functions Set Manager
 Section {Gobal Functions Set Manager}
-$ws.GlobalRplSetMgr saveSetsWithModel false
 # Section: RuleSet Manager
 Section {RuleSet Manager}
 set rsm "$ws.RulesetMgr"
-$rsm saveLoadedSetWithModel true
+$rsm saveLoadedSetWithModel
 # Section: Optimization Set Manager
 Section {Optimization Set Manager}
 set mgr "$ws.optSetMgr"
@@ -1129,7 +1424,6 @@ Section {Optimization}
 $ws.RplBasedOptController ShouldExecInitRules 0
 $ws.RplBasedOptController ShouldRunFromRestorePoint 0
 $ws.RplBasedOptController RunFromRestorePointName {}
-$ws.RplBasedOptController savePolicyWithModel 0
 $ws.RplBasedOptController setParameter {ADVANCE 2}
 $ws.RplBasedOptController setParameter {BARRIER CROSSOVER 1}
 $ws.RplBasedOptController setParameter {PREPROCESSING AGGREGATOR 10}
@@ -1275,7 +1569,7 @@ $ws.rwScriptMgr rwScriptGroup {\
 $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
 <ShowScriptMgrOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
-   <DefaultScriptGroup>All Scripts</DefaultScriptGroup>\
+   <DefaultScriptGroup></DefaultScriptGroup>\
    <ResizeToTabs count="0"/>\
 </ShowScriptMgrOnModelLoad>\
 }

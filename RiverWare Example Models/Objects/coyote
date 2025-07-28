@@ -1,0 +1,451 @@
+# RiverWare_Object 9.5
+# Created 15:41 July 28, 2025
+# CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
+# objects:  1
+# clusters: 0
+# 
+DST 0
+FlagEncoding 3
+# Section: Objects
+set obj {Coyote}
+set o "$ws.Coyote"
+$ws SimObj $obj {StorageReservoir} 173 404 {} 231 406 231 406
+"$o" webMapCoords 173 404
+"$o" geospatialCoords 0 0 231 406
+"$o" UUID {6c2a52d8-6cb3-4055-82bc-d1c8e75c330e}
+"$o" objOrd wsList 5030
+"$o" objSlotOrderType ListOrder_COLSORT 0 Ascend
+"$o" sDM {Alternate Hydrologies} {None} {STD}
+"$o" sDM {Stochastic Optimization Storage Type} {None} {STD}
+"$o" sDM {Hydrologic Inflow} {None} {STD}
+"$o" sDM {Spill} {Regulated and Unregulated} {STD}
+"$o" sDM {Unregulated Spill Type} {Bare Crest Only} {STD}
+"$o" sDM {Regulated Spill Overflow} {None} {STD}
+"$o" sDM {Input Outflow Adjustment} {None} {STD}
+"$o" sDM {Evaporation and Precipitation} {None} {STD}
+"$o" sDM {Surface Area Modification} {None} {STD}
+"$o" sDM {Evap and Precip Rate Specification} {None} {STD}
+"$o" sDM {Bank Storage} {None} {STD}
+"$o" sDM {Sediment} {None} {STD}
+"$o" sDM {Seepage} {None} {STD}
+"$o" sDM {Diversion from Reservoir} {None} {STD}
+"$o" sDM {Diversion Power} {None} {STD}
+"$o" sDM {Diversion Tailwater} {None} {STD}
+"$o" sDM {Diversion Power Bypass} {None} {STD}
+"$o" sDM {Target Operation} {None} {STD}
+"$o" sDM {Surcharge Release} {None} {STD}
+"$o" sDM {Elevation Max Duration Constraints} {None} {STD}
+"$o" sDM {Rating Curves Modification} {None} {STD}
+"$o" sDM {Low Flow Releases} {None} {STD}
+"$o" sDM {Flood Control Release} {None} {STD}
+"$o" sDM {Operating Levels} {None} {STD}
+"$o" sDM {Conditional Operating Levels} {None} {STD}
+"$o" sDM {Energy in Storage} {None} {STD}
+"$o" sDM {Reservoir Account Slot Inflow} {No Method} {OLAM_NEVER}
+"$o" sDM {Reservoir Account Gain Loss} {No Method} {OLAM_NEVER}
+"$o" sDM {Sediment Transport Calculations} {None} {STD}
+"$o" sDM {Reservoir Account Reconciliation} {No Method} {OLAM_NEVER}
+"$o" sDM {Spill Lower Bound MTLE} {Piecewise} {STD}
+"$o" sDM {Spill Upper Bound MTGE} {Line} {STD}
+"$o" sDM {Optimization Spill} {None} {STD}
+"$o" sDM {Optimization Evaporation} {None} {STD}
+"$o" sDM {Evaporation Linearization Automation} {None} {STD}
+"$o" sDM {Pool Elevation Linearization Automation} {None} {STD}
+"$o" sDM {Surface Area STLE} {Substitution} {STD}
+"$o" sDM {Surface Area STGE} {Substitution} {STD}
+"$o" sDM {Surface Area MTLE} {Tangent} {STD}
+"$o" sDM {Surface Area MTGE} {Tangent} {STD}
+"$o" sDM {Energy In Storage STLE} {Substitution} {STD}
+"$o" sDM {Energy In Storage STGE} {Substitution} {STD}
+"$o" sDM {Energy In Storage MTLE} {Tangent} {STD}
+"$o" sDM {Energy In Storage MTGE} {Tangent} {STD}
+"$o" sDM {Instantiate Reservoir Optimization Slots} {Instantiate Reservoir Optimization Slots} {STD}
+"$o" sDM {Creditable Capacity Available} {None} {STD}
+"$o" sDM {Live Capacity Available} {None} {STD}
+"$o" sDM {Worst Case Outflow Available} {None} {STD}
+"$o" sDM {Reservoir Water Quality} {None} {STD}
+"$o" sDM {WQ Reservoir Routing} {Predictor-Corrector Salt} {STD}
+"$o" sDM {Bank Storage Salt} {None} {STD}
+"$o" sDM {WQ Distribute Inflow} {None} {STD}
+"$o" sDM {WQ Distribute Outflow} {None} {STD}
+"$o" sDM {Surface Heat Flux} {None} {STD}
+"$o" sDM {Optimization Total Dissolved Gas} {None} {STD}
+"$o" sDM {Generate Forecast Hydrology} {None} {STD}
+"$o" sDM {Incremental Hydrologic Inflows on Subbasin} {None} {STD}
+"$o" sDM {Tailwater} {None} {STD}
+"$o" sDM {Future Value} {None} {STD}
+"$o" sDM {Cumul Stor Val Table Automation} {None} {STD}
+"$o" sDM {Disable Reservoir Processes} {None} {STD}
+"$o" sDM {Optimization Future Value} {None} {STD}
+"$o" sDM {Cumul Stor Val Linearization Automation} {None} {STD}
+"$o" sDM {Cumulative Storage Value STGE} {Line} {STD}
+"$o" sDM {Cumulative Storage Value MTGE} {Line} {STD}
+"$o" sDM {Pool Elevation STLE} {Substitution} {STD}
+"$o" sDM {Pool Elevation STGE} {Substitution} {STD}
+"$o" sDM {Pool Elevation MTLE} {Tangent} {STD}
+"$o" sDM {Pool Elevation MTGE} {Tangent} {STD}
+"$o" sDM {Release Capacity STLE} {Substitution} {STD}
+"$o" sDM {Release Capacity STGE} {Substitution} {STD}
+"$o" sDM {Release Capacity MTLE} {Tangent} {STD}
+"$o" sDM {Release Capacity MTGE} {Tangent} {STD}
+"$o" sDM {Instantiate Storage Reservoir Optimization Slots} {Instantiate Storage Reservoir Optimization Slots} {STD}
+"$o" {SimObjMultiSlot} {Inflow}
+set s "$o.Inflow"
+"$s" order 1 
+"$s" UUID {fb173412-cd84-495e-9106-918d1ecc3d92}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 1 @ 13 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 114.09999999999999 115.5 114.3 113.8 115.09999999999999 114.7 136.5 137.30000000000001 138.80000000000001 152.19999999999999 150.30000000000001 155.40000000000001 152.40000000000001 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Outflow}
+set s "$o.Outflow"
+"$s" order 2 
+"$s" UUID {5c4db2a5-9d05-4655-81ff-2d35301f08f4}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 64 @ 5 2 @ 4 64 @ 4 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 118 @ 5 124.476851852 @ 2 121.476851852 118.467592593 118 @ 4 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Storage}
+set s "$o.Storage"
+"$s" order 3 
+"$s" UUID {78c34a58-f923-43a0-89dd-24223abdf58c}
+"$s" cvg 2 0.0001
+"$s" unit {Volume} 1 {m3} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {m3} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {m3} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 62804000 62467040 62251040 61931360 61568480 61317920 60473200 61512000 62879120 64635840 67590720 70381440 73612800 76584960 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Previous Storage}
+set s "$o.Previous Storage"
+"$s" order 500 
+"$s" UUID {62d98831-ae6c-4cd0-9895-7fde06b14132}
+"$s" cvg 2 9.9999999999999995e-07
+"$s" unit {Volume} 1 {m3} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {m3} {04-17-2018 00:00:00} {05-01-2018 00:00:00} 1 DAY -1 2 @ 15 
+"$s" setDSeries {m3} {04-17-2018 00:00:00} {05-01-2018 00:00:00} 1 DAY -1 NaN @ 2 62467040 62251040 61931360 61568480 61317920 60473200 61512000 62879120 64635840 67590720 70381440 73612800 76584960 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Pool Elevation}
+set s "$o.Pool Elevation"
+"$s" order 4 
+"$s" UUID {f18acbbe-dca6-46ba-8a80-03eb7bc0aec8}
+"$s" cvg 2 0.0001
+"$s" unit {Length} 1 {m} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {m} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 1 2 @ 13 
+"$s" setDSeries {m} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 741.79999999999995 741.744578947 741.709052632 741.656473684 741.596789474 741.555578947 741.416644737 741.5875 741.812355263 742.099169082 742.574995169 743.021359661 743.477122708 743.896327221 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Flow FROM Pumped Storage}
+set s "$o.Flow FROM Pumped Storage"
+"$s" order 5 
+"$s" UUID {8aabdba4-9b33-4005-af33-2ea120c5f653}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 2 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 NaN 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Flow TO Pumped Storage}
+set s "$o.Flow TO Pumped Storage"
+"$s" order 6 
+"$s" UUID {dd69c0fc-6b69-479b-9f58-4fd47f82abdf}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 2 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 NaN 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Canal Flow}
+set s "$o.Canal Flow"
+"$s" order 7 
+"$s" UUID {aa77e63b-006e-43df-bb79-ba9a8b78ca57}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 2 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 NaN 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Total Inflows}
+set s "$o.Total Inflows"
+"$s" order 8 
+"$s" UUID {323b1729-513f-4471-8749-84f37a4f97c5}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 114.1 115.5 114.3 113.8 115.1 114.7 136.5 137.3 138.8 152.2 150.3 155.4 152.4 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Inflow Sum}
+set s "$o.Inflow Sum"
+"$s" order 9 
+"$s" UUID {56e8441b-7c0b-4877-b024-4cc2ba167f2e}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 114.1 115.5 114.3 113.8 115.1 114.7 136.5 137.3 138.8 152.2 150.3 155.4 152.4 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Diversion}
+set s "$o.Diversion"
+"$s" order 10 
+"$s" UUID {58808ade-ed00-48a5-9283-f431e7febf14}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 0 @ 13 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {ScalarSlot} {Diversion Capacity}
+set s "$o.Diversion Capacity"
+"$s" order 11 
+"$s" UUID {676d523b-46f5-4d4f-ab5e-b502611b3bd2}
+"$s" units {Flow} 1 {cms} {%f} 2
+"$s" value NaN {cms}
+"$o" {SimObjMultiSlot} {Return Flow}
+set s "$o.Return Flow"
+"$s" order 12 
+"$s" UUID {0c7b2cc5-4740-41bc-81eb-f5dda090f9bb}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 0 @ 13 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Spill}
+set s "$o.Spill"
+"$s" order 13 
+"$s" UUID {d92c8e9a-e9af-4236-bf15-46ab4f3304bd}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 26.4086613158 26.6001055263 26.7855671053 27.0218810526 27.2342644737 34.0903209966 34.0231271808 30.1901565229 26.1038338458 24.0308842512 22.0896730816 20.831244457 53.8337547978 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {SeriesSlot} {Release}
+set s "$o.Release"
+"$s" order 14 
+"$s" UUID {c9588c0e-7c9f-4c11-92be-310acb5aa2f1}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 91.5913386842 91.3998944737 91.2144328947 90.9781189474 90.7657355263 90.3865308553 90.4537246711 91.2866953289 92.3637587468 93.9691157488 95.9103269184 97.168755543 64.1662452022 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {TableSlot} {Max Iterations}
+set s "$o.Max Iterations"
+"$s" order 15 
+"$s" UUID {2c409339-b1e2-461e-b31f-fea879736f6e}
+"$s" resize 1 1
+"$s" setRowLabels {} 
+"$s" setColumnLabels {No. of Iterations} 
+"$s" setMaximums NaN 
+"$s" setMinimums NaN 
+"$s" setUnitTypes {NONE} 
+"$s" setScales 1 
+"$s" setUsrUnits {NONE} 
+"$s" setUsrFormat {%f} 
+"$s" setUsrPrecision {2} 
+"$s" row -1 100 
+"$o" {TableSlot} {Convergence Percentage}
+set s "$o.Convergence Percentage"
+"$s" order 16 
+"$s" UUID {6d886957-6bc4-4758-bbb1-0d8ea60d3fa8}
+"$s" resize 1 1
+"$s" setRowLabels {} 
+"$s" setColumnLabels {Convergence Value} 
+"$s" setMaximums NaN 
+"$s" setMinimums NaN 
+"$s" setUnitTypes {NONE} 
+"$s" setScales 1 
+"$s" setUsrUnits {NONE} 
+"$s" setUsrFormat {%f} 
+"$s" setUsrPrecision {2} 
+"$s" row -1 0.0001 
+"$o" {TableSlot} {Elevation Volume Table}
+set s "$o.Elevation Volume Table"
+"$s" order 17 
+"$s" UUID {d3fa7cbb-82bb-4c34-97c4-0192c0b3146e}
+"$s" resize 10 2
+"$s" setRowLabels {} {} {} {} {} {} {} {} {} {} 
+"$s" setColumnLabels {Pool Elevation} {Storage} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnitTypes {Length} {Volume} 
+"$s" setScales 1 1 
+"$s" setUsrUnits {m} {m3} 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row 0 725 0 
+"$s" row 1 730 10500000 
+"$s" row 2 738 40350000 
+"$s" row 3 739 46290000 
+"$s" row 4 740 51930000 
+"$s" row 5 741 57940000 
+"$s" row 6 742 64020000 
+"$s" row 7 743 70230000 
+"$s" row 8 744 77320000 
+"$s" row 9 748 104980000.00000001 
+"$o" {TableSlot} {Max Release}
+set s "$o.Max Release"
+"$s" order 18 
+"$s" UUID {8035fb51-3eab-4549-ab31-f4e19617b38d}
+"$s" resize 10 2
+"$s" setRowLabels {} {} {} {} {} {} {} {} {} {} 
+"$s" setColumnLabels {Pool Elevation} {Discharge} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnitTypes {Length} {Flow} 
+"$s" setScales 1 1 
+"$s" setUsrUnits {m} {cms} 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row 0 725 0 
+"$s" row 1 730 0 
+"$s" row 2 738 29.93 
+"$s" row 3 739 57.030000000000001 
+"$s" row 4 740 84.129999999999995 
+"$s" row 5 741 88.340000000000003 
+"$s" row 6 742 92.549999999999997 
+"$s" row 7 743 96.760000000000005 
+"$s" row 8 744 98.400000000000006 
+"$s" row 9 748 100.04000000000001 
+"$o" {SeriesSlot} {Regulated Spill}
+set s "$o.Regulated Spill"
+"$s" order 19 
+"$s" UUID {dfca7aa2-635e-444d-9a40-9ab49c4b5289}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 26.4086613158 26.6001055263 26.7855671053 27.0218810526 27.2342644737 34.0903209966 34.0231271808 30.1901565229 26.1038338458 24.0308842512 22.0765492687 5.22314580488 0 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {TableSlot} {Regulated Spill Table}
+set s "$o.Regulated Spill Table"
+"$s" order 20 
+"$s" UUID {b1fb5d01-66d7-44fe-8d10-739584b189f3}
+"$s" resize 9 2
+"$s" setRowLabels {} {} {} {} {} {} {} {} {} 
+"$s" setColumnLabels {Pool Elevation} {Max Regulated Spill} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnitTypes {Length} {Flow} 
+"$s" setScales 1 1 
+"$s" setUsrUnits {m} {cms} 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row 0 725 0 
+"$s" row 1 738 0 
+"$s" row 2 739 156 
+"$s" row 3 740 338 
+"$s" row 4 741 347 
+"$s" row 5 742 356 
+"$s" row 6 743 356 
+"$s" row 7 744 356 
+"$s" row 8 748 356 
+"$o" {TableSlot} {Regulated Spill Index Table}
+set s "$o.Regulated Spill Index Table"
+"$s" order 21 
+"$s" UUID {82561ade-5d0c-44ff-ba94-a751543da7c2}
+"$s" resize 1 3
+"$s" setRowLabels {} 
+"$s" setColumnLabels {Gate Index} {Pool Elevation} {Regulated Spill} 
+"$s" setMaximums NaN NaN NaN 
+"$s" setMinimums NaN NaN NaN 
+"$s" setUnitTypes {NONE} {Length} {Flow} 
+"$s" setScales 1 1 1 
+"$s" setUsrUnits {NONE} {m} {cms} 
+"$s" setUsrFormat {%f} {%f} {%f} 
+"$s" setUsrPrecision {2} {2} {2} 
+"$s" row -1 NaN 
+"$o" {SeriesSlot} {Regulated Spill Drift Index}
+set s "$o.Regulated Spill Drift Index"
+"$s" order 22 
+"$s" UUID {ae569b1d-a9bc-46a7-9bd2-904a445de981}
+"$s" cvg 2 0.0001
+"$s" unit {NONE} 1 {NONE} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {NONE} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 2 
+"$s" setDSeries {NONE} {04-17-2018 00:00:00} {04-17-2018 00:00:00} 1 DAY -1 NaN 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Regulated Spill Capacity Fraction}
+set s "$o.Regulated Spill Capacity Fraction"
+"$s" order 23 
+"$s" UUID {17273cc1-40f6-4e16-93b3-3afd84df95ef}
+"$s" cvg 2 0.0001
+"$s" unit {Fraction} 1 {decimal} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {decimal} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {decimal} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 1 @ 13 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Unregulated Spill}
+set s "$o.Unregulated Spill"
+"$s" order 24 
+"$s" UUID {2378a690-a061-48d5-b6d9-80b241b2c991}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 0 @ 10 0.013123812965 15.6080986521 53.8337547978 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" {TableSlot} {Unregulated Spill Table}
+set s "$o.Unregulated Spill Table"
+"$s" order 25 
+"$s" UUID {e5193bea-2425-43bb-aef8-7031a3760806}
+"$s" resize 8 2
+"$s" setRowLabels {} {} {} {} {} {} {} {} 
+"$s" setColumnLabels {Pool Elevation} {Unregulated Spill} 
+"$s" setMaximums NaN NaN 
+"$s" setMinimums NaN NaN 
+"$s" setUnitTypes {Length} {Flow} 
+"$s" setScales 1 1 
+"$s" setUsrUnits {m} {cms} 
+"$s" setUsrFormat {%f} {%f} 
+"$s" setUsrPrecision {2} {2} 
+"$s" row 0 725 0 
+"$s" row 1 743 0 
+"$s" row 2 743.10000000000002 2.567975857 
+"$s" row 3 744 81.206526830000001 
+"$s" row 4 745 229.6867432 
+"$s" row 5 746 421.96149109999999 
+"$s" row 6 747 649.65221469999994 
+"$s" row 7 748 907.91657110000006 
+"$o" {SeriesSlot} {Unregulated Spill Capacity Fraction}
+set s "$o.Unregulated Spill Capacity Fraction"
+"$s" order 26 
+"$s" UUID {201f60de-4a95-4d0f-9979-18d0189486d4}
+"$s" cvg 2 0.0001
+"$s" unit {Fraction} 1 {decimal} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {decimal} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 @ 14 
+"$s" setDSeries {decimal} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 1 @ 13 
+"$s" allowSync 1
+"$o" {SeriesSlot} {Outflow Target}
+set s "$o.Outflow Target"
+"$s" order 28 
+"$s" UUID {668bb88a-2cba-418e-97d1-f32cb476ae46}
+"$s" cvg 2 0.0001
+"$s" unit {Flow} 1 {cms} {%f} 2
+"$s" minMax NaN NaN
+"$s" setFSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 2 1 @ 13 
+"$s" setDSeries {cms} {04-17-2018 00:00:00} {04-30-2018 00:00:00} 1 DAY -1 NaN 118 @ 13 
+"$s" alt {Volume} 1 {m3} {%f} 2
+"$s" allowSync 1
+"$o" hideSlots 0 hideOff hideEmptyOff
+# Section: Snapshot Object Relationships
