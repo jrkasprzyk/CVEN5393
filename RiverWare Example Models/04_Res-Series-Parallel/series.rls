@@ -1,0 +1,85 @@
+# RiverWare_Ruleset 9.5
+# Created 16:16 August 5, 2025
+# 
+RULESET
+NAME "RPL Set";
+AGENDA_ORDER ASCENDING;
+DESCRIPTION "";
+PRECISION   2;
+NOTES "";
+BEGIN
+
+  POLICY_GROUP   "Lower Operations";
+  DESCRIPTION    "";
+  ACTIVE         TRUE;
+  NOTES          "";
+  BEGIN
+
+    RULE                 "Flood Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Lower Reservoir.Release" [] := IF ( $ "Lower Reservoir.Pool Elevation" [] > $ "Lower Rule Curve.Flood PE" [] )
+ THEN
+  "Min"( "SolveOutflow"( % "Lower Reservoir", $ "Lower Reservoir.Inflow" [], "ElevationToStorage"( % "Lower Reservoir", $ "Lower Rule Curve.Flood PE" [] ), $ "Lower Reservoir.Storage" [@"t - 1"], @"t" ), "GetMaxReleaseGivenInflow"( % "Lower Reservoir", $ "Lower Reservoir.Inflow" [], @"t" ) )
+ ENDIF;
+
+    END
+    UUID "{9f463204-9be0-4557-95a7-d5cb5b2b9471}";;
+
+    RULE                 "Initialize Lower Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Lower Reservoir.Release" [] := "Min"( $ "Lower Rule Curve.Desired Release" [], "GetMaxReleaseGivenInflow"( % "Lower Reservoir", $ "Lower Reservoir.Inflow" [], @"t" ) );
+
+    END
+    UUID "{10a3fbbf-219f-43ef-814f-3b0ad868f214}";;
+
+  END
+  UUID "{da3ce301-100a-4e2d-bee8-7424af312ca7}";;
+
+  POLICY_GROUP   "Upper Operations";
+  DESCRIPTION    "";
+  ACTIVE         TRUE;
+  NOTES          "";
+  BEGIN
+
+    RULE                 "Flood Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Upper Reservoir.Release" [] := IF ( $ "Upper Reservoir.Pool Elevation" [] > $ "Upper Rule Curve.Flood PE" [] )
+ THEN
+  "Min"( "SolveOutflow"( % "Upper Reservoir", $ "Upper Reservoir.Inflow" [], "ElevationToStorage"( % "Upper Reservoir", $ "Upper Rule Curve.Flood PE" [] ), $ "Upper Reservoir.Storage" [@"t - 1"], @"t" ), "GetMaxReleaseGivenInflow"( % "Upper Reservoir", $ "Upper Reservoir.Inflow" [], @"t" ) )
+ ENDIF;
+
+    END
+    UUID "{63d0b4aa-7265-4b07-84df-685374751fef}";;
+
+    RULE                 "Initialize Upper Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Upper Reservoir.Release" [] := "Min"( $ "Upper Rule Curve.Desired Release" [], "GetMaxReleaseGivenInflow"( % "Upper Reservoir", $ "Upper Reservoir.Inflow" [], @"t" ) );
+
+    END
+    UUID "{577ebbab-ef61-444e-a833-699aa358a8b0}";;
+
+  END
+  UUID "{0bb76593-dc88-4b3c-8058-af0a9937484c}";;
+
+END
+UUID "{c39db568-d861-4759-926e-789bc071e17e}";
