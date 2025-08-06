@@ -1,43 +1,43 @@
 # RiverWare_Ruleset 9.5
-# Created 14:46 August 6, 2025
+# Created 14:55 August 6, 2025
 # 
 RULESET
-NAME "RPL Set";
+NAME "RBS Basic Operations Parallel";
 AGENDA_ORDER ASCENDING;
 DESCRIPTION "";
 PRECISION   2;
 NOTES "";
 BEGIN
 
-  POLICY_GROUP   "Lower Operations";
+  POLICY_GROUP   "Right Operations";
   DESCRIPTION    "";
   ACTIVE         TRUE;
   NOTES          "";
   BEGIN
 
-    RULE                 "Lower Res Flood Release";
+    RULE                 "Right Res Flood Release";
     DESCRIPTION          "";
     ACTIVE               TRUE;
     RULE_EXEC_CONSTRAINT TRUE;
     NOTES                "";
     BEGIN
 
-      $ "Lower Reservoir.Release" [] := IF ( $ "Lower Reservoir.Pool Elevation" [] > $ "Lower Rule Curve.Flood PE" [] )
+      $ "Right Reservoir.Release" [] := IF ( $ "Right Reservoir.Pool Elevation" [] > $ "Right Rule Curve.Flood PE" [] )
  THEN
-  "ReleaseToTargetPE"( % "Lower Reservoir", $ "Lower Rule Curve.Flood PE" [], @"t" )
+  "ReleaseToTargetPE"( % "Right Reservoir", $ "Right Rule Curve.Flood PE" [], @"t" )
  ENDIF;
 
     END
     UUID "{9f463204-9be0-4557-95a7-d5cb5b2b9471}";;
 
-    RULE                 "Initialize Lower Res Release";
+    RULE                 "Initialize Right Res Release";
     DESCRIPTION          "";
     ACTIVE               TRUE;
     RULE_EXEC_CONSTRAINT TRUE;
     NOTES                "";
     BEGIN
 
-      $ "Lower Reservoir.Release" [] := "ReleaseToDesiredFlow"( % "Lower Reservoir", $ "Lower Rule Curve.Desired Release" [], @"t" );
+      $ "Right Reservoir.Release" [] := "ReleaseToDesiredFlow"( % "Right Reservoir", $ "Right Rule Curve.Desired Release" [], @"t" );
 
     END
     UUID "{66eb281a-444d-4004-b1b2-ec35bed99e49}";;
@@ -45,28 +45,28 @@ BEGIN
   END
   UUID "{da3ce301-100a-4e2d-bee8-7424af312ca7}";;
 
-  POLICY_GROUP   "Upper Operations";
+  POLICY_GROUP   "Left Operations";
   DESCRIPTION    "";
   ACTIVE         TRUE;
   NOTES          "";
   BEGIN
 
-    RULE                 "Upper Res Flood Release";
+    RULE                 "Left Res Flood Release";
     DESCRIPTION          "";
     ACTIVE               TRUE;
     RULE_EXEC_CONSTRAINT TRUE;
     NOTES                "";
     BEGIN
 
-      $ "Upper Reservoir.Release" [] := IF ( $ "Upper Reservoir.Pool Elevation" [] > $ "Upper Rule Curve.Flood PE" [] )
+      $ "Left Reservoir.Release" [] := IF ( $ "Left Reservoir.Pool Elevation" [] > $ "Left Rule Curve.Flood PE" [] )
  THEN
-  "ReleaseToTargetPE"( % "Upper Reservoir", $ "Upper Rule Curve.Flood PE" [], @"t" )
+  "ReleaseToTargetPE"( % "Left Reservoir", $ "Left Rule Curve.Flood PE" [], @"t" )
  ENDIF;
 
     END
     UUID "{63d0b4aa-7265-4b07-84df-685374751fef}";;
 
-    RULE                 "Initialize Upper Release";
+    RULE                 "Initialize Left Res Release";
     DESCRIPTION          "";
     ACTIVE               TRUE;
     RULE_EXEC_CONSTRAINT TRUE;
@@ -75,7 +75,7 @@ BEGIN
 
       BREAKPOINT BEFORE_EXEC FALSE;
     BREAKPOINT AFTER_EXEC FALSE;
-      $ "Upper Reservoir.Release" [] := "ReleaseToDesiredFlow"( % "Upper Reservoir", $ "Upper Rule Curve.Desired Release" [], @"t" );
+      $ "Left Reservoir.Release" [] := "ReleaseToDesiredFlow"( % "Left Reservoir", $ "Left Rule Curve.Desired Release" [], @"t" );
 
     END
     UUID "{577ebbab-ef61-444e-a833-699aa358a8b0}";;
@@ -96,9 +96,9 @@ BEGIN
     NOTES                "";
     BEGIN
 
-      $ "Upper Reservoir.Test Upper Res Release" [] := "ReleaseToDesiredFlow"( % "Upper Reservoir", $ "Upper Rule Curve.Desired Release" [], @"t" );
+      $ "Left Reservoir.Test Upper Res Release" [] := "ReleaseToDesiredFlow"( % "Left Reservoir", $ "Left Rule Curve.Desired Release" [], @"t" );
 
-      $ "Upper Reservoir.Test Upper Res Max Release" [] := "GetMaxReleaseGivenInflow"( % "Upper Reservoir", % "Upper Reservoir" & "Inflow" [@"t"], @"t" );
+      $ "Left Reservoir.Test Upper Res Max Release" [] := "GetMaxReleaseGivenInflow"( % "Left Reservoir", % "Left Reservoir" & "Inflow" [@"t"], @"t" );
 
     END
     UUID "{ff824447-bb28-49cc-8cd9-6407bc209b15}";;
@@ -122,7 +122,7 @@ BEGIN
     NOTES          "";
     BEGIN
 
-      "Min"( "SolveOutflow"( res, res & "Inflow" [time_step], "ElevationToStorage"( res, target_pe ), $ "Lower Reservoir.Storage" ["OffsetDate"( time_step, - 1.00000000, "1 Days" )], time_step ), "GetMaxReleaseGivenInflow"( res, res & "Inflow" [time_step], time_step ) );
+      "Min"( "SolveOutflow"( res, res & "Inflow" [time_step], "ElevationToStorage"( res, target_pe ), $ "Right Reservoir.Storage" ["OffsetDate"( time_step, - 1.00000000, "1 Days" )], time_step ), "GetMaxReleaseGivenInflow"( res, res & "Inflow" [time_step], time_step ) );
 
     END
     UUID "{95b62411-56c1-4a89-8f7c-e9b15f59e895}";;
