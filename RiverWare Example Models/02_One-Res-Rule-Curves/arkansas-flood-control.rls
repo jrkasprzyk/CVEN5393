@@ -1,0 +1,111 @@
+# RiverWare_Ruleset 9.5
+# Created 15:35 August 6, 2025
+# 
+RULESET
+NAME "RPL Set";
+AGENDA_ORDER ASCENDING;
+DESCRIPTION "The purpose of this model is to demonstrate operations in the Lund and Guzman (1996) report shown in figure 2.11.<br><br>We'll need: flow lookup tables to drive flood control releases<br><br>Would be good to show basic hydropower operation too.";
+PRECISION   2;
+NOTES "";
+BEGIN
+
+  POLICY_GROUP   "Lower Operations";
+  DESCRIPTION    "";
+  ACTIVE         TRUE;
+  NOTES          "";
+  BEGIN
+
+    RULE                 "Lower Res Flood Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Lower Reservoir.Release" [] := IF ( $ "Lower Reservoir.Pool Elevation" [] > $ "Lower Rule Curve.Flood PE" [] )
+ THEN
+  "ReleaseToTargetPE"( % "Lower Reservoir", $ "Lower Rule Curve.Flood PE" [], @"t" )
+ ENDIF;
+
+    END
+    UUID "{9f463204-9be0-4557-95a7-d5cb5b2b9471}";;
+
+    RULE                 "Initialize Lower Res Release";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Lower Reservoir.Release" [] := "ReleaseToDesiredFlow"( % "Lower Reservoir", $ "Lower Rule Curve.Desired Release" [], @"t" );
+
+    END
+    UUID "{66eb281a-444d-4004-b1b2-ec35bed99e49}";;
+
+  END
+  UUID "{da3ce301-100a-4e2d-bee8-7424af312ca7}";;
+
+  POLICY_GROUP   "Rules for Testing";
+  DESCRIPTION    "";
+  ACTIVE         FALSE;
+  NOTES          "";
+  BEGIN
+
+    RULE                 "Test Values";
+    DESCRIPTION          "";
+    ACTIVE               TRUE;
+    RULE_EXEC_CONSTRAINT TRUE;
+    NOTES                "";
+    BEGIN
+
+      $ "Upper Reservoir.Test Upper Res Release" [] := "ReleaseToDesiredFlow"( % "Upper Reservoir", $ "Upper Rule Curve.Desired Release" [], @"t" );
+
+      $ "Upper Reservoir.Test Upper Res Max Release" [] := "GetMaxReleaseGivenInflow"( % "Upper Reservoir", % "Upper Reservoir" & "Inflow" [@"t"], @"t" );
+
+    END
+    UUID "{ff824447-bb28-49cc-8cd9-6407bc209b15}";;
+
+  END
+  UUID "{0fc6e290-fdf3-4121-b183-9f59a51743fb}";;
+
+  UTILITY_GROUP "Reservoir Functions";
+  DESCRIPTION   "";
+  ACTIVE        TRUE;
+  NOTES          "";
+  BEGIN
+
+    FUNCTION       "ReleaseToTargetPE" ( OBJECT res, NUMERIC target_pe, DATETIME time_step )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "Min"( "SolveOutflow"( res, res & "Inflow" [time_step], "ElevationToStorage"( res, target_pe ), $ "Lower Reservoir.Storage" ["OffsetDate"( time_step, - 1.00000000, "1 Days" )], time_step ), "GetMaxReleaseGivenInflow"( res, res & "Inflow" [time_step], time_step ) );
+
+    END
+    UUID "{95b62411-56c1-4a89-8f7c-e9b15f59e895}";;
+
+    FUNCTION       "ReleaseToDesiredFlow" ( OBJECT res, NUMERIC desired_flow, DATETIME time_step )
+    RETURN_TYPE    NUMERIC;
+    SCALE_UNITS    "";
+    DESCRIPTION    "";
+    ACTIVE         TRUE;
+    PRE_EXEC_DIAG  FALSE;
+    POST_EXEC_DIAG FALSE;
+    NOTES          "";
+    BEGIN
+
+      "Min"( desired_flow, "GetMaxReleaseGivenInflow"( res, res & "Inflow" [time_step], time_step ) );
+
+    END
+    UUID "{7f98d051-b3da-481c-b4b0-373cb64e7c79}";;
+
+  END
+  UUID "{3d9e5d06-d8b3-4092-95c6-f4265be9421c}";;
+
+END
+UUID "{c39db568-d861-4759-926e-789bc071e17e}";
