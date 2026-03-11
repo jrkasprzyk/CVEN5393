@@ -1,5 +1,5 @@
-# RiverWare_Model 9.5
-# Created 15:35 August 6, 2025
+# RiverWare_Model 9.6.2
+# Created 12:02 March 11, 2026
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -33,14 +33,16 @@ Catalog {\
  </ScriptManager>\
 </Catalog>\
 } # End Catalog
-ModelSimObjCount   3
+ModelSimObjCount   2
 ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {josep} {08-06-2025 15:35:06} {RiverWare 9.5} 
+$ws.Model.FileInfo saveInfo 1 {joka0958} {03-11-2026 12:02:48} {RiverWare 9.6.2} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
+$ws.Model.RunHistoryRecord 1 0 {RiverWare 9.6.2} {joka0958} \
+ {Rulebased Simulation} {03-11-2026 12:01:41} {03-11-2026 12:01:42} {Aborted}
 $ws.AutoSave 1 0 0 15 {C:/Users/josep/AppData/Local/Temp/} none
 $ws.StringMgr 1 {\
 <stringMgr name="" size="256"/>\
@@ -77,6 +79,7 @@ $ws.runInfo setDescription {Model Run}
 $ws.runInfo runParam {01-01-2004 00:00:00} {12-31-2024 00:00:00} 1 DAY 
 $ws.runInfo setType 2
 $ws.runInfo setResumedRun 0 {01-02-2004 00:00:00}
+$ws.runInfo typeOfMostRecentRun 2
 $ws.runInfo setActiveCategories 1 0
 $ws.runInfo setInlineCategories 1 0
 $ws.runInfo setMaxSimIterations 40
@@ -161,8 +164,7 @@ $unitMgr scaledUnit 60 {VolumePerEnergy} 1 {m3/MWH}
 $unitMgr scaledUnit 61 {PowerPerTime} 1 {MW/s}
 $unitMgr end
 # Section: Unit Schemes
-"$ws.unitScheme" addUserScheme {\
-<UnitScheme name="Scheme 1">\
+"$ws.unitScheme" addUserScheme {<UnitScheme name="Scheme 1">\
  <Rule>\
   <Key keyType="UnitTypeKey" unitType="NONE"/>\
   <Attribs format="f" prec="2" unitType="NONE" units="NONE"/>\
@@ -372,8 +374,7 @@ $unitMgr end
   <Attribs format="f" prec="2" unitType="PowerPerTime" units="MW/s"/>\
  </Rule>\
 </UnitScheme>}
-"$ws.unitScheme" addUserScheme {\
-<UnitScheme name="Imperial">\
+"$ws.unitScheme" addUserScheme {<UnitScheme name="Imperial">\
  <Rule>\
   <Key keyType="UnitTypeKey" unitType="NONE"/>\
   <Attribs format="f" prec="2" unitType="NONE" units="NONE"/>\
@@ -631,12 +632,11 @@ set annoMgr "$ws.AnnoMgr"
 Section {Objects}
 set obj {Arkansas Res}
 set o "$ws.Arkansas Res"
-$ws SimObj $obj {LevelPowerReservoir} 554 261 {} 481 457 481 457
+$ws SimObj $obj {LevelPowerReservoir} 554 262 {} 481 457 481 457
 "$o" webMapCoords 481 457
 "$o" geospatialCoords 0 0 481 457
 "$o" UUID {3aaadd17-5cd0-43d0-9682-e989a67138ee}
-"$o" objAttributes { \
-<SimObjAttributes simObjName="Arkansas Res"/>}
+"$o" objAttributes {<SimObjAttributes simObjName="Arkansas Res"/>}
 "$o" objOrd wsList 5031
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
 "$o" sDM {Alternate Hydrologies} {None} {STD}
@@ -974,25 +974,13 @@ set s "$o.Tailwater Elevation"
 "$s" setCSeries {01-01-2004 00:00:00} 1 1 DAY -1 NaN 2
 "$s" allowSync 1
 "$o" hideSlots 0 hideOff hideEmptyOff
-set obj {Arkansas Data}
-set o "$ws.Arkansas Data"
-$ws SimObj $obj {DataObj} 704 269 {} 601 546 601 546
-"$o" webMapCoords 500 471
-"$o" geospatialCoords 0 0 601 546
-"$o" UUID {fc27b950-6bf1-4d0a-8810-2e4ab0caa2db}
-"$o" objAttributes { \
-<SimObjAttributes simObjName="Arkansas Data"/>}
-"$o" objOrd wsList 5032
-"$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
-"$o" hideSlots 0 hideOff hideEmptyOff
 set obj {Arkansas River near Muskogee}
 set o "$ws.Arkansas River near Muskogee"
-$ws SimObj $obj {StreamGage} 463 451 {} 383 505 383 505
+$ws SimObj $obj {StreamGage} 482 374 {} 383 505 383 505
 "$o" webMapCoords 465 464
 "$o" geospatialCoords 0 0 383 505
 "$o" UUID {a50afa61-4447-4c75-b1b4-197755bbe281}
-"$o" objAttributes { \
-<SimObjAttributes simObjName="Arkansas River near Muskogee"/>}
+"$o" objAttributes {<SimObjAttributes simObjName="Arkansas River near Muskogee"/>}
 "$o" objOrd wsList 5033
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
 "$o" sDM {Conditional Flow} {None} {STD}
@@ -1026,12 +1014,18 @@ set s "$o.Gage Outflow"
 # Section: Object Relationships
 set obj {Arkansas Res}
 set o "$ws.Arkansas Res"
-set obj {Arkansas Data}
-set o "$ws.Arkansas Data"
 set obj {Arkansas River near Muskogee}
 set o "$ws.Arkansas River near Muskogee"
 # Section: Workspace Ornaments
 Section {Workspace Ornaments}
+$ws OrnMgr ornamentObj {<Ornament createType="T">\
+ <ImageRef id="-1" type="ImageTypeNone"/>\
+ <Canvas id="SIMULATION" show="1" x="294" y="5998"/>\
+ <Canvas id="ACCOUNTING" show="0" x="0" y="0"/>\
+ <Frame show="0"/>\
+ <DisplayText>Currently this example simply shows how to use a DMI to ingest USGS flow data.</DisplayText>\
+ <TooltipText></TooltipText>\
+</Ornament>}
 Section {Links}
 # Section: Links
 $ws Link {Arkansas Res.Inflow} {Arkansas River near Muskogee.Gage Outflow} 
@@ -1045,7 +1039,7 @@ Section {Multiple Run Management}
 Section {Subbasins}
 # Section: Sim Analysis Info
 Section {Sim Analysis Info}
-$ws.DispatchInfo displayedObjects 
+$ws.DispatchInfo displayedObjects {Arkansas Res} {Arkansas River near Muskogee} 
 $ws.DispatchInfo hiddenObjects 
 $ws.DispatchInfo axisOption {1}
 $ws.DispatchInfo updateOption {1}
@@ -1053,7 +1047,7 @@ $ws.DispatchInfo showObjIcons {1}
 $ws.DispatchInfo priorityColors 
 # Section: Optimization Analysis Info
 Section {Optimization Analysis Info}
-$ws.OptAnalysisInfo optDisplayedObjects 
+$ws.OptAnalysisInfo optDisplayedObjects {Arkansas Res} {Arkansas River near Muskogee} 
 $ws.OptAnalysisInfo optHiddenObjects 
 $ws.OptAnalysisInfo optAxisOption {1}
 $ws.OptAnalysisInfo optUpdateOption {1}
@@ -1094,11 +1088,22 @@ $ws.snapShotMgr defaultNewSnapshotAppendTimestampToName false
 $ws.snapShotMgr defaultOlderSnapshotAgeLimit 0.0000
 # Section: Output Device Manager
 Section {Output Device Manager}
+# Section: Plotting Settings
+useModelDefaultCurveConfigs 0
+ordinalCurveConfigs {<CurveConfigs><CurveConfig curveStyle="UnitBased" lineColor="#000000" lineStyle="Solid" lineWidth="2" order="0" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800000" lineStyle="Solid" lineWidth="2" order="1" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008000" lineStyle="Solid" lineWidth="2" order="2" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#000080" lineStyle="Solid" lineWidth="2" order="3" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008080" lineStyle="Solid" lineWidth="2" order="4" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800080" lineStyle="Solid" lineWidth="2" order="5" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808000" lineStyle="Solid" lineWidth="2" order="6" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff0000" lineStyle="Solid" lineWidth="2" order="7" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ff00" lineStyle="Solid" lineWidth="2" order="8" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#0000ff" lineStyle="Solid" lineWidth="2" order="9" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ffff" lineStyle="Solid" lineWidth="2" order="10" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff00ff" lineStyle="Solid" lineWidth="2" order="11" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ffff00" lineStyle="Solid" lineWidth="2" order="12" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#a0a0a4" lineStyle="Solid" lineWidth="2" order="13" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808080" lineStyle="Solid" lineWidth="2" order="14" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/></CurveConfigs>}
+labelCurveConfigs {<CurveConfigs/>}
 $ws collectRBSRunAnalysisInfo 1
 $ws collectRPLPerformanceInfo 1
 $ws RPLUseOldUnitsBehavior 0
 $ws RPLNumericComparisonTolerance 0
 $ws RPLWhileExprMaxIterations 10000
+$ws RBSRunAnalysisData +begin+
+set o "$ws.Arkansas Res"
+$o callSetupDispatch
+set o "$ws.Arkansas River near Muskogee"
+$o callSetupDispatch
+set rsm "$ws.RulesetMgr"
+$ws RunAnalysisData  +end+
 # Section: Name Maps
 set mgr "$ws.nameMapMgr"
 "$mgr" format 2
@@ -1202,8 +1207,7 @@ RootSel_Slot "Arkansas River near Muskogee.Gage Inflow" \
 RootSel_End \
 } {00060} 0
 "$map" resolve
-"$mgr" websvcmap {USGS Daily Values} {\
-<Config>\
+"$mgr" websvcmap {USGS Daily Values} {<Config>\
  <client></client>\
  <site objName="Arkansas River near Muskogee" siteName="Arkansas River near Muskogee, OK" siteNum="07194500"></site>\
 </Config>}
@@ -1220,10 +1224,9 @@ set dataset "$mgr.USGS Dataset"
 "$dataset" slotGroups 0
 "$dataset" readTableBx EXPCON
 "$dataset" precision full 0
-"$dataset" client {USGS Daily Values} {\
-<Config/>}
+"$dataset" client {USGS Daily Values} {<Config/>}
 "$dataset" testUrl {https://waterservices.usgs.gov/test-tools/}
-"$dataset" baseUrl {https://waterservices.usgs.gov/nwis/dv}
+"$dataset" baseUrl {https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items}
 "$mgr" end
 # Section: DMI (part two)
 set mgr "$ws.dmiMgr"
@@ -1507,7 +1510,7 @@ $ws.rwScriptMgr rwScriptGroup {\
    <ScriptGroupName>All Scripts</ScriptGroupName>\
 </rwScriptGroup>\
 }
-# Show Script Manager On Model Load
+# Show Script Manager On Model Open
 $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
 <ShowScriptMgrOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1515,7 +1518,7 @@ $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
    <ResizeToTabs count="0"/>\
 </ShowScriptMgrOnModelLoad>\
 }
-# Run Script Group On Model Load
+# Run Script Group On Model Open
 $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 <RunScriptGroupOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1525,25 +1528,20 @@ $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 # Section: Object Attribute Manager
 Section {Object Attribute Manager}
 # Section: Object Attribute Set
-"$ws.objectAttribMgr" objectAttribSet { \
-<ObjAttributeSet/>}
+"$ws.objectAttribMgr" objectAttribSet {<ObjAttributeSet/>}
 # Section: Comparison Tool
-"$ws.comparisonTool" modelFilter {\
-<Filter Type="model">\
+"$ws.comparisonTool" modelFilter {<Filter Type="model">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
-"$ws.comparisonTool" rplFilter {\
-<Filter Type="rpl">\
+"$ws.comparisonTool" rplFilter {<Filter Type="rpl">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
 # Section: Window Layout Manager
-"$ws.windowLayoutManager" layouts {\
-<WindowLayouts/>}
+"$ws.windowLayoutManager" layouts {<WindowLayouts/>}
 # Section: Multi-Window Manager
-"$ws.multiWindowManager" multiWindows {\
-<MultiWindows/>}
+"$ws.multiWindowManager" multiWindows {<MultiWindows/>}
 # Section: END (successful completion)
 Section {Done}
 

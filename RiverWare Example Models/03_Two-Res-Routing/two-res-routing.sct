@@ -1,12 +1,12 @@
-# SCT File Created 1/29/2025 5:34 PM
-#  as C:/Users/josep/Documents/GitHub/BorgRWProblems/problems/MinimalRouting/routing.sct
-# Generated using RiverWare Version <RiverWare_Model 9.4>
-# Generated from Model File <minimal_routing.mdl>
+# SCT File Created 3/11/2026 12:57 PM
+#  as C:/GitHub/CVEN5393/RiverWare Example Models/03_Two-Res-Routing/two-res-routing.sct
+# Generated using RiverWare Version <RiverWare_Model 9.6.2>
+# Generated from Model File <two-res-routing.mdl>
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 #
 SCT 0 0 Version: 20.4
 SCT_PROPERTIES
-  SLOT_ITEM_CNT           9
+  SLOT_ITEM_CNT           11
   PRESIM_TSTEP_CNT        1
   POSTSIM_TSTEP_CNT       0
   TSTEP_AXIS_HORZ         False
@@ -146,91 +146,97 @@ SCT_PROPERTIES
 TAB_DIV   0
   SLOT_LABEL        "Series Slot Sheet"
 
-SLOT_REF  1
+SLOT_DIV  1
+  SLOT_LABEL        "Upper Reservoir"
+
+SLOT_REF  2
   SLOT_LABEL        "Reservoir1.Inflow"
   SLOT_MULTILINE    "Reservoir1<br>.Inflow"
   RW_SLOT_NAME      "Reservoir1.Inflow"
   RW_SLOT_COL_INDEX 0
   SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
   SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 62
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  2
-  SLOT_LABEL        "Reservoir1.Outflow"
-  SLOT_MULTILINE    "Reservoir1<br>.Outflow"
-  RW_SLOT_NAME      "Reservoir1.Outflow"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 62
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 58
   A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
   SHOW_SNAPSHOTS True
 
 SLOT_REF  3
-  SLOT_LABEL        "Reservoir1.Release"
-  SLOT_MULTILINE    "Reservoir1<br>.Release"
-  RW_SLOT_NAME      "Reservoir1.Release"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 49
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  4
-  SLOT_LABEL        "Reservoir1.Pool Elevation"
-  SLOT_MULTILINE    "Reservoir1<br>.Pool Elevation"
-  RW_SLOT_NAME      "Reservoir1.Pool Elevation"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_LAST 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 49
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  5
-  SLOT_LABEL        "Reservoir1.Storage"
-  SLOT_MULTILINE    "Reservoir1<br>.Storage"
-  RW_SLOT_NAME      "Reservoir1.Storage"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_LAST 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 62
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  6
-  SLOT_LABEL        "Reach for Routing.Inflow"
-  SLOT_MULTILINE    "Reach for Routing<br>.Inflow"
-  RW_SLOT_NAME      "Reach for Routing.Inflow"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 99
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  7
-  SLOT_LABEL        "Reach for Routing.Outflow"
-  SLOT_MULTILINE    "Reach for Routing<br>.Outflow"
-  RW_SLOT_NAME      "Reach for Routing.Outflow"
-  RW_SLOT_COL_INDEX 0
-  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
-  SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 62
-  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
-  SHOW_SNAPSHOTS True
-
-SLOT_REF  8
   SLOT_LABEL        "Reservoir1.Spill"
   SLOT_MULTILINE    "Reservoir1<br>.Spill"
   RW_SLOT_NAME      "Reservoir1.Spill"
   RW_SLOT_COL_INDEX 0
   SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
   SLOT_DETAILS_OPEN False
-  N_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 62
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_REF  4
+  SLOT_LABEL        "Reservoir1.Release"
+  SLOT_MULTILINE    "Reservoir1<br>.Release"
+  RW_SLOT_NAME      "Reservoir1.Release"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_REF  5
+  SLOT_LABEL        "Reservoir1.Outflow"
+  SLOT_MULTILINE    "Reservoir1<br>.Outflow"
+  RW_SLOT_NAME      "Reservoir1.Outflow"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_REF  6
+  SLOT_LABEL        "Reservoir1.Pool Elevation"
+  SLOT_MULTILINE    "Reservoir1<br>.Pool Elevation"
+  RW_SLOT_NAME      "Reservoir1.Pool Elevation"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_LAST 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_REF  7
+  SLOT_LABEL        "Reservoir1.Storage"
+  SLOT_MULTILINE    "Reservoir1<br>.Storage"
+  RW_SLOT_NAME      "Reservoir1.Storage"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_LAST 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 58
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_DIV  8
+  SLOT_LABEL        "Routing"
+
+SLOT_REF  9
+  SLOT_LABEL        "Reach for Routing.Inflow"
+  SLOT_MULTILINE    "Reach for Routing<br>.Inflow"
+  RW_SLOT_NAME      "Reach for Routing.Inflow"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
+  A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
+  SHOW_SNAPSHOTS True
+
+SLOT_REF  10
+  SLOT_LABEL        "Reach for Routing.Outflow"
+  SLOT_MULTILINE    "Reach for Routing<br>.Outflow"
+  RW_SLOT_NAME      "Reach for Routing.Outflow"
+  RW_SLOT_COL_INDEX 0
+  SLOT_SUMFUNC      SLOT_SUMFUNC_AVE 0
+  SLOT_DETAILS_OPEN False
+  N_SLOT_COL_WIDTH  COLFIT_METHOD_DATA 47
   A_SLOT_COL_WIDTH  COLFIT_METHOD_MANUAL 120
   SHOW_SNAPSHOTS True
 

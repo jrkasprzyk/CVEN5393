@@ -1,5 +1,5 @@
-# RiverWare_Model 9.5
-# Created 15:03 July 28, 2025
+# RiverWare_Model 9.6.2
+# Created 12:00 March 11, 2026
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -38,7 +38,7 @@ ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {josep} {07-28-2025 15:03:58} {RiverWare 9.5} 
+$ws.Model.FileInfo saveInfo 1 {joka0958} {03-11-2026 12:00:30} {RiverWare 9.6.2} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
 $ws.Model.RunHistoryRecord 1 0 {RiverWare 9.5} {josep} \
@@ -99,7 +99,7 @@ $ws.multiRunInfo setWarnOutOfBounds 0
 # Section: Unit Manager
 Section {Unit Manager}
 set unitMgr "$ws.UnitMgr"
-$unitMgr initScaledUnits 66
+$unitMgr initScaledUnits 68
 $unitMgr scaledUnit 0 {NONE} 1 {NONE}
 $unitMgr scaledUnit 1 {Length} 1 {m}
 $unitMgr scaledUnit 2 {Length} 1 {ft}
@@ -109,10 +109,12 @@ $unitMgr scaledUnit 5 {Area} 1 {m2}
 $unitMgr scaledUnit 6 {Area} 1 {acre}
 $unitMgr scaledUnit 7 {Volume} 1 {m3}
 $unitMgr scaledUnit 8 {Volume} 1 {acre-ft}
+$unitMgr scaledUnit 66 {Volume} 1000 {acre-ft}
 $unitMgr scaledUnit 9 {Flow} 1 {cms}
 $unitMgr scaledUnit 10 {Flow} 1 {cfs}
 $unitMgr scaledUnit 11 {Flow} 1 {acre-ft/day}
 $unitMgr scaledUnit 12 {Flow} 1 {acre-feet/year}
+$unitMgr scaledUnit 67 {Flow} 1000 {acre-feet/year}
 $unitMgr scaledUnit 13 {FlowSquared} 1 {cms2}
 $unitMgr scaledUnit 14 {FlowPerSqrtLength} 1 {cms/m1/2}
 $unitMgr scaledUnit 15 {PerFlow} 1 {1/cms}
@@ -168,8 +170,7 @@ $unitMgr scaledUnit 63 {VolumePerEnergy} 1 {m3/MWH}
 $unitMgr scaledUnit 64 {PowerPerTime} 1 {MW/s}
 $unitMgr end
 # Section: Unit Schemes
-"$ws.unitScheme" addUserScheme {\
-<UnitScheme name="Scheme 1">\
+"$ws.unitScheme" addUserScheme {<UnitScheme name="Scheme 1">\
  <Rule>\
   <Key keyType="UnitTypeKey" unitType="NONE"/>\
   <Attribs format="f" prec="2" unitType="NONE" units="NONE"/>\
@@ -435,8 +436,7 @@ $ws SimObj $obj {StorageReservoir} 600 417 {} 524 412 524 412
 "$o" webMapCoords 524 412
 "$o" geospatialCoords 0 0 524 412
 "$o" UUID {af18b801-fda0-49e9-b55c-5219b2166b58}
-"$o" objAttributes { \
-<SimObjAttributes simObjName="StoRes"/>}
+"$o" objAttributes {<SimObjAttributes simObjName="StoRes"/>}
 "$o" objOrd wsList 5031
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
 "$o" sDM {Alternate Hydrologies} {None} {STD}
@@ -545,7 +545,7 @@ set s "$o.Storage"
 "$s" unit 7 {%f} 2
 "$s" minMax NaN NaN
 "$s" setFSeries {m3} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 64 2 @ 101 
-"$s" setDSeries {m3} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 61057350.9586 @ 2 45382263.767 61057350.9586 49439641.7501 42273112.2739 61057350.9586 @ 2 60811110.8104 61057350.9586 53989500.0295 61057350.9586 44857256.7236 52586253.9176 61057350.9586 @ 2 51370040.8258 61057350.9586 @ 3 60341154.2303 61057350.9586 61057350.9586 48956894.1323 57219211.6995 61057350.9586 50882359.2807 61057350.9586 61057350.9586 @ 2 53404829.6385 61057350.9586 @ 2 57989681.6286 61057350.9586 @ 4 43967460.0994 31834932.7453 61043005.3959 61057350.9586 @ 4 44053803.828 43979794.9178 61057350.9586 54358767.3182 43400514.6734 44875758.9511 21391498.2461 53437812.6049 37762725.4133 60592007.2626 49095956.5367 41807768.5779 61057350.9586 61057350.9586 60932769.293 61057350.9586 53989500.0295 61057350.9586 44978915.2062 52586253.9176 61057350.9586 @ 2 51491699.3084 61057350.9586 61057350.9586 @ 2 60462812.7129 61057350.9586 @ 2 48956894.1323 57340870.1821 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57868023.146 61057350.9586 @ 3 61057350.9586 43967460.0994 31834932.7453 61057350.9586 @ 5 43932145.3454 43858136.4351 61057350.9586 54480425.8008 43400514.6734 44875758.9511 
+"$s" setDSeries {m3} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 61057350.9586 @ 2 45382263.767 61057350.9586 49439641.7501 42273112.2739 61057350.9586 @ 2 60811110.8104 61057350.9586 53989500.0295 61057350.9586 44857256.7236 52586253.9176 61057350.9586 @ 2 51370040.8258 61057350.9586 @ 3 60341154.2303 61057350.9586 @ 2 48956894.1323 57219211.6995 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57989681.6286 61057350.9586 @ 4 43967460.0994 31834932.7453 61043005.3959 61057350.9586 @ 4 44053803.828 43979794.9178 61057350.9586 54358767.3182 43400514.6734 44875758.9511 21391498.2461 53437812.6049 37762725.4133 60592007.2626 49095956.5367 41807768.5779 61057350.9586 @ 2 60932769.293 61057350.9586 53989500.0295 61057350.9586 44978915.2062 52586253.9176 61057350.9586 @ 2 51491699.3084 61057350.9586 @ 3 60462812.7129 61057350.9586 @ 2 48956894.1323 57340870.1821 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57868023.146 61057350.9586 @ 4 43967460.0994 31834932.7453 61057350.9586 @ 5 43932145.3454 43858136.4351 61057350.9586 54480425.8008 43400514.6734 44875758.9511 
 "$s" allowSync 1
 "$s" assignPriorities {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 10000 2 1 2 1 @ 2 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 3 2 @ 4 1 @ 2 2 1 @ 9 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 2 2 @ 5 1 @ 2 2 1 @ 3 END
 "$o" {SeriesSlot} {Previous Storage}
@@ -556,7 +556,7 @@ set s "$o.Previous Storage"
 "$s" unit 7 {%f} 2
 "$s" minMax NaN NaN
 "$s" setFSeries {m3} {01-01-1953 00:00:00} {01-01-2055 00:00:00} 1 YEAR -1 2 @ 103 
-"$s" setDSeries {m3} {01-01-1953 00:00:00} {01-01-2055 00:00:00} 1 YEAR -1 NaN @ 2 61057350.9586 45382263.767 61057350.9586 49439641.7501 42273112.2739 61057350.9586 @ 2 60811110.8104 61057350.9586 53989500.0295 61057350.9586 44857256.7236 52586253.9176 61057350.9586 @ 2 51370040.8258 61057350.9586 @ 3 60341154.2303 61057350.9586 61057350.9586 48956894.1323 57219211.6995 61057350.9586 50882359.2807 61057350.9586 61057350.9586 @ 2 53404829.6385 61057350.9586 @ 2 57989681.6286 61057350.9586 @ 4 43967460.0994 31834932.7453 61043005.3959 61057350.9586 @ 4 44053803.828 43979794.9178 61057350.9586 54358767.3182 43400514.6734 44875758.9511 21391498.2461 53437812.6049 37762725.4133 60592007.2626 49095956.5367 41807768.5779 61057350.9586 61057350.9586 60932769.293 61057350.9586 53989500.0295 61057350.9586 44978915.2062 52586253.9176 61057350.9586 @ 2 51491699.3084 61057350.9586 61057350.9586 @ 2 60462812.7129 61057350.9586 @ 2 48956894.1323 57340870.1821 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57868023.146 61057350.9586 @ 3 61057350.9586 43967460.0994 31834932.7453 61057350.9586 @ 5 43932145.3454 43858136.4351 61057350.9586 54480425.8008 43400514.6734 44875758.9511 
+"$s" setDSeries {m3} {01-01-1953 00:00:00} {01-01-2055 00:00:00} 1 YEAR -1 NaN @ 2 61057350.9586 45382263.767 61057350.9586 49439641.7501 42273112.2739 61057350.9586 @ 2 60811110.8104 61057350.9586 53989500.0295 61057350.9586 44857256.7236 52586253.9176 61057350.9586 @ 2 51370040.8258 61057350.9586 @ 3 60341154.2303 61057350.9586 @ 2 48956894.1323 57219211.6995 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57989681.6286 61057350.9586 @ 4 43967460.0994 31834932.7453 61043005.3959 61057350.9586 @ 4 44053803.828 43979794.9178 61057350.9586 54358767.3182 43400514.6734 44875758.9511 21391498.2461 53437812.6049 37762725.4133 60592007.2626 49095956.5367 41807768.5779 61057350.9586 @ 2 60932769.293 61057350.9586 53989500.0295 61057350.9586 44978915.2062 52586253.9176 61057350.9586 @ 2 51491699.3084 61057350.9586 @ 3 60462812.7129 61057350.9586 @ 2 48956894.1323 57340870.1821 61057350.9586 50882359.2807 61057350.9586 @ 3 53404829.6385 61057350.9586 @ 2 57868023.146 61057350.9586 @ 4 43967460.0994 31834932.7453 61057350.9586 @ 5 43932145.3454 43858136.4351 61057350.9586 54480425.8008 43400514.6734 44875758.9511 
 "$s" allowSync 1
 "$s" assignPriorities {01-01-1953 00:00:00} {01-01-2055 00:00:00} 1 YEAR -1 32767 @ 2 2 1 2 1 @ 2 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 3 2 @ 4 1 @ 2 2 1 @ 9 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 2 2 @ 5 1 @ 2 2 1 @ 3 END
 "$o" {SeriesSlot} {Pool Elevation}
@@ -567,7 +567,7 @@ set s "$o.Pool Elevation"
 "$s" unit 1 {%f} 2
 "$s" minMax NaN NaN
 "$s" setFSeries {m} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 2 @ 102 
-"$s" setDSeries {m} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 30.48 @ 2 22.6549527273 30.48 24.6804071399 21.1028556247 30.48 @ 2 30.3570762308 30.48 26.9517090909 30.48 22.392867746 26.2512047156 30.48 @ 2 25.644067746 30.48 @ 3 30.1224725944 30.48 30.48 24.4394181818 28.5639901702 30.48 25.4006157576 30.48 30.48 @ 2 26.65984 30.48 @ 2 28.9486109091 30.48 @ 4 21.9486787879 15.8920872727 30.472838655 30.48 @ 4 21.9917818182 21.9548363636 30.48 27.136048352 21.665658049 22.4021041096 10.6786956247 26.6763051889 18.8512579161 30.2476991283 24.5088385222 20.870554753 30.48 30.48 30.4178084848 30.48 26.9517090909 30.48 22.4536 26.2512047156 30.48 @ 2 25.7048 30.48 30.48 @ 2 30.1832048485 30.48 @ 2 24.4394181818 28.6247224242 30.48 25.4006157576 30.48 @ 3 26.65984 30.48 @ 2 28.887878655 30.48 @ 3 30.48 21.9486787879 15.8920872727 30.48 @ 5 21.9310495641 21.8941041096 30.48 27.1967806061 21.665658049 22.4021041096 
+"$s" setDSeries {m} {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 30.48 @ 2 22.6549527273 30.48 24.6804071399 21.1028556247 30.48 @ 2 30.3570762308 30.48 26.9517090909 30.48 22.392867746 26.2512047156 30.48 @ 2 25.644067746 30.48 @ 3 30.1224725944 30.48 @ 2 24.4394181818 28.5639901702 30.48 25.4006157576 30.48 @ 3 26.65984 30.48 @ 2 28.9486109091 30.48 @ 4 21.9486787879 15.8920872727 30.472838655 30.48 @ 4 21.9917818182 21.9548363636 30.48 27.136048352 21.665658049 22.4021041096 10.6786956247 26.6763051889 18.8512579161 30.2476991283 24.5088385222 20.870554753 30.48 @ 2 30.4178084848 30.48 26.9517090909 30.48 22.4536 26.2512047156 30.48 @ 2 25.7048 30.48 @ 3 30.1832048485 30.48 @ 2 24.4394181818 28.6247224242 30.48 25.4006157576 30.48 @ 3 26.65984 30.48 @ 2 28.887878655 30.48 @ 4 21.9486787879 15.8920872727 30.48 @ 5 21.9310495641 21.8941041096 30.48 27.1967806061 21.665658049 22.4021041096 
 "$s" allowSync 1
 "$s" assignPriorities {01-01-1953 00:00:00} {01-01-2054 00:00:00} 1 YEAR -1 0 2 1 2 1 @ 2 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 3 2 @ 4 1 @ 2 2 1 @ 9 2 @ 2 1 2 1 2 1 @ 2 2 @ 2 1 2 @ 3 1 2 @ 2 1 @ 2 2 1 2 @ 3 1 2 @ 2 1 2 @ 4 1 @ 2 2 @ 5 1 @ 2 2 1 @ 3 END
 "$o" {SeriesSlot} {Flow FROM Pumped Storage}
@@ -950,6 +950,14 @@ set obj {StoRes}
 set o "$ws.StoRes"
 # Section: Workspace Ornaments
 Section {Workspace Ornaments}
+$ws OrnMgr ornamentObj {<Ornament createType="T">\
+ <ImageRef id="-1" type="ImageTypeNone"/>\
+ <Canvas id="SIMULATION" show="1" x="198" y="5944"/>\
+ <Canvas id="ACCOUNTING" show="0" x="0" y="0"/>\
+ <Frame show="0"/>\
+ <DisplayText>StoRes attempts to Release a constant Demand. It releases all the available water when Demand is not available. Overtopping is handled by setting extra Releases.</DisplayText>\
+ <TooltipText></TooltipText>\
+</Ornament>}
 Section {Links}
 # Section: Links
 # Section: Link Groups
@@ -1060,6 +1068,60 @@ $ws.snapShotMgr defaultNewSnapshotAppendTimestampToName false
 $ws.snapShotMgr defaultOlderSnapshotAgeLimit 0.0000
 # Section: Output Device Manager
 Section {Output Device Manager}
+$ws.outputDeviceMgr addPlotPage {Inflow and Demand}
+set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Inflow and Demand"
+"$plotpage" description {}
+"$plotpage" layout 1 1
+"$plotpage" PlotPrintHdrCfg TopLeft ContType_PlotName {}
+"$plotpage" PlotPrintHdrCfg TopRight ContType_ModelName {}
+"$plotpage" PlotPrintHdrCfg BottomLeft ContType_ModelSaveDate {}
+"$plotpage" PlotPrintHdrCfg BottomRight ContType_PrintDate {}
+"$plotpage" plot 0
+set plot "$plotpage.0"
+"$plot" state {} 4294967295 1 0
+"$plot" axis {yLeft} {Flow (kaf/year)} {acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yRight} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {xTop} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Fixed" unitType="Flow" fixedScale="1000" fixedUnit="acre-feet/year"/>} 
+"$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
+"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="fixed" variedInterval="year">\
+ <DateFormatVar dateFmt1="YYYY" name="fixedFmt"/>\
+ <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
+ <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
+</DateLabelInfo>} 
+"$plot" axisLabelOrient {yLeft} {<LabelOrientInfo degClockwise="0"/>} 
+"$plot" axisLabelOrient {yRight} {<LabelOrientInfo degClockwise="0"/>} 
+"$plot" axisLabelOrient {xBottom} {<LabelOrientInfo degClockwise="0"/>} 
+"$plot" axisLabelOrient {xTop} {<LabelOrientInfo degClockwise="0"/>} 
+"$plot" timeScaleAutoOnShow {xBottom} 0
+"$plot" timeScaleFormulaStart {xBottom} {Series Data Start}
+"$plot" timeScaleFormulaEnd {xBottom} {Series Data End}
+"$plot" grid {major} {Dot} 1 4290822336 1 1
+"$plot" grid {minor} {NoPen} 1 4290822336 0 0
+"$plot" gridAxes {xBottom} {yLeft}
+"$plot" curve {Inflow}
+set curve "$plot.Inflow"
+"$curve" legendOrd -1
+"$curve" layerOrd -1
+"$curve" showInLegend 1
+"$curve" style {Lines} 
+"$curve" lineInfo {Solid} 2 4278190080
+"$curve" symbolInfo {Rect} 4 4278190080
+"$curve" yAxis left
+"$curve" slots 0 {} {StoRes.Inflow} -1 0 -1 0
+"$plot" curve {Demand}
+set curve "$plot.Demand"
+"$curve" legendOrd -1
+"$curve" layerOrd -1
+"$curve" showInLegend 1
+"$curve" style {Steps} 
+"$curve" lineInfo {Solid} 3 4294901760
+"$curve" symbolInfo {None} 0 4278190080
+"$curve" yAxis left
+"$curve" slots 5 {} {StoRes.Demand} -1 0 -1 0
+"$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 $ws.outputDeviceMgr addPlotPage {Input Output Storage}
 set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Input Output Storage"
 "$plotpage" description {}
@@ -1071,14 +1133,14 @@ set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Input Output Storage"
 "$plotpage" plot 0
 set plot "$plotpage.0"
 "$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {} {cms} 0 0 200000 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yLeft} {Flow (kaf/year)} {acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {xBottom} {Year} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 1 {Year} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Flow" fixedScale="1" fixedUnit="acre-feet/year"/>} 
+"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Fixed" unitType="Flow" fixedScale="1000" fixedUnit="acre-feet/year"/>} 
 "$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
-"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
- <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
+"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="fixed" variedInterval="year">\
+ <DateFormatVar dateFmt1="YYYY" name="fixedFmt"/>\
  <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
  <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
 </DateLabelInfo>} 
@@ -1092,39 +1154,49 @@ set plot "$plotpage.0"
 "$plot" grid {major} {Dot} 1 4290822336 1 1
 "$plot" grid {minor} {NoPen} 1 4290822336 0 0
 "$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {StoRes.Inflow}
-set curve "$plot.StoRes.Inflow"
-"$curve" legendOrd -1
-"$curve" layerOrd -1
+"$plot" curve {Inflow}
+set curve "$plot.Inflow"
+"$curve" legendOrd 1
+"$curve" layerOrd 2
 "$curve" showInLegend 1
 "$curve" style {Steps} 
 "$curve" lineInfo {Solid} 2 4294901760
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {StoRes.Inflow} -1 0 -1 0
-"$plot" curve {StoRes.Release}
-set curve "$plot.StoRes.Release"
-"$curve" legendOrd -1
-"$curve" layerOrd -1
+"$plot" curve {Release}
+set curve "$plot.Release"
+"$curve" legendOrd 2
+"$curve" layerOrd 3
 "$curve" showInLegend 1
 "$curve" style {Steps} 
 "$curve" lineInfo {Solid} 2 4278190335
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {StoRes.Release} -1 0 -1 0
+"$plot" curve {Demand}
+set curve "$plot.Demand"
+"$curve" legendOrd 3
+"$curve" layerOrd 1
+"$curve" showInLegend 1
+"$curve" style {Steps} 
+"$curve" lineInfo {Dash} 2 4294945280
+"$curve" symbolInfo {None} 0 4278190080
+"$curve" yAxis left
+"$curve" slots 5 {} {StoRes.Demand} -1 0 -1 0
 "$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plotpage" plot 3
 set plot "$plotpage.3"
 "$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {} {m3} 0 0 60000 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yLeft} {Storage (kaf)} {acre-ft} 0 0 60 f 0 8 5 1 1 {Storage (kaf)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Volume" fixedScale="1" fixedUnit="acre-ft"/>} 
+"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Fixed" unitType="Volume" fixedScale="1000" fixedUnit="acre-ft"/>} 
 "$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
-"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
- <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
+"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="fixed" variedInterval="year">\
+ <DateFormatVar dateFmt1="YYYY" name="fixedFmt"/>\
  <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
  <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
 </DateLabelInfo>} 
@@ -1138,8 +1210,8 @@ set plot "$plotpage.3"
 "$plot" grid {major} {Dot} 1 4290822336 1 1
 "$plot" grid {minor} {NoPen} 1 4290822336 0 0
 "$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {StoRes.Storage}
-set curve "$plot.StoRes.Storage"
+"$plot" curve {Storage}
+set curve "$plot.Storage"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1150,96 +1222,10 @@ set curve "$plot.StoRes.Storage"
 "$curve" slots 0 {} {StoRes.Storage} -1 0 -1 0
 "$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-$ws.outputDeviceMgr addPlotPage {Inflow and Demand}
-set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Inflow and Demand"
-"$plotpage" description {}
-"$plotpage" layout 2 1
-"$plotpage" PlotPrintHdrCfg TopLeft ContType_PlotName {}
-"$plotpage" PlotPrintHdrCfg TopRight ContType_ModelName {}
-"$plotpage" PlotPrintHdrCfg BottomLeft ContType_ModelSaveDate {}
-"$plotpage" PlotPrintHdrCfg BottomRight ContType_PrintDate {}
-"$plotpage" plot 0
-set plot "$plotpage.0"
-"$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {} {cms} 0 0 200000 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {yRight} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xTop} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Flow" fixedScale="1" fixedUnit="acre-feet/year"/>} 
-"$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
-"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
- <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
- <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
- <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
-</DateLabelInfo>} 
-"$plot" axisLabelOrient {yLeft} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {yRight} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {xBottom} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {xTop} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" timeScaleAutoOnShow {xBottom} 0
-"$plot" timeScaleFormulaStart {xBottom} {Series Data Start}
-"$plot" timeScaleFormulaEnd {xBottom} {Series Data End}
-"$plot" grid {major} {Dot} 1 4290822336 1 1
-"$plot" grid {minor} {NoPen} 1 4290822336 0 0
-"$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {StoRes.Inflow}
-set curve "$plot.StoRes.Inflow"
-"$curve" legendOrd -1
-"$curve" layerOrd -1
-"$curve" showInLegend 1
-"$curve" style {Lines} 
-"$curve" lineInfo {Solid} 2 4278190080
-"$curve" symbolInfo {Rect} 4 4278190080
-"$curve" yAxis left
-"$curve" slots 0 {} {StoRes.Inflow} -1 0 -1 0
-"$plot" curve {StoRes.Demand}
-set curve "$plot.StoRes.Demand"
-"$curve" legendOrd -1
-"$curve" layerOrd -1
-"$curve" showInLegend 1
-"$curve" style {Steps} 
-"$curve" lineInfo {Solid} 3 4294901760
-"$curve" symbolInfo {None} 0 4278190080
-"$curve" yAxis left
-"$curve" slots 5 {} {StoRes.Demand} -1 0 -1 0
-"$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plotpage" plot 3
-set plot "$plotpage.3"
-"$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {} {cms} 0 0 200000 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Flow" fixedScale="1" fixedUnit="acre-feet/year"/>} 
-"$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
-"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
- <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
- <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
- <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
-</DateLabelInfo>} 
-"$plot" axisLabelOrient {yLeft} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {yRight} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {xBottom} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" axisLabelOrient {xTop} {<LabelOrientInfo degClockwise="0"/>} 
-"$plot" timeScaleAutoOnShow {xBottom} 0
-"$plot" timeScaleFormulaStart {xBottom} {Series Data Start}
-"$plot" timeScaleFormulaEnd {xBottom} {Series Data End}
-"$plot" grid {major} {Dot} 1 4290822336 1 1
-"$plot" grid {minor} {NoPen} 1 4290822336 0 0
-"$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {StoRes.Inflow}
-set curve "$plot.StoRes.Inflow"
-"$curve" legendOrd -1
-"$curve" layerOrd -1
-"$curve" showInLegend 1
-"$curve" style {Lines} 
-"$curve" lineInfo {Solid} 2 4278190080
-"$curve" symbolInfo {Rect} 4 4278190080
-"$curve" yAxis left
-"$curve" slots 0 {} {StoRes.Inflow} -1 0 -1 0
-"$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+# Section: Plotting Settings
+useModelDefaultCurveConfigs 0
+ordinalCurveConfigs {<CurveConfigs><CurveConfig curveStyle="UnitBased" lineColor="#000000" lineStyle="Solid" lineWidth="2" order="0" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800000" lineStyle="Solid" lineWidth="2" order="1" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008000" lineStyle="Solid" lineWidth="2" order="2" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#000080" lineStyle="Solid" lineWidth="2" order="3" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008080" lineStyle="Solid" lineWidth="2" order="4" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800080" lineStyle="Solid" lineWidth="2" order="5" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808000" lineStyle="Solid" lineWidth="2" order="6" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff0000" lineStyle="Solid" lineWidth="2" order="7" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ff00" lineStyle="Solid" lineWidth="2" order="8" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#0000ff" lineStyle="Solid" lineWidth="2" order="9" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ffff" lineStyle="Solid" lineWidth="2" order="10" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff00ff" lineStyle="Solid" lineWidth="2" order="11" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ffff00" lineStyle="Solid" lineWidth="2" order="12" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#a0a0a4" lineStyle="Solid" lineWidth="2" order="13" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808080" lineStyle="Solid" lineWidth="2" order="14" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/></CurveConfigs>}
+labelCurveConfigs {<CurveConfigs/>}
 $ws collectRBSRunAnalysisInfo 1
 $ws collectRPLPerformanceInfo 1
 $ws RPLUseOldUnitsBehavior 0
@@ -1341,9 +1327,9 @@ BEGIN\
  THEN\
   IF ( "VolumeToFlow"( $ "StoRes.Storage" [@"t - 1"], @"t - 1" ) + $ "StoRes.Inflow" [] >= $ "StoRes.Demand" [] )\
   THEN\
-   $ "StoRes.Demand" []\
+   $ "StoRes.Demand" [] COMMENTED_BY "There is enough water; therefore, release can be set to be equal to Demand <br>"\
   ELSE\
-   "SolveOutflow"( % "StoRes", $ "StoRes.Inflow" [], "ElevationToStorage"( % "StoRes", 0.10000000 "ft" ), $ "StoRes.Storage" [@"t - 1"], @"t" )\
+   "SolveOutflow"( % "StoRes", $ "StoRes.Inflow" [], "ElevationToStorage"( % "StoRes", 0.10000000 "ft" ), $ "StoRes.Storage" [@"t - 1"], @"t" ) COMMENTED_BY "Set outflow such that the pool elevation is almost zero (i.e., set outflow to all available <br>water) <br>"\
   ENDIF\
  ENDIF;\
 \
@@ -1359,9 +1345,9 @@ BEGIN\
 \
       $ "StoRes.Release" [] := IF ( $ "StoRes.Storage" [@"t - 1"] + "FlowToVolume"( $ "StoRes.Inflow" [], @"t" ) >= $ "StoRes.VolCapacity" [] )\
  THEN\
-  "SolveOutflow"( % "StoRes", $ "StoRes.Inflow" [], $ "StoRes.VolCapacity" [], $ "StoRes.Storage" [@"t - 1"], @"t" )\
+  "SolveOutflow"( % "StoRes", $ "StoRes.Inflow" [], $ "StoRes.VolCapacity" [], $ "StoRes.Storage" [@"t - 1"], @"t" ) COMMENTED_BY "Release water to avoid overtopping <br>"\
  ELSE\
-  $ "StoRes.ZeroFlow" []\
+  $ "StoRes.ZeroFlow" [] COMMENTED_BY "Set the release to zero. Note that since this is the lowest priority rule, it must set a value <br>for the other rules to be able to continue <br>"\
  ENDIF;\
 \
     END\
@@ -1559,7 +1545,7 @@ $ws.rwScriptMgr rwScriptGroup {\
    <ScriptGroupName>All Scripts</ScriptGroupName>\
 </rwScriptGroup>\
 }
-# Show Script Manager On Model Load
+# Show Script Manager On Model Open
 $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
 <ShowScriptMgrOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1567,7 +1553,7 @@ $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
    <ResizeToTabs count="0"/>\
 </ShowScriptMgrOnModelLoad>\
 }
-# Run Script Group On Model Load
+# Run Script Group On Model Open
 $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 <RunScriptGroupOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1577,25 +1563,20 @@ $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 # Section: Object Attribute Manager
 Section {Object Attribute Manager}
 # Section: Object Attribute Set
-"$ws.objectAttribMgr" objectAttribSet { \
-<ObjAttributeSet/>}
+"$ws.objectAttribMgr" objectAttribSet {<ObjAttributeSet/>}
 # Section: Comparison Tool
-"$ws.comparisonTool" modelFilter {\
-<Filter Type="model">\
+"$ws.comparisonTool" modelFilter {<Filter Type="model">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
-"$ws.comparisonTool" rplFilter {\
-<Filter Type="rpl">\
+"$ws.comparisonTool" rplFilter {<Filter Type="rpl">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
 # Section: Window Layout Manager
-"$ws.windowLayoutManager" layouts {\
-<WindowLayouts/>}
+"$ws.windowLayoutManager" layouts {<WindowLayouts/>}
 # Section: Multi-Window Manager
-"$ws.multiWindowManager" multiWindows {\
-<MultiWindows/>}
+"$ws.multiWindowManager" multiWindows {<MultiWindows/>}
 # Section: END (successful completion)
 Section {Done}
 

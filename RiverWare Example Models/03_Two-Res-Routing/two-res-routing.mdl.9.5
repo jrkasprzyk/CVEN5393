@@ -1,5 +1,5 @@
-# RiverWare_Model 9.6.2
-# Created 12:57 March 11, 2026
+# RiverWare_Model 9.5
+# Created 15:05 July 28, 2025
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -36,7 +36,7 @@ ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {joka0958} {03-11-2026 12:57:42} {RiverWare 9.6.2} 
+$ws.Model.FileInfo saveInfo 1 {josep} {07-28-2025 15:05:45} {RiverWare 9.5} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
 $ws.Model.RunHistoryRecord 1 0 {RiverWare 9.5} {josep} \
@@ -163,7 +163,8 @@ $unitMgr scaledUnit 60 {VolumePerEnergy} 1 {m3/MWH}
 $unitMgr scaledUnit 61 {PowerPerTime} 1 {MW/s}
 $unitMgr end
 # Section: Unit Schemes
-"$ws.unitScheme" addUserScheme {<UnitScheme name="Scheme 1">\
+"$ws.unitScheme" addUserScheme {\
+<UnitScheme name="Scheme 1">\
  <Rule>\
   <Key keyType="UnitTypeKey" unitType="NONE"/>\
   <Attribs format="f" prec="2" unitType="NONE" units="NONE"/>\
@@ -421,11 +422,12 @@ set annoMgr "$ws.AnnoMgr"
 Section {Objects}
 set obj {Reservoir1}
 set o "$ws.Reservoir1"
-$ws SimObj $obj {StorageReservoir} 305 379 {} 231 249 231 249
+$ws SimObj $obj {StorageReservoir} 232 249 {} 231 249 231 249
 "$o" webMapCoords 231 249
 "$o" geospatialCoords 0 0 231 249
 "$o" UUID {a10d9c6d-58f7-4a8f-8b23-f3cf38f6faaa}
-"$o" objAttributes {<SimObjAttributes simObjName="Reservoir1"/>}
+"$o" objAttributes { \
+<SimObjAttributes simObjName="Reservoir1"/>}
 "$o" userDescript {Reservoir1 is designed with a dead pool, a normal release zone, and a flood control elevation above which there are releases from storage. This will be developed further in subsequent models. For now, we needed realistic hydrographs that could be used to show off the routing calculation.}
 "$o" objOrd wsList 5031
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
@@ -790,11 +792,12 @@ set s "$o.ConsPE"
 "$o" hideSlots 0 hideOff hideEmptyOff
 set obj {Reach for Routing}
 set o "$ws.Reach for Routing"
-$ws SimObj $obj {Reach} 429 330 {} 355 200 355 200
+$ws SimObj $obj {Reach} 355 200 {} 355 200 355 200
 "$o" webMapCoords 250 241
 "$o" geospatialCoords 0 0 355 200
 "$o" UUID {356176eb-8f71-4b6f-b528-cd25e08664b8}
-"$o" objAttributes {<SimObjAttributes simObjName="Reach for Routing"/>}
+"$o" objAttributes { \
+<SimObjAttributes simObjName="Reach for Routing"/>}
 "$o" userDescript {This reach is designed to perform a minimal example of the routing process. It's been tested with time lag and Muskingum methods.}
 "$o" objOrd wsList 5032
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
@@ -909,11 +912,12 @@ set s "$o.LagTime"
 "$o" hideSlots 0 hideOff hideEmptyOff
 set obj {Reservoir2}
 set o "$ws.Reservoir2"
-$ws SimObj $obj {StorageReservoir} 572 278 {} 503 145 503 145
+$ws SimObj $obj {StorageReservoir} 499 148 {} 503 145 503 145
 "$o" webMapCoords 272 231
 "$o" geospatialCoords 0 0 503 145
 "$o" UUID {59be1a94-bc31-414c-a22f-86f9cb3da589}
-"$o" objAttributes {<SimObjAttributes simObjName="Reservoir2"/>}
+"$o" objAttributes { \
+<SimObjAttributes simObjName="Reservoir2"/>}
 "$o" userDescript {This model is currently designed to demonstrate how the flow from Reservoir1 gets transformed when it is routed through the Reach. Therefore Reservoir2 isn't really doing anything yet.}
 "$o" objOrd wsList 5033
 "$o" objSlotOrderType ListOrder_DEFAULT 0 Ascend
@@ -1225,14 +1229,6 @@ set obj {Reservoir2}
 set o "$ws.Reservoir2"
 # Section: Workspace Ornaments
 Section {Workspace Ornaments}
-$ws OrnMgr ornamentObj {<Ornament createType="T">\
- <ImageRef id="-1" type="ImageTypeNone"/>\
- <Canvas id="SIMULATION" show="1" x="192" y="6019"/>\
- <Canvas id="ACCOUNTING" show="0" x="0" y="0"/>\
- <Frame show="0"/>\
- <DisplayText>This example shows what it looks like when Muskingum Routing is used between two reservoirs.</DisplayText>\
- <TooltipText></TooltipText>\
-</Ornament>}
 Section {Links}
 # Section: Links
 $ws Link {Reservoir1.Outflow} {Reach for Routing.Inflow} 
@@ -1349,19 +1345,19 @@ Section {Output Device Manager}
 $ws.outputDeviceMgr addPlotPage {Mass Balance}
 set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Mass Balance"
 "$plotpage" description {}
-"$plotpage" layout 2 1
+"$plotpage" layout 3 1
 "$plotpage" PlotPrintHdrCfg TopLeft ContType_PlotName {}
 "$plotpage" PlotPrintHdrCfg TopRight ContType_ModelName {}
 "$plotpage" PlotPrintHdrCfg BottomLeft ContType_ModelSaveDate {}
 "$plotpage" PlotPrintHdrCfg BottomRight ContType_PrintDate {}
 "$plotpage" plot 0
 set plot "$plotpage.0"
-"$plot" state {Upper Reservoir} 4294967295 1 0
-"$plot" axis {yLeft} {Flow (af/day)} {acre-ft/day} 0 0 1200 f 0 8 5 1 1 {Flow (af/day)} 0 0 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" state {} 4294967295 1 0
+"$plot" axis {yLeft} {} {cms} 0 -1000 1500 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {} {FullDateTime} 0 2460767.5 2460797.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Fixed" unitType="Flow" fixedScale="1" fixedUnit="acre-ft/day"/>} 
+"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Flow" fixedScale="1" fixedUnit="acre-ft/day"/>} 
 "$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
 "$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
  <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
@@ -1378,8 +1374,18 @@ set plot "$plotpage.0"
 "$plot" grid {major} {Dot} 1 4290822336 1 1
 "$plot" grid {minor} {NoPen} 1 4290822336 0 0
 "$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {Inflow}
-set curve "$plot.Inflow"
+"$plot" curve {Reservoir1.Release}
+set curve "$plot.Reservoir1.Release"
+"$curve" legendOrd -1
+"$curve" layerOrd -1
+"$curve" showInLegend 1
+"$curve" style {Lines} 
+"$curve" lineInfo {Solid} 2 4294901760
+"$curve" symbolInfo {None} 0 4278190080
+"$curve" yAxis left
+"$curve" slots 0 {} {Reservoir1.Release} -1 0 -1 0
+"$plot" curve {Reservoir1.Inflow}
+set curve "$plot.Reservoir1.Inflow"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1388,8 +1394,18 @@ set curve "$plot.Inflow"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {Reservoir1.Inflow} -1 0 -1 0
-"$plot" curve {Outflow}
-set curve "$plot.Outflow"
+"$plot" curve {Reservoir1.Spill}
+set curve "$plot.Reservoir1.Spill"
+"$curve" legendOrd -1
+"$curve" layerOrd -1
+"$curve" showInLegend 1
+"$curve" style {Lines} 
+"$curve" lineInfo {Solid} 2 4294902015
+"$curve" symbolInfo {None} 0 4278190080
+"$curve" yAxis left
+"$curve" slots 0 {} {Reservoir1.Spill} -1 0 -1 0
+"$plot" curve {Reservoir1.Outflow}
+set curve "$plot.Reservoir1.Outflow"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1398,16 +1414,26 @@ set curve "$plot.Outflow"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {Reservoir1.Outflow} -1 0 -1 0
+"$plot" curve {Reservoir1.Unregulated Spill}
+set curve "$plot.Reservoir1.Unregulated Spill"
+"$curve" legendOrd -1
+"$curve" layerOrd -1
+"$curve" showInLegend 1
+"$curve" style {Lines} 
+"$curve" lineInfo {Solid} 2 4289331455
+"$curve" symbolInfo {None} 0 4278190080
+"$curve" yAxis left
+"$curve" slots 0 {} {Reservoir1.Unregulated Spill} -1 0 -1 0
 "$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plotpage" plot 3
 set plot "$plotpage.3"
-"$plot" state {Upper Reservoir} 4294967295 1 0
-"$plot" axis {yLeft} {Pool Elevation (ft)} {ft} 0 600 760 f 0 8 5 1 1 {Pool Elevation (ft)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" state {} 4294967295 1 0
+"$plot" axis {yLeft} {} {m} 0 550 750 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 550 610 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {} {FullDateTime} 0 2460767.5 2460797.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Fixed" unitType="Length" fixedScale="1" fixedUnit="ft"/>} 
+"$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Length" fixedScale="1" fixedUnit="ft"/>} 
 "$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
 "$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval="year">\
  <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
@@ -1424,8 +1450,8 @@ set plot "$plotpage.3"
 "$plot" grid {major} {Dot} 1 4290822336 1 1
 "$plot" grid {minor} {NoPen} 1 4290822336 0 0
 "$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {Pool Elevation}
-set curve "$plot.Pool Elevation"
+"$plot" curve {Reservoir1.Pool Elevation}
+set curve "$plot.Reservoir1.Pool Elevation"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1434,8 +1460,8 @@ set curve "$plot.Pool Elevation"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {Reservoir1.Pool Elevation} -1 0 -1 0
-"$plot" curve {Dead Pool}
-set curve "$plot.Dead Pool"
+"$plot" curve {Reservoir1.DeadPE}
+set curve "$plot.Reservoir1.DeadPE"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1444,8 +1470,8 @@ set curve "$plot.Dead Pool"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 5 {} {Reservoir1.DeadPE} -1 0 -1 0
-"$plot" curve {Conservation Level}
-set curve "$plot.Conservation Level"
+"$plot" curve {Reservoir1.ConsPE}
+set curve "$plot.Reservoir1.ConsPE"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1454,8 +1480,8 @@ set curve "$plot.Conservation Level"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 5 {} {Reservoir1.ConsPE} -1 0 -1 0
-"$plot" curve {Flood Level}
-set curve "$plot.Flood Level"
+"$plot" curve {Reservoir1.FloodPE}
+set curve "$plot.Reservoir1.FloodPE"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1466,24 +1492,16 @@ set curve "$plot.Flood Level"
 "$curve" slots 5 {} {Reservoir1.FloodPE} -1 0 -1 0
 "$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-$ws.outputDeviceMgr addPlotPage {Routed Flow Through Reach}
-set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Routed Flow Through Reach"
-"$plotpage" description {}
-"$plotpage" layout 1 1
-"$plotpage" PlotPrintHdrCfg TopLeft ContType_PlotName {}
-"$plotpage" PlotPrintHdrCfg TopRight ContType_ModelName {}
-"$plotpage" PlotPrintHdrCfg BottomLeft ContType_ModelSaveDate {}
-"$plotpage" PlotPrintHdrCfg BottomRight ContType_PrintDate {}
-"$plotpage" plot 0
-set plot "$plotpage.0"
-"$plot" state {Routed Flow Through Reach} 4294967295 1 0
-"$plot" axis {yLeft} {} {acre-ft/day} 0 0 1000 1 2 8 5 0 0 {} 1 1 1 {} {} NaN NaN {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {yRight} {} {} 0 0 1000 1 0 8 5 0 0 {} 1 1 1 {} {} NaN NaN {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xBottom} {} {FullDateTime} 0 2460767.5 2460797.5 D 23 8 5 0 0 {} 1 1 1 {} {} NaN NaN {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" axis {xTop} {} {} 0 0 1000 1 0 8 5 0 0 {} 1 1 1 {} {} NaN NaN {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plotpage" plot 6
+set plot "$plotpage.6"
+"$plot" state {} 4294967295 1 0
+"$plot" axis {yLeft} {} {cms} 0 -999.99998509883903 999.99998509883903 f 2 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yRight} {} {} 0 7.4505805969238281e-06 999.9999925494194 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {xBottom} {} {FullDateTime} 0 2460767.5000002235 2460797.4999997765 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {xTop} {} {} 0 7.4505805969238281e-06 999.9999925494194 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axisUnitInfo {yLeft} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="Flow" fixedScale="1" fixedUnit="acre-ft/day"/>} 
 "$plot" axisUnitInfo {xBottom} {<AxisUnitInfo unitMode="UnitMode_Slots" unitType="DateTime" fixedScale="1" fixedUnit="FullDateTime"/>} 
-"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="." variedInterval=".">\
+"$plot" axisDateFormat {xBottom} {<DateLabelInfo algorithm="auto" variedInterval="day">\
  <DateFormatVar dateFmt1="M_DD_YYYY_HH_mm" name="fixedFmt"/>\
  <DateFormatVar dateFmt1="M_DD_YYYY" name="variedBeginFmt"/>\
  <DateFormatVar dateFmt1="HH_mm" name="variedOtherFmt"/>\
@@ -1498,8 +1516,8 @@ set plot "$plotpage.0"
 "$plot" grid {major} {Dot} 1 4290822336 1 1
 "$plot" grid {minor} {NoPen} 1 4290822336 0 0
 "$plot" gridAxes {xBottom} {yLeft}
-"$plot" curve {Inflow to Reach}
-set curve "$plot.Inflow to Reach"
+"$plot" curve {Reach for Routing.Inflow}
+set curve "$plot.Reach for Routing.Inflow"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
@@ -1508,22 +1526,18 @@ set curve "$plot.Inflow to Reach"
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {Reach for Routing.Inflow} -1 0 -1 0
-"$plot" curve {Outflow from Reach}
-set curve "$plot.Outflow from Reach"
+"$plot" curve {Reach for Routing.Outflow}
+set curve "$plot.Reach for Routing.Outflow"
 "$curve" legendOrd -1
 "$curve" layerOrd -1
 "$curve" showInLegend 1
 "$curve" style {Lines} 
-"$curve" lineInfo {Solid} 2 4294923520
+"$curve" lineInfo {Solid} 2 4294945407
 "$curve" symbolInfo {None} 0 4278190080
 "$curve" yAxis left
 "$curve" slots 0 {} {Reach for Routing.Outflow} -1 0 -1 0
-"$plot" titleFont {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-"$plot" legendFont {Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
-# Section: Plotting Settings
-useModelDefaultCurveConfigs 0
-ordinalCurveConfigs {<CurveConfigs><CurveConfig curveStyle="UnitBased" lineColor="#000000" lineStyle="Solid" lineWidth="2" order="0" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800000" lineStyle="Solid" lineWidth="2" order="1" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008000" lineStyle="Solid" lineWidth="2" order="2" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#000080" lineStyle="Solid" lineWidth="2" order="3" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#008080" lineStyle="Solid" lineWidth="2" order="4" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#800080" lineStyle="Solid" lineWidth="2" order="5" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808000" lineStyle="Solid" lineWidth="2" order="6" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff0000" lineStyle="Solid" lineWidth="2" order="7" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ff00" lineStyle="Solid" lineWidth="2" order="8" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#0000ff" lineStyle="Solid" lineWidth="2" order="9" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#00ffff" lineStyle="Solid" lineWidth="2" order="10" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ff00ff" lineStyle="Solid" lineWidth="2" order="11" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#ffff00" lineStyle="Solid" lineWidth="2" order="12" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#a0a0a4" lineStyle="Solid" lineWidth="2" order="13" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/><CurveConfig curveStyle="UnitBased" lineColor="#808080" lineStyle="Solid" lineWidth="2" order="14" showInLegend="true" symbolColor="#000000" symbolSize="0" symbolStyle="None"/></CurveConfigs>}
-labelCurveConfigs {<CurveConfigs/>}
+"$plot" titleFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" legendFont {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 $ws collectRBSRunAnalysisInfo 1
 $ws collectRPLPerformanceInfo 1
 $ws RPLUseOldUnitsBehavior 0
@@ -1828,7 +1842,7 @@ $ws.rwScriptMgr rwScriptGroup {\
    <ScriptGroupName>All Scripts</ScriptGroupName>\
 </rwScriptGroup>\
 }
-# Show Script Manager On Model Open
+# Show Script Manager On Model Load
 $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
 <ShowScriptMgrOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1836,7 +1850,7 @@ $ws.rwScriptMgr rwShowScriptMgrOnModelLoad {\
    <ResizeToTabs count="0"/>\
 </ShowScriptMgrOnModelLoad>\
 }
-# Run Script Group On Model Open
+# Run Script Group On Model Load
 $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 <RunScriptGroupOnModelLoad>\
    <YesOrNo>false</YesOrNo>\
@@ -1846,20 +1860,25 @@ $ws.rwScriptMgr rwRunScriptGroupOnModelLoad {\
 # Section: Object Attribute Manager
 Section {Object Attribute Manager}
 # Section: Object Attribute Set
-"$ws.objectAttribMgr" objectAttribSet {<ObjAttributeSet/>}
+"$ws.objectAttribMgr" objectAttribSet { \
+<ObjAttributeSet/>}
 # Section: Comparison Tool
-"$ws.comparisonTool" modelFilter {<Filter Type="model">\
+"$ws.comparisonTool" modelFilter {\
+<Filter Type="model">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
-"$ws.comparisonTool" rplFilter {<Filter Type="rpl">\
+"$ws.comparisonTool" rplFilter {\
+<Filter Type="rpl">\
     <OnlyDifferences Value="true"/>\
     <MatchSpecs/>\
 </Filter>}
 # Section: Window Layout Manager
-"$ws.windowLayoutManager" layouts {<WindowLayouts/>}
+"$ws.windowLayoutManager" layouts {\
+<WindowLayouts/>}
 # Section: Multi-Window Manager
-"$ws.multiWindowManager" multiWindows {<MultiWindows/>}
+"$ws.multiWindowManager" multiWindows {\
+<MultiWindows/>}
 # Section: END (successful completion)
 Section {Done}
 
