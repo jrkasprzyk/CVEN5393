@@ -1,0 +1,33 @@
+Version: 2.0
+
+Alternatives: &alternatives
+    Steak:
+        Taste: 10
+        Healthy: 1
+    Big Salad:
+        Taste: 8
+        Healthy: 3
+    Pasta:
+        Taste: 5
+        Healthy: 5
+Goal:
+    name: Choose what's for dinner
+    author: me
+    preferences:
+        pairwise:
+            - [Taste, Healthy, 3]
+    children:
+        Taste:
+            preferences:
+                pairwise:
+                    - [Steak, Big Salad, 5]
+                    - [Steak, Pasta, 1]
+                    - [Big Salad, Pasta, 1/3]
+            children: *alternatives
+        Healthy:
+            preferences:
+                pairwise:
+                    - [Steak, Big Salad, 1/5]
+                    - [Steak, Pasta, 3]
+                    - [Big Salad, Pasta, 3]
+            children: *alternatives
