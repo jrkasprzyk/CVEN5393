@@ -17,9 +17,12 @@ st.caption("Accepts the [gluc/ahp](https://github.com/gluc/ahp) YAML file format
 # ── Helper: parse pairwise list from gluc/ahp YAML ───────────────────────────
 def parse_fraction(value):
     """Convert '1/3' strings or numeric values to float."""
-    if isinstance(value, str) and '/' in value:
-        return float(Fraction(value))
-    return float(value)
+    try:
+        if isinstance(value, str) and '/' in value:
+            return float(Fraction(value))
+        return float(value)
+    except (ValueError, ZeroDivisionError) as e:
+        raise ValueError(f"Invalid comparison value '{value}': {e}")
 
 def extract_comparisons(pairwise_list):
     """
@@ -30,9 +33,15 @@ def extract_comparisons(pairwise_list):
     If B preferred over A, gluc uses 1/3 for [A,B,1/3], which ahpy also expects < 1.
     """
     comparisons = {}
-    for row in pairwise_list:
+    for i, row in enumerate(pairwise_list):
+        if not isinstance(row, (list, tuple)) or len(row) != 3:
+            raise ValueError(f"Invalid pairwise entry at index {i}: '{row}'. Expected [ItemA, ItemB, value].")
         a, b, val = row[0], row[1], row[2]
-        comparisons[(str(a), str(b))] = parse_fraction(val)
+        parsed_val = parse_fraction(val)
+        # Validate AHP scale (typically 1-9 or reciprocals)
+        if parsed_val <= 0 or parsed_val > 9:
+            st.warning(f"⚠️ Pairwise value {parsed_val} is outside typical AHP scale (1-9). Results may be unreliable.")
+        comparisons[(str(a), str(b))] = parsed_val
     return comparisons
 
 def build_ahpy_model(goal_node, parent_name=None):
@@ -48,10 +57,13 @@ def build_ahpy_model(goal_node, parent_name=None):
     prefs = goal_node.get("preferences", {})
     pairwise = prefs.get("pairwise", []) if prefs else []
 
-    if pairwise and children:
-        comparisons = extract_comparisons(pairwise)
-        compare = ahpy.Compare(name=name, comparisons=comparisons)
-        results.append(compare)
+    if children:
+        if not pairwise:
+            st.warning(f"⚠️ Node '{name}' has children but no pairwise comparisons. Skipping.")
+        else:
+            comparisons = extract_comparisons(pairwise)
+            compare = ahpy.Compare(name=name, comparisons=comparisons)
+            results.append(compare)
 
         # Recurse into children
         for child_name, child_node in children.items():
@@ -70,7 +82,10 @@ yaml_text = ""
 if input_mode == "Upload .ahp file":
     uploaded = st.sidebar.file_uploader("Upload your .ahp file", type=["ahp", "yaml", "yml"])
     if uploaded:
-        yaml_text = uploaded.read().decode("utf-8")
+        try:
+            yaml_text = uploaded.read().decode("utf-8")
+        except UnicodeDecodeError:
+            st.sidebar.error("❌ File must be UTF-8 encoded. Please check your file encoding.")
 
 elif input_mode == "Paste YAML":
     yaml_text = st.sidebar.text_area("Paste YAML here", height=300)
@@ -202,7 +217,7 @@ if yaml_text.strip():
                  "Weight": [f"{v:.4f}" for v in crit_weights.values()],
                  "Weight %": [f"{v*100:.1f}%" for v in crit_weights.values()]}
             ).sort_values("Weight %", ascending=False).reset_index(drop=True)
-            st.dataframe(crit_df, use_container_width=True, hide_index=True)
+            st.dataframe(crit_df, width='stretch', hide_index=True)
 
             cr = compares[0].consistency_ratio
             if cr is not None:
@@ -214,14 +229,21 @@ if yaml_text.strip():
 
         with col2:
             st.markdown("### Global Alternative Rankings")
-            global_weights = target.global_weights
+            # Compute global weights for alternatives by aggregating across criteria
+            alt_weights = {}
+            if children_compares:
+                for criterion in children_compares:
+                    crit_weight = crit_weights.get(criterion.name, 0)
+                    # Get local weights of alternatives within this criterion
+                    alt_local_weights = criterion.local_weights
+                    for alt_name, alt_local_weight in alt_local_weights.items():
+                        if alt_name not in alt_weights:
+                            alt_weights[alt_name] = 0
+                        alt_weights[alt_name] += crit_weight * alt_local_weight
+            
             # Filter to only the declared alternatives
             if alternative_names:
-                alt_weights = {k: v for k, v in global_weights.items() if k in alternative_names}
-            else:
-                # Fallback: exclude criteria names if no Alternatives key found
-                criteria_names = set(crit_weights.keys())
-                alt_weights = {k: v for k, v in global_weights.items() if k not in criteria_names}
+                alt_weights = {k: v for k, v in alt_weights.items() if k in alternative_names}
 
             if alt_weights:
                 alt_df = pd.DataFrame(
@@ -230,7 +252,7 @@ if yaml_text.strip():
                      "Score %": [f"{v*100:.1f}%" for v in alt_weights.values()]}
                 ).sort_values("Score %", ascending=False).reset_index(drop=True)
                 alt_df.index = alt_df.index + 1  # rank from 1
-                st.dataframe(alt_df, use_container_width=True)
+                st.dataframe(alt_df, width='stretch')
 
                 winner = alt_df.iloc[0]["Alternative"]
                 st.success(f"🏆 Recommended choice: **{winner}**")
@@ -248,7 +270,7 @@ if yaml_text.strip():
                     "Consistency Ratio": f"{cr_val:.4f}" if cr_val is not None else "N/A",
                     "Status": "✅ OK" if (cr_val is not None and cr_val <= 0.1) else ("⚠️ High" if cr_val is not None else "—")
                 })
-            st.dataframe(pd.DataFrame(cr_rows), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(cr_rows), width='stretch', hide_index=True)
 
         # Raw YAML preview
         with st.expander("View parsed YAML"):
