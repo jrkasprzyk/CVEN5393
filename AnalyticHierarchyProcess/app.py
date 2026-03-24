@@ -165,6 +165,10 @@ if yaml_text.strip():
             st.error("Could not find a 'Goal' key in the YAML. Please check your file.")
             st.stop()
 
+        # Read alternative names directly from the top-level Alternatives key
+        alternatives_data = data.get("Alternatives", data.get("alternatives", {})) or {}
+        alternative_names = set(str(k) for k in alternatives_data.keys())
+
         # Build ahpy Compare objects
         compares = build_ahpy_model(goal)
 
@@ -206,9 +210,13 @@ if yaml_text.strip():
         with col2:
             st.markdown("### Global Alternative Rankings")
             global_weights = target.global_weights
-            # Filter to only leaf nodes (alternatives, not criteria)
-            criteria_names = set(crit_weights.keys())
-            alt_weights = {k: v for k, v in global_weights.items() if k not in criteria_names}
+            # Filter to only the declared alternatives
+            if alternative_names:
+                alt_weights = {k: v for k, v in global_weights.items() if k in alternative_names}
+            else:
+                # Fallback: exclude criteria names if no Alternatives key found
+                criteria_names = set(crit_weights.keys())
+                alt_weights = {k: v for k, v in global_weights.items() if k not in criteria_names}
 
             if alt_weights:
                 alt_df = pd.DataFrame(
