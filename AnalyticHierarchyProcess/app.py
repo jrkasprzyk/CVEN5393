@@ -169,6 +169,11 @@ if yaml_text.strip():
         alternatives_data = data.get("Alternatives", data.get("alternatives", {})) or {}
         alternative_names = set(str(k) for k in alternatives_data.keys())
 
+        if not alternative_names:
+            st.error("Could not find an 'Alternatives' key in the YAML, or it was empty.")
+            st.info(f"Top-level keys found in your YAML: {list(data.keys())}")
+            st.stop()
+
         # Build ahpy Compare objects
         compares = build_ahpy_model(goal)
 
