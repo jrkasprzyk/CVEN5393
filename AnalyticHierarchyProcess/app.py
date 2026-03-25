@@ -106,40 +106,64 @@ def parse_pairwise_function(func_code, alternatives_data, criterion_name):
     alt_names = list(alternatives_data.keys())
     comparisons = {}
     
-    try:
-        for i, alt1 in enumerate(alt_names):
-            for alt2 in alt_names[i+1:]:  # Only compare each pair once
-                # Safe evaluation context
-                local_scope = {
-                    'a1': alt1,
-                    'a2': alt2,
+    pair_errors = []
+
+    for i, alt1 in enumerate(alt_names):
+        for alt2 in alt_names[i+1:]:  # Only compare each pair once
+            # Safe evaluation context
+            local_scope = {
+                'a1': alt1,
+                'a2': alt2,
+                'alternatives_data': alternatives_data,
+                'min': min,
+                'max': max,
+            }
+
+            value = None
+            try:
+                value = eval(body, {"__builtins__": {}}, local_scope)
+            except Exception:
+                # Fallback: evaluate reversed pair then invert.
+                reverse_scope = {
+                    'a1': alt2,
+                    'a2': alt1,
                     'alternatives_data': alternatives_data,
                     'min': min,
                     'max': max,
                 }
-                
                 try:
-                    value = eval(body, {"__builtins__": {}}, local_scope)
-                    
-                    # Handle potential numerical issues
-                    if not isinstance(value, (int, float)):
-                        raise ValueError(f"Function must return a number, got {type(value)}")
-                    
-                    # Check for NaN, infinity
-                    if not (0 < value < float('inf')):
-                        raise ValueError(f"Invalid comparison value: {value}")
-                    
-                    value = parse_fraction(value)
-                    
-                    if value <= 0 or value > 9:
-                        st.warning(
-                            f"⚠️ Pairwise value {value} (from {alt1} vs {alt2}) is outside AHP scale.")
-                    
-                    comparisons[(str(alt1), str(alt2))] = value
+                    reverse_value = eval(body, {"__builtins__": {}}, reverse_scope)
+                    reverse_value = float(reverse_value)
+                    if reverse_value > 0:
+                        value = 1.0 / reverse_value
                 except Exception as e:
-                    raise ValueError(f"Error computing {alt1} vs {alt2}: {e}")
-    except Exception as e:
-        raise ValueError(f"Error evaluating pairwiseFunction: {e}")
+                    pair_errors.append(f"{alt1} vs {alt2}: {e}")
+                    continue
+
+            try:
+                if not isinstance(value, (int, float)):
+                    raise ValueError(f"Function must return a number, got {type(value)}")
+
+                if not (0 < value < float('inf')):
+                    raise ValueError(f"Invalid comparison value: {value}")
+
+                value = parse_fraction(value)
+
+                if value <= 0 or value > 9:
+                    st.warning(
+                        f"⚠️ Pairwise value {value} (from {alt1} vs {alt2}) is outside AHP scale.")
+
+                comparisons[(str(alt1), str(alt2))] = value
+            except Exception as e:
+                pair_errors.append(f"{alt1} vs {alt2}: {e}")
+
+    if not comparisons:
+        raise ValueError(
+            f"Error evaluating pairwiseFunction: no valid comparisons generated for '{criterion_name}'.")
+
+    if pair_errors:
+        st.warning(
+            f"⚠️ Some pairwiseFunction pairs in '{criterion_name}' were skipped: {len(pair_errors)} pair(s).")
     
     return comparisons
 
@@ -168,13 +192,12 @@ def extract_comparisons(pairwise_list):
     return comparisons
 
 
-def build_ahpy_model(goal_node, alternatives_data=None, parent_name=None):
+def build_ahpy_model(goal_node, alternatives_data=None, parent_name=None, collector=None):
     """
     Recursively walk the gluc/ahp goal tree and build ahpy Compare objects.
     Supports both 'pairwise' (list) and 'pairwiseFunction' (R code) formats.
-    Returns a list of Compare objects.
+    Returns the root Compare object with children properly attached.
     """
-    results = []
     name = goal_node.get("name", parent_name or "Goal")
 
     # Criteria-level pairwise (children comparisons)
@@ -184,6 +207,11 @@ def build_ahpy_model(goal_node, alternatives_data=None, parent_name=None):
     pairwise = prefs.get("pairwise", []) if prefs else []
     pairwise_func = prefs.get("pairwiseFunction") if prefs else None
 
+    if collector is None:
+        collector = []
+
+    compare_obj = None
+    
     if children:
         comparisons = None
         
@@ -199,13 +227,13 @@ def build_ahpy_model(goal_node, alternatives_data=None, parent_name=None):
                 comparisons = parse_pairwise_function(pairwise_func, alternatives_data, name)
             except Exception as e:
                 st.error(f"Error parsing pairwiseFunction for '{name}': {e}")
-                return results
+                return None
         elif pairwise:
             try:
                 comparisons = extract_comparisons(pairwise)
             except Exception as e:
                 st.error(f"Error parsing pairwise comparisons for '{name}': {e}")
-                return results
+                return None
         else:
             st.warning(
                 f"⚠️ Node '{name}' has children but no comparison method specified. "
@@ -223,19 +251,43 @@ def build_ahpy_model(goal_node, alternatives_data=None, parent_name=None):
                 st.warning(f"⚠️ Some children of '{name}' are not compared: {missing_items}")
             
             try:
-                compare = ahpy.Compare(name=name, comparisons=comparisons)
-                results.append(compare)
+                compare_obj = ahpy.Compare(name=name, comparisons=comparisons)
+                collector.append(compare_obj)
             except Exception as e:
                 st.error(f"Error creating AHP comparison for '{name}': {e}")
-                return results
+                return None
 
-        # Recurse into children
-        for child_name, child_node in children.items():
-            if isinstance(child_node, dict) and "preferences" in child_node:
-                child_node["name"] = child_name
-                results.extend(build_ahpy_model(child_node, alternatives_data, child_name))
+        # Recurse into children and build child Compare objects.
+        # Only descend into nodes that are actually compared at this level.
+        child_compares = []
+        if comparisons:
+            compared_items = set()
+            for a, b in comparisons.keys():
+                compared_items.add(a)
+                compared_items.add(b)
 
-    return results
+            for child_name in compared_items:
+                child_node = children.get(child_name)
+                if isinstance(child_node, dict) and "preferences" in child_node:
+                    child_node_copy = child_node.copy()
+                    child_node_copy["name"] = child_name
+                    child_compare = build_ahpy_model(
+                        child_node_copy, alternatives_data, child_name, collector)
+                    if child_compare is not None:
+                        child_compares.append(child_compare)
+
+        # Add child Compare objects to this Compare object.
+        # Some ahpy versions may return a new Compare object instead of mutating in place.
+        if compare_obj is not None and child_compares:
+            try:
+                maybe_updated = compare_obj.add_children(child_compares)
+                if maybe_updated is not None:
+                    compare_obj = maybe_updated
+            except Exception as e:
+                st.error(f"Error attaching child comparisons to '{name}': {e}")
+                return compare_obj
+
+    return compare_obj
 
 
 def get_yaml_input():
@@ -379,21 +431,60 @@ if yaml_text.strip():
             st.stop()
 
         # Build ahpy Compare objects
-        compares = build_ahpy_model(goal, alternatives_data)
+        compare_catalog = []
+        root_compare = build_ahpy_model(goal, alternatives_data, collector=compare_catalog)
 
-        if not compares:
+        if root_compare is None:
             st.error(
                 "No pairwise comparisons found. "
                 "Check that your YAML has 'preferences:' sections with either "
                 " 'pairwise:' or 'pairwiseFunction:'.")
             st.stop()
 
-        # Link children to parent
-        # The first compare is the top-level goal; subsequent ones are criteria
-        target = compares[0]
-        children_compares = compares[1:]
-        if children_compares:
-            target.add_children(children_compares)
+        # The root_compare now has all children properly attached (when supported by ahpy)
+        compares = [root_compare]
+
+        # Prefer the explicit catalog of created Compare objects.
+        # Fallback to root-only list if nothing was collected.
+        all_compares = compare_catalog if compare_catalog else [root_compare]
+        
+        # Remove the root compare from all_compares for consistency ratios
+        children_and_intermediate_compares = all_compares[1:]
+
+        compare_by_name = {c.name: c for c in all_compares}
+
+        def collect_alternative_weights_from_yaml(goal_subtree, path_weight=1.0):
+            """Accumulate alternative weights by traversing YAML hierarchy with Compare lookup."""
+            alt_totals = {}
+            leaf_weight_sum = 0.0
+
+            node_name = goal_subtree.get("name")
+            node_compare = compare_by_name.get(node_name)
+            if node_compare is None:
+                return alt_totals, leaf_weight_sum
+
+            # Leaf Compare that ranks alternatives
+            if node_compare.local_weights and any(k in alternative_names for k in node_compare.local_weights.keys()):
+                leaf_weight_sum += path_weight
+                for alt_name, alt_local_weight in node_compare.local_weights.items():
+                    if alt_name in alternative_names:
+                        alt_totals[alt_name] = alt_totals.get(alt_name, 0.0) + path_weight * alt_local_weight
+                return alt_totals, leaf_weight_sum
+
+            # Internal criteria node: recurse through YAML children that are criteria
+            children = goal_subtree.get("children", {}) or {}
+            for child_name, child_node in children.items():
+                if isinstance(child_node, dict) and "preferences" in child_node:
+                    child_weight = node_compare.local_weights.get(child_name, 0.0)
+                    child_subtree = child_node.copy()
+                    child_subtree["name"] = child_name
+                    child_alt_totals, child_leaf_sum = collect_alternative_weights_from_yaml(
+                        child_subtree, path_weight * child_weight)
+                    leaf_weight_sum += child_leaf_sum
+                    for alt_name, alt_val in child_alt_totals.items():
+                        alt_totals[alt_name] = alt_totals.get(alt_name, 0.0) + alt_val
+
+            return alt_totals, leaf_weight_sum
 
         # ── Results ──────────────────────────────────────────────────────────
         goal_name = goal.get("name", "Goal")
@@ -434,21 +525,10 @@ if yaml_text.strip():
         # Right column: displays the overall rankings of alternatives based on their global weights
         with col2:
             st.markdown("### Global Alternative Rankings")
-            # Compute global weights for alternatives by aggregating across criteria
-            alt_weights = {}
-            total_criteria_weight = 0
-            
-            if children_compares:
-                for criterion in children_compares:
-                    crit_weight = crit_weights.get(criterion.name, 0)
-                    total_criteria_weight += crit_weight
-                    
-                    # Get local weights of alternatives within this criterion
-                    alt_local_weights = criterion.local_weights
-                    for alt_name, alt_local_weight in alt_local_weights.items():
-                        if alt_name not in alt_weights:
-                            alt_weights[alt_name] = 0
-                        alt_weights[alt_name] += crit_weight * alt_local_weight
+            # Compute global weights for alternatives by traversing YAML criteria tree
+            goal_for_weights = goal.copy()
+            goal_for_weights["name"] = goal_name
+            alt_weights, total_criteria_weight = collect_alternative_weights_from_yaml(goal_for_weights, 1.0)
 
             # Validate that weights sum to approximately 1 (within numerical precision)
             if abs(total_criteria_weight - 1.0) > 1e-6:
@@ -466,59 +546,194 @@ if yaml_text.strip():
                 
                 # Sort alternatives by weight (highest first) BEFORE formatting
                 sorted_alts = sorted(alt_weights.items(), key=lambda x: x[1], reverse=True)
-                alt_df = pd.DataFrame(
-                    {"Alternative": [a[0] for a in sorted_alts],
-                     "Global Weight": [f"{a[1]:.4f}" for a in sorted_alts],
-                     "Score %": [f"{a[1]*100:.1f}%" for a in sorted_alts]}
-                ).reset_index(drop=True)
-                alt_df.index = alt_df.index + 1  # rank from 1
-                st.dataframe(alt_df, width='stretch')
+                
+                if sorted_alts:
+                    alt_df = pd.DataFrame(
+                        {"Alternative": [a[0] for a in sorted_alts],
+                         "Global Weight": [f"{a[1]:.4f}" for a in sorted_alts],
+                         "Score %": [f"{a[1]*100:.1f}%" for a in sorted_alts]}
+                    ).reset_index(drop=True)
+                    alt_df.index = alt_df.index + 1  # rank from 1
+                    st.dataframe(alt_df, width='stretch')
+                    st.caption("Note: Small deviations from 1.0 are expected due to floating-point rounding.")
 
-                winner = alt_df.iloc[0]["Alternative"]
-                st.success(f"🏆 Recommended choice: **{winner}**")
+                    winner = alt_df.iloc[0]["Alternative"]
+                    st.success(f"🏆 Recommended choice: **{winner}**")
+                else:
+                    st.warning("⚠️ No alternative weights were calculated. Check that alternatives are properly compared in all leaf criteria.")
             else:
                 st.info(
                     "No separate alternatives detected — showing criteria weights only.")
 
-        # Per-criterion consistency ratios (ordered same as Criteria Weights table)
-        if children_compares:
+        # Per-criterion consistency ratios
+        if children_and_intermediate_compares:
             st.markdown("### Per-Criterion Consistency Ratios")
             cr_rows = []
             # Build a dict of consistency ratios keyed by criterion name
-            cr_dict = {c.name: c.consistency_ratio for c in children_compares}
-            # Iterate in same order as Criteria Weights table
-            for crit_name in sorted_criteria_order:
-                if crit_name in cr_dict:
-                    cr_val = cr_dict[crit_name]
-                    if cr_val is not None:
-                        # Validate consistency ratio is reasonable
-                        if not isinstance(cr_val, (int, float)) or isnan(cr_val) or isinf(cr_val):
-                            status = "❌ Invalid"
-                            cr_ratio_display = "Error"
-                        elif cr_val < 0.001:
-                            status = "✅ Excellent (less than 0.001)"
-                            cr_ratio_display = f"{cr_val:.4f}"
-                        elif cr_val <= 0.10:
-                            status = "✅ Good (less than or equal to 0.10)"
-                            cr_ratio_display = f"{cr_val:.4f}"
-                        else:
-                            status = "⚠️ Poor (greater than 0.10)"
-                            cr_ratio_display = f"{cr_val:.4f}"
+            cr_dict = {c.name: c.consistency_ratio for c in children_and_intermediate_compares}
+            # Sort criteria by name for consistent ordering
+            sorted_criteria_names = sorted(cr_dict.keys())
+            
+            for crit_name in sorted_criteria_names:
+                cr_val = cr_dict[crit_name]
+                if cr_val is not None:
+                    # Validate consistency ratio is reasonable
+                    if not isinstance(cr_val, (int, float)) or isnan(cr_val) or isinf(cr_val):
+                        status = "❌ Invalid"
+                        cr_ratio_display = "Error"
+                    elif cr_val < 0.001:
+                        status = "✅ Excellent (less than 0.001)"
+                        cr_ratio_display = f"{cr_val:.4f}"
+                    elif cr_val <= 0.10:
+                        status = "✅ Good (less than or equal to 0.10)"
+                        cr_ratio_display = f"{cr_val:.4f}"
                     else:
-                        status = "—"
-                        cr_ratio_display = "N/A"
-                    
-                    cr_rows.append({
-                        "Criterion": crit_name,
-                        "Consistency Ratio": cr_ratio_display,
-                        "Status": status
-                    })
+                        status = "⚠️ Poor (greater than 0.10)"
+                        cr_ratio_display = f"{cr_val:.4f}"
+                else:
+                    status = "—"
+                    cr_ratio_display = "N/A"
+                
+                cr_rows.append({
+                    "Criterion": crit_name,
+                    "Consistency Ratio": cr_ratio_display,
+                    "Status": status
+                })
             st.dataframe(pd.DataFrame(cr_rows),
                          width='stretch', hide_index=True)
 
         # Raw YAML preview
         with st.expander("View parsed YAML"):
             st.code(yaml_text, language="yaml")
+
+        # Persistent debug panel for hierarchy and weight diagnostics
+        with st.expander("Debug Output"):
+            st.markdown("### Model Summary")
+            st.write(f"Goal: {goal_name}")
+            st.write(f"Top-level criteria count: {len(crit_weights)}")
+            st.write(f"Top-level criteria weights: {dict(crit_weights)}")
+            st.write(f"Total Compare objects in hierarchy: {len(all_compares)}")
+
+            st.markdown("### Alternatives")
+            st.write(f"Declared alternatives ({len(alternative_names)}): {sorted(list(alternative_names))}")
+            st.write(f"Alternatives with computed weights ({len(alt_weights)}): {sorted(list(alt_weights.keys()))}")
+            st.write(f"Missing alternatives ({len(missing_alts)}): {sorted(list(missing_alts))}")
+
+            st.markdown("### Weight Diagnostics")
+            st.write(f"Total leaf path weight sum: {total_criteria_weight:.6f}")
+            st.write(f"Alternative weight sum: {sum(alt_weights.values()):.6f}")
+            st.write(f"Ranked alternatives count: {len(sorted_alts)}")
+
+            # Collect true leaf criteria from YAML hierarchy (not from Compare.children)
+            def _collect_yaml_leaf_criteria(goal_subtree, path_prefix=""):
+                node_name = goal_subtree.get("name", "")
+                current_path = f"{path_prefix} > {node_name}" if path_prefix else node_name
+                children = goal_subtree.get("children", {}) or {}
+                criteria_children = {
+                    child_name: child_node
+                    for child_name, child_node in children.items()
+                    if isinstance(child_node, dict) and "preferences" in child_node
+                }
+
+                # Leaf criterion: has a Compare and no criteria-children beneath it
+                if not criteria_children:
+                    return [
+                        {
+                            "name": node_name,
+                            "path": current_path,
+                            "compare": compare_by_name.get(node_name),
+                        }
+                    ]
+
+                leaves = []
+                for child_name, child_node in criteria_children.items():
+                    child_subtree = child_node.copy()
+                    child_subtree["name"] = child_name
+                    leaves.extend(_collect_yaml_leaf_criteria(child_subtree, current_path))
+                return leaves
+
+            goal_for_debug = goal.copy()
+            goal_for_debug["name"] = goal_name
+            leaf_nodes = _collect_yaml_leaf_criteria(goal_for_debug)
+            leaf_rows = []
+            for leaf in leaf_nodes:
+                compare_obj = leaf.get("compare")
+                local = dict(compare_obj.local_weights) if compare_obj and compare_obj.local_weights else {}
+                overlaps_alts = [k for k in local.keys() if k in alternative_names]
+                leaf_rows.append({
+                    "Leaf Node": leaf.get("name"),
+                    "Path": leaf.get("path"),
+                    "Compare Found": compare_obj is not None,
+                    "Has Alt Weights": bool(overlaps_alts),
+                    "Alt Keys Found": overlaps_alts,
+                    "Local Weights": local,
+                })
+
+            st.markdown("### Leaf Nodes")
+            st.dataframe(pd.DataFrame(leaf_rows), width='stretch', hide_index=True)
+
+            # Detailed contribution audit: path_weight * local_alt_weight at each leaf
+            def _collect_contribution_rows(goal_subtree, path_weight=1.0, path_prefix=""):
+                rows = []
+                node_name = goal_subtree.get("name", "")
+                current_path = f"{path_prefix} > {node_name}" if path_prefix else node_name
+                node_compare = compare_by_name.get(node_name)
+                if node_compare is None:
+                    return rows
+
+                children = goal_subtree.get("children", {}) or {}
+                criteria_children = {
+                    child_name: child_node
+                    for child_name, child_node in children.items()
+                    if isinstance(child_node, dict) and "preferences" in child_node
+                }
+
+                # Leaf criterion: emit one contribution row per alternative
+                if not criteria_children:
+                    if node_compare.local_weights:
+                        for alt_name, alt_local_weight in node_compare.local_weights.items():
+                            if alt_name in alternative_names:
+                                rows.append({
+                                    "Leaf Criterion": node_name,
+                                    "Path": current_path,
+                                    "Path Weight": path_weight,
+                                    "Alternative": alt_name,
+                                    "Local Alt Weight": float(alt_local_weight),
+                                    "Contribution": path_weight * float(alt_local_weight),
+                                })
+                    return rows
+
+                # Internal criterion: recurse to child criteria
+                for child_name, child_node in criteria_children.items():
+                    child_weight = float(node_compare.local_weights.get(child_name, 0.0))
+                    child_subtree = child_node.copy()
+                    child_subtree["name"] = child_name
+                    rows.extend(_collect_contribution_rows(
+                        child_subtree,
+                        path_weight * child_weight,
+                        current_path,
+                    ))
+
+                return rows
+
+            contribution_rows = _collect_contribution_rows(goal_for_debug, 1.0)
+            contrib_df = pd.DataFrame(contribution_rows)
+            if not contrib_df.empty:
+                contrib_df = contrib_df.sort_values(
+                    by=["Alternative", "Leaf Criterion"]
+                ).reset_index(drop=True)
+                st.markdown("### Contribution Breakdown")
+                st.dataframe(contrib_df, width='stretch', hide_index=True)
+
+                contrib_sum_df = contrib_df.groupby("Alternative", as_index=False)["Contribution"].sum()
+                contrib_sum_df = contrib_sum_df.sort_values(
+                    by="Contribution", ascending=False
+                ).reset_index(drop=True)
+                st.markdown("### Contribution Sums By Alternative")
+                st.dataframe(contrib_sum_df, width='stretch', hide_index=True)
+            else:
+                st.markdown("### Contribution Breakdown")
+                st.info("No contribution rows were generated.")
 
     except Exception as e:
         st.error(f"Error processing AHP model: {e}")
