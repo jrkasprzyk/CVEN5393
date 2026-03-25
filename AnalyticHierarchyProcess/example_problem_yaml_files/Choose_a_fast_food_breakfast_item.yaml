@@ -1,0 +1,36 @@
+Version: 2.0
+
+Alternatives: &alternatives
+  'Wendy''s Biscuit':
+  'McDonald''s Biscuit':
+  Big Daddy Bagel:
+
+Goal:
+  name: Choose a fast food breakfast item
+  preferences:
+    pairwise:
+      - [Taste, Easy Access, 9]
+      - [Taste, Extras and Sides, 4]
+      - [Easy Access, Extras and Sides, 1/3]
+  children:
+    Taste:
+      preferences:
+        pairwise:
+          - ['Wendy''s Biscuit', 'McDonald''s Biscuit', 1/4]
+          - ['Wendy''s Biscuit', Big Daddy Bagel, 1/3]
+          - ['McDonald''s Biscuit', Big Daddy Bagel, 2]
+      children: *alternatives
+    Easy Access:
+      preferences:
+        pairwise:
+          - ['Wendy''s Biscuit', 'McDonald''s Biscuit', 3]
+          - ['Wendy''s Biscuit', Big Daddy Bagel, 3]
+          - ['McDonald''s Biscuit', Big Daddy Bagel, 1]
+      children: *alternatives
+    Extras and Sides:
+      preferences:
+        pairwise:
+          - ['Wendy''s Biscuit', 'McDonald''s Biscuit', 1/6]
+          - ['Wendy''s Biscuit', Big Daddy Bagel, 2]
+          - ['McDonald''s Biscuit', Big Daddy Bagel, 6]
+      children: *alternatives

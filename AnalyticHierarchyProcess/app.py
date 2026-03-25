@@ -4,12 +4,17 @@ Parses gluc/ahp YAML format and computes weights + consistency ratios using ahpy
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 import yaml
 import ahpy
 import pandas as pd
+import itertools
+import json
 from fractions import Fraction
 from numpy import isnan, isinf
 import re
+
+WEIGHT_SUM_WARNING_TOLERANCE = 1e-3
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title="AHP Calculator", page_icon="⚖️", layout="wide")
@@ -71,6 +76,166 @@ def extract_comparisons(pairwise_list):
                 f"⚠️ Pairwise value {parsed_val} is outside typical AHP scale (1-9)." 
                 f"Results may be unreliable.")
         comparisons[(str(a), str(b))] = parsed_val
+    return comparisons
+
+
+def parse_name_list(raw_text):
+    """Parse comma-separated or line-separated names into an ordered unique list."""
+    tokens = []
+    for line in raw_text.splitlines():
+        parts = [part.strip() for part in line.split(",")]
+        tokens.extend([part for part in parts if part])
+
+    seen = set()
+    names = []
+    for token in tokens:
+        if token not in seen:
+            seen.add(token)
+            names.append(token)
+    return names
+
+
+def format_pairwise_value(value):
+    """Render guided-builder values in gluc/ahp-friendly form."""
+    rounded_int = round(value)
+    if abs(value - rounded_int) < 1e-9:
+        return str(int(rounded_int))
+
+    reciprocal = round(1.0 / value)
+    if reciprocal > 0 and abs(value - (1.0 / reciprocal)) < 1e-9:
+        return f"1/{int(reciprocal)}"
+
+    return f"{value:.6g}"
+
+
+def yaml_quote(text):
+    """Quote strings only when needed for YAML compatibility."""
+    if re.fullmatch(r"[A-Za-z0-9 _./()-]+", text):
+        lowered = text.strip().lower()
+        if lowered not in {"null", "true", "false", "yes", "no", "on", "off"}:
+            return text
+    return "'" + text.replace("'", "''") + "'"
+
+
+def render_guided_yaml(goal_name, alternatives, criteria_pairwise, criterion_alt_pairwise):
+    """Render YAML that matches the gluc/ahp structure used by the app examples."""
+    lines = [
+        "Version: 2.0",
+        "",
+        "Alternatives: &alternatives",
+    ]
+
+    for alternative in alternatives:
+        lines.append(f"  {yaml_quote(alternative)}:")
+
+    lines.extend([
+        "",
+        "Goal:",
+        f"  name: {yaml_quote(goal_name)}",
+        "  preferences:",
+        "    pairwise:",
+    ])
+
+    for item_a, item_b, value in criteria_pairwise:
+        lines.append(
+            f"      - [{yaml_quote(item_a)}, {yaml_quote(item_b)}, {format_pairwise_value(value)}]"
+        )
+
+    lines.append("  children:")
+
+    for criterion, comparisons in criterion_alt_pairwise.items():
+        lines.extend([
+            f"    {yaml_quote(criterion)}:",
+            "      preferences:",
+            "        pairwise:",
+        ])
+        for item_a, item_b, value in comparisons:
+            lines.append(
+                f"          - [{yaml_quote(item_a)}, {yaml_quote(item_b)}, {format_pairwise_value(value)}]"
+            )
+        lines.append("      children: *alternatives")
+
+    return "\n".join(lines) + "\n"
+
+
+def render_copy_to_clipboard_button(text, button_text="Copy YAML to clipboard"):
+        """Render a small browser-side copy button for generated YAML text."""
+        button_id = f"copy_yaml_{abs(hash(text))}"
+        payload = json.dumps(text)
+        html = f"""
+        <div style=\"margin: 0.25rem 0 0.75rem 0;\">
+            <button
+                id=\"{button_id}\"
+                style=\"padding: 0.45rem 0.8rem; border: 1px solid #d0d7de; border-radius: 0.5rem; background: white; cursor: pointer;\"
+            >
+                {button_text}
+            </button>
+            <span id=\"{button_id}_status\" style=\"margin-left: 0.6rem; font-family: sans-serif; font-size: 0.9rem;\"></span>
+        </div>
+        <script>
+            const copyButton = document.getElementById({json.dumps(button_id)});
+            const status = document.getElementById({json.dumps(button_id + '_status')});
+            copyButton.addEventListener('click', async () => {{
+                try {{
+                    await navigator.clipboard.writeText({payload});
+                    status.textContent = 'Copied';
+                }} catch (error) {{
+                    status.textContent = 'Clipboard blocked by browser';
+                }}
+            }});
+        </script>
+        """
+        components.html(html, height=48)
+
+
+    # TODO: Guided builder follow-ups:
+    # - Add a compact mode for larger criteria sets.
+    # - Let users edit the generated YAML inline before analysis.
+    # - Support multi-level hierarchies instead of a single criteria layer.
+def build_pairwise_from_prompts(items, section_key, title):
+    """Collect pairwise preferences for items using guided sidebar prompts."""
+    comparisons = []
+    pairings = list(itertools.combinations(items, 2))
+
+    st.markdown(f"#### {title}")
+    st.caption("Choose which item is preferred in each pair and by how much (Saaty 1-9 scale).")
+
+    scale_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    scale_help = {
+        1: "Equal",
+        3: "Moderate",
+        5: "Strong",
+        7: "Very strong",
+        9: "Extreme",
+    }
+
+    for idx, (item_a, item_b) in enumerate(pairings):
+        row_col1, row_col2 = st.columns([2, 1])
+        with row_col1:
+            preferred = st.selectbox(
+                f"{item_a} vs {item_b}",
+                [item_a, item_b],
+                key=f"{section_key}_pref_{idx}",
+            )
+        with row_col2:
+            intensity = st.selectbox(
+                f"Intensity for {item_a} vs {item_b}",
+                scale_values,
+                index=2,
+                key=f"{section_key}_int_{idx}",
+                help="1 = equal, 3 = moderate, 5 = strong, 7 = very strong, 9 = extreme",
+                label_visibility="hidden",
+            )
+
+        value = float(intensity)
+        if preferred == item_b:
+            value = 1.0 / value
+
+        descriptor = scale_help.get(intensity, f"Level {intensity}")
+        st.caption(f"Preferred: {preferred} ({descriptor.lower()})")
+
+        comparisons.append([item_a, item_b, value])
+
     return comparisons
 
 
@@ -301,7 +466,8 @@ def get_yaml_input():
         [
             "Load predefined example",
             "Upload .yaml file",
-            "Paste .yaml content"
+            "Paste .yaml content",
+            "Guided Builder"
         ]
     )
 
@@ -314,6 +480,70 @@ def get_yaml_input():
 
     elif input_mode == "Paste .yaml content":
         return st.sidebar.text_area("Paste YAML here", height=300)
+
+    elif input_mode == "Guided Builder":
+        st.sidebar.markdown("Build a YAML model from prompts.")
+        goal_name = st.sidebar.text_input("Goal name", value="Choose the Best Option")
+        alternatives_raw = st.sidebar.text_area(
+            "Alternatives (comma or newline separated)",
+            value="Option A\nOption B\nOption C",
+            height=120,
+        )
+        criteria_raw = st.sidebar.text_area(
+            "Criteria (comma or newline separated)",
+            value="Cost\nQuality\nRisk",
+            height=120,
+        )
+
+        alternatives = parse_name_list(alternatives_raw)
+        criteria = parse_name_list(criteria_raw)
+
+        st.sidebar.caption("Note: Guided Builder currently only supports "
+                           "a single goal with criteria and alternatives (no subcriteria)."
+                           " There is also no support for pairwiseFunction, only direct pairwise comparisons.")
+        
+        if len(alternatives) < 2:
+            st.warning("Add at least 2 alternatives in the Guided Builder.")
+            return ""
+        if len(criteria) < 2:
+            st.warning("Add at least 2 criteria in the Guided Builder.")
+            return ""
+
+        st.subheader("Guided YAML Builder")
+        criteria_pairwise = build_pairwise_from_prompts(
+            criteria,
+            section_key="goal_criteria",
+            title="Step 1: Compare Criteria",
+        )
+
+        criterion_alt_pairwise = {}
+        for criterion in criteria:
+            criterion_alt_pairwise[criterion] = build_pairwise_from_prompts(
+                alternatives,
+                section_key=f"alts_{criterion}",
+                title=f"Step 2: Compare Alternatives for '{criterion}'",
+            )
+
+        yaml_text = render_guided_yaml(
+            goal_name,
+            alternatives,
+            criteria_pairwise,
+            criterion_alt_pairwise,
+        )
+        st.markdown("#### Generated YAML Preview")
+        render_copy_to_clipboard_button(yaml_text)
+        st.code(yaml_text, language="yaml")
+        suggested_name = re.sub(r"[^a-zA-Z0-9_-]+", "_", goal_name.strip()) or "ahp_model"
+        downloaded = st.download_button(
+            "Download YAML",
+            data=yaml_text,
+            file_name=f"{suggested_name}.yaml",
+            mime="application/x-yaml",
+            help="Save the generated YAML file for reuse.",
+        )
+        if downloaded:
+            st.success(f"Downloaded: {suggested_name}.yaml")
+        return yaml_text
 
     else:  # Load predefined example
         return """
@@ -531,8 +761,11 @@ if yaml_text.strip():
             alt_weights, total_criteria_weight = collect_alternative_weights_from_yaml(goal_for_weights, 1.0)
 
             # Validate that weights sum to approximately 1 (within numerical precision)
-            if abs(total_criteria_weight - 1.0) > 1e-6:
-                st.warning(f"⚠️ Criteria weights sum to {total_criteria_weight:.6f}, not 1.0. Results may be unreliable.")
+            if abs(total_criteria_weight - 1.0) > WEIGHT_SUM_WARNING_TOLERANCE:
+                st.warning(
+                    f"⚠️ Criteria weights sum to {total_criteria_weight:.6f}, not 1.0. "
+                    f"Differences above {WEIGHT_SUM_WARNING_TOLERANCE:.3f} are flagged; results may be unreliable."
+                )
 
             # Filter to only the declared alternatives
             if alternative_names:
@@ -735,6 +968,20 @@ if yaml_text.strip():
                 st.markdown("### Contribution Breakdown")
                 st.info("No contribution rows were generated.")
 
+        with st.expander("Acknowledgements and Limitations"):
+            st.markdown("""
+            - This tool is provided for educational purposes only. For high-stakes or operational decisions, consult a qualified decision-analysis professional or use software designed for production decision support.
+            - This software is provided "as is" and "as available," without warranties of any kind, whether express, implied, or statutory, including implied warranties of merchantability, fitness for a particular purpose, title, non-infringement, accuracy, completeness, reliability, availability, and performance.
+            - To the maximum extent permitted by applicable law, the authors, instructors, contributors, and affiliated institutions disclaim liability for any direct, indirect, incidental, consequential, special, exemplary, or punitive damages, and for any loss of data, business, profits, opportunities, or decision quality arising from or related to the use of, or inability to use, this tool or its outputs.
+            - This tool relies on the `ahpy` library for AHP calculations. That library, like any software dependency, may have limitations when handling complex hierarchies, unusual inputs, or edge cases.
+            - YAML input must follow the expected structure. Formatting or schema errors may prevent successful parsing or lead to incorrect results.
+            - Consistency ratios are calculated from the comparisons you provide. If the input is incomplete, contradictory, or highly inconsistent, the resulting weights and rankings may be unreliable.
+            - This tool assumes that all criteria and alternatives are compared appropriately at the relevant levels of the hierarchy. Missing or misapplied comparisons can affect the validity of the results.
+            - Review consistency ratios carefully, and revise pairwise comparisons when they indicate poor consistency (for example, when CR > 0.10).
+            - Guided Builder is a simplified interface for generating YAML. It may not support all use cases or complex hierarchies, so advanced models may still require manual YAML editing.
+            - Thanks to Lauren Way who provided an example analysis with the Guided Builder, which helped shape the design and functionality of this tool.
+            """)
+    
     except Exception as e:
         st.error(f"Error processing AHP model: {e}")
         st.exception(e)
