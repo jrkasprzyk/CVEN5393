@@ -3,10 +3,14 @@
 An interactive AHP (Analytic Hierarchy Process) calculator that reads the
 [gluc/ahp](https://github.com/gluc/ahp) YAML file format.
 
-## Files
+Access a working deployment of this tool on [Streamlit here](https://ahp-yaml.streamlit.app/)!
+
+## Files and Folders
 
 - `app.py` — the Streamlit app
 - `requirements.txt` — Python dependencies
+- \example_problem_yaml_files\ - example problems to try running in the tool
+- \r_code\ - the original R code upon which the app is based
 
 ## Run locally
 
@@ -15,15 +19,13 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy to Streamlit Community Cloud (free)
+## Deploy your own version to Streamlit Community Cloud (free)
 
 1. Push this folder to a GitHub repository (public or private)
 2. Go to [share.streamlit.io](https://share.streamlit.io)
 3. Click **New app** → connect your GitHub repo
 4. Set **Main file path** to `app.py`
 5. Click **Deploy** — your app will be live at a `*.streamlit.app` URL
-
-Share that URL with students. No installation required on their end.
 
 ## YAML format
 
