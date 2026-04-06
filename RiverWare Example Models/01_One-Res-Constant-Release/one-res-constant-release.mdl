@@ -1,5 +1,5 @@
-# RiverWare_Model 9.6.2
-# Created 12:00 March 11, 2026
+# RiverWare_Model 9.6.3
+# Created 12:46 April 6, 2026
 # CADSWES, University of Colorado at Boulder, http://cadswes.colorado.edu/
 # 
 # The catalog command is parsed by RiverWare and RiverSMART:
@@ -38,7 +38,7 @@ ModelAccountCount  0
 ModelSupplyCount   0
 ModelExchangeCount 0
 DST 0
-$ws.Model.FileInfo saveInfo 1 {joka0958} {03-11-2026 12:00:30} {RiverWare 9.6.2} 
+$ws.Model.FileInfo saveInfo 1 {joka0958} {04-06-2026 12:46:08} {RiverWare 9.6.3} 
 $ws.Model.FileInfo comment {}
 $ws.Model.RunHistoryParam MaxModelRunHistoryRecs 1
 $ws.Model.RunHistoryRecord 1 0 {RiverWare 9.5} {josep} \
@@ -1079,7 +1079,7 @@ set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Inflow and Demand"
 "$plotpage" plot 0
 set plot "$plotpage.0"
 "$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {Flow (kaf/year)} {acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yLeft} {Flow (kaf/year)} {1000 acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 -476.56248544808477 1476.5624854480848 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
@@ -1133,7 +1133,7 @@ set plotpage "$ws.outputDeviceMgr.PlotPageInfo.Input Output Storage"
 "$plotpage" plot 0
 set plot "$plotpage.0"
 "$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {Flow (kaf/year)} {acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yLeft} {Flow (kaf/year)} {1000 acre-feet/year} 0 0 200 f 0 8 5 1 1 {Flow (kaf/year)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {Year} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 1 {Year} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
@@ -1189,7 +1189,7 @@ set curve "$plot.Demand"
 "$plotpage" plot 3
 set plot "$plotpage.3"
 "$plot" state {} 4294967295 1 0
-"$plot" axis {yLeft} {Storage (kaf)} {acre-ft} 0 0 60 f 0 8 5 1 1 {Storage (kaf)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
+"$plot" axis {yLeft} {Storage (kaf)} {1000 acre-ft} 0 0 60 f 0 8 5 1 1 {Storage (kaf)} 0 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {yRight} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xBottom} {} {FullDateTime} 0 2434378.5 2471268.5 D 23 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
 "$plot" axis {xTop} {} {} 0 0 1000 f 0 8 5 0 0 {} 1 1 1 {} {} 0 0 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000 {Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1} #000000
