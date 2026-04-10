@@ -19,6 +19,11 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Development environment
+
+For a consistent workspace environment (one venv for all subfolders) see the top-level `VENV_WORKFLOW.md` for recommended steps to create a repository `.venv` and install an editable package so all subprojects within CVEN5393 share the same dependencies.
+
+
 ## Deploy your own version to Streamlit Community Cloud (free)
 
 1. Push this folder to a GitHub repository (public or private)
