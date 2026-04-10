@@ -154,3 +154,7 @@ cython_debug/
 # RiverWare model backup files
 .mdl.bak
 *.bak
+
+# Ignore all files in any mrm_outputs directories (RiverWare MRM outputs)
+**/mrm_outputs/
+
