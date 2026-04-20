@@ -26,3 +26,53 @@ poetry build      # build distribution packages
 ```
 
 The existing `requirements.txt` and `setup.cfg` are left in the repository for reference.
+
+## Poetry & promptukit workflow
+
+Short guidance for updating and consuming `promptukit` in this project.
+
+- **Publish (maintainer)**: bump the version in the `promptukit` repo (for example `poetry version patch` or `poetry version 0.1.550`), then build and publish:
+
+```bash
+python -m build
+python -m twine upload dist/*
+# or: poetry publish --build --repository <name>
+```
+
+Ensure the package's distributed metadata (for example `promptukit.__version__`) matches the release tag.
+
+- **Consumer (this repo)**: keep a reasonable constraint in `pyproject.toml` and commit `poetry.lock` for reproducible installs. Update and install the new release with:
+
+```bash
+poetry update promptukit        # update lock and install newest matching release
+# or to pin an exact release:
+poetry add promptukit==0.1.550  # updates pyproject, lock, and installs
+```
+
+- **Testing unreleased changes**: if the new version isn't published yet, use a VCS or local path dependency for testing:
+
+```toml
+promptukit = { git = "https://github.com/jrkasprzyk/promptukit.git", rev = "v0.1.550" }
+```
+
+or:
+
+```bash
+poetry add git+https://github.com/jrkasprzyk/promptukit.git@v0.1.550
+```
+
+- **Troubleshooting**: if `poetry lock`/`poetry update` complains "no versions of promptukit match ...":
+
+	- Confirm the release exists on PyPI: `python -m pip index versions promptukit`
+	- Clear Poetry's PyPI cache and retry: `poetry cache clear pypi --all`
+	- Check for an alternate repository in Poetry config: `poetry config --list`
+
+- **Verify installed version**:
+
+```bash
+poetry show promptukit
+poetry run python -c "import importlib.metadata as m; print(m.version('promptukit'))"
+```
+
+- **Practical rules**: commit `poetry.lock` for reproducible installs; prefer `poetry add`/`poetry update` over manual edits to `pyproject.toml`; use VCS/path deps while developing versions that are not yet published.
+
