@@ -10,6 +10,27 @@ Currently the folder structure is:
 
 For more information, consult the webpage of the [Kasprzyk Research Group](https://www.colorado.edu/lab/krg).
 
+## Versioning and external consumption
+
+This repo serves dual roles: course materials **and** a versioned data source consumed by external tools (e.g. hardball-trivia) via [jsDelivr](https://www.jsdelivr.com/). jsDelivr resolves file URLs directly from GitHub tags, so **tags are the version** — independent of any package registry.
+
+Rules that follow from this:
+- Every release must be tagged (e.g. `v0.1.0`). Use `scripts/tag-release.sh`, which reads the version from `pyproject.toml` and creates a matching tag, keeping the two in sync.
+- **Do not force-push or delete tags.** Downstream consumers pin specific tag versions; rewriting a tag silently breaks them.
+- Bump `pyproject.toml` version and cut a new tag whenever files consumed via jsDelivr change.
+
+To release a new version:
+
+```bash
+# 1. Commit and push your changes first
+git add <files>
+git commit -m "your message"
+git push
+
+# 2. Then tag the release (reads version from pyproject.toml, creates and pushes the tag)
+./scripts/tag-release.sh
+```
+
 ## Using Poetry
 
 This repository can be managed with Poetry. Poetry's configuration is in `pyproject.toml`.

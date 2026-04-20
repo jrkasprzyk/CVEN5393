@@ -1,0 +1,143 @@
+{
+  "categories": [
+    "Analytic Hierarchy Process",
+    "Colorado River"
+  ],
+  "questions": [
+    {
+      "id": "Analytic Hierarchy Process_001",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "easy",
+      "prompt": "What does AHP stand for?",
+      "choices": [
+        "Adaptive Hierarchy Protocol",
+        "Analytic Hierarchy Process",
+        "Aggregated Heuristic Prioritization",
+        "Applied Hierarchical Planning"
+      ],
+      "answer": 1,
+      "quip_correct": "Developed by Thomas Saaty in the 1970s, it's a cornerstone of multi-criteria decision analysis.",
+      "quip_wrong": "AHP = Analytic Hierarchy Process — a structured method for comparing options across multiple criteria."
+    },
+    {
+      "id": "Analytic Hierarchy Process_002",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "easy",
+      "prompt": "In AHP, pairwise comparisons use a scale from 1 to how many?",
+      "choices": [
+        "5",
+        "7",
+        "9",
+        "100"
+      ],
+      "answer": 2,
+      "quip_correct": "1 means equal importance; 9 means extreme importance of one criterion over another.",
+      "quip_wrong": "Saaty's fundamental scale runs 1–9, with odd numbers as the main anchors."
+    },
+    {
+      "id": "Analytic Hierarchy Process_003",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "medium",
+      "prompt": "What does a Consistency Ratio (CR) above 0.10 indicate in AHP?",
+      "choices": [
+        "The pairwise comparisons are too inconsistent and should be revised",
+        "The criteria weights are too evenly distributed",
+        "There are too many criteria in the hierarchy",
+        "The alternatives are ranked equally"
+      ],
+      "answer": 0,
+      "quip_correct": "CR > 0.10 is a red flag — it means the decision-maker's comparisons contradict themselves too much.",
+      "quip_wrong": "CR > 0.10 signals inconsistency. CR ≤ 0.10 is generally acceptable."
+    },
+    {
+      "id": "Analytic Hierarchy Process_004",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "medium",
+      "prompt": "In AHP, if criterion A is judged 'strongly more important' than criterion B, what value goes in the A-to-B cell of the comparison matrix?",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "quip_correct": "On Saaty's scale: 1=equal, 3=moderate, 5=strong, 7=very strong, 9=extreme.",
+      "quip_wrong": "Strongly more important = 5 on Saaty's 1–9 scale."
+    },
+    {
+      "id": "Colorado River_001",
+      "category": "Colorado River",
+      "difficulty": "easy",
+      "prompt": "The Colorado River Compact of 1922 divided the river's water between how many U.S. states?",
+      "choices": [
+        "5",
+        "6",
+        "7",
+        "9"
+      ],
+      "answer": 2,
+      "quip_correct": "The seven basin states: Colorado, Wyoming, Utah, New Mexico (Upper) and California, Nevada, Arizona (Lower).",
+      "quip_wrong": "Seven states share Colorado River water under the 1922 Compact."
+    },
+    {
+      "id": "Colorado River_002",
+      "category": "Colorado River",
+      "difficulty": "easy",
+      "prompt": "Lake Mead, the largest reservoir on the Colorado River, is formed by which dam?",
+      "choices": [
+        "Glen Canyon Dam",
+        "Hoover Dam",
+        "Parker Dam",
+        "Davis Dam"
+      ],
+      "answer": 1,
+      "quip_correct": "Hoover Dam was completed in 1935. Lake Mead can store about two years of the river's average flow.",
+      "quip_wrong": "Lake Mead is behind Hoover Dam. Glen Canyon Dam forms Lake Powell, upstream."
+    },
+    {
+      "id": "Colorado River_003",
+      "category": "Colorado River",
+      "difficulty": "medium",
+      "prompt": "Under the 1922 Colorado River Compact, how many million acre-feet (MAF) per year was allocated to the Upper Basin states in total?",
+      "choices": [
+        "6.5 MAF",
+        "7.5 MAF",
+        "8.5 MAF",
+        "10 MAF"
+      ],
+      "answer": 1,
+      "quip_correct": "Each basin got 7.5 MAF/year. The total 15 MAF was based on overestimates of the river's natural flow.",
+      "quip_wrong": "Both the Upper and Lower Basins received 7.5 MAF each — 15 MAF total, more than the river reliably provides."
+    },
+    {
+      "id": "Colorado River_004",
+      "category": "Colorado River",
+      "difficulty": "medium",
+      "prompt": "Which legal doctrine governs most western U.S. water rights, including those on the Colorado River, granting priority to the earliest appropriator?",
+      "choices": [
+        "Riparian rights",
+        "Public Trust Doctrine",
+        "Prior Appropriation",
+        "Beneficial use doctrine"
+      ],
+      "answer": 2,
+      "quip_correct": "'First in time, first in right' — senior rights holders can take their full allocation before junior holders get anything.",
+      "quip_wrong": "Prior Appropriation ('first in time, first in right') governs Colorado River water, not riparian rights."
+    },
+    {
+      "id": "Colorado River_005",
+      "category": "Colorado River",
+      "difficulty": "hard",
+      "prompt": "The Colorado River no longer regularly reaches the sea due to upstream consumptive use. In which country is its historic delta located?",
+      "choices": [
+        "United States",
+        "Mexico",
+        "Both the U.S. and Mexico equally",
+        "The river always reaches the sea"
+      ],
+      "answer": 1,
+      "quip_correct": "The delta is in Baja California and Sonora, Mexico. The river was effectively drained dry before the border for decades.",
+      "quip_wrong": "The Colorado's delta is in Mexico. Flow has occasionally been restored there under environmental agreements."
+    }
+  ]
+}
