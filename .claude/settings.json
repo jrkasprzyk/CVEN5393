@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(.venv/Scripts/python -m pytest dev/checks/ -v)",
+      "Bash(./scripts/release.sh *)"
+    ]
+  }
+}
