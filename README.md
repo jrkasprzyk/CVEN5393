@@ -9,3 +9,20 @@ Currently the folder structure is:
 4. **RiverWare Example Models** : Example models implemented in [RiverWare](https://riverware.org/), a river basin and reservoir model developed by the [Center for Advanced Decision Support for Water and Environmental Systems](https://www.colorado.edu/cadswes/) at the University of Colorado Boulder.
 
 For more information, consult the webpage of the [Kasprzyk Research Group](https://www.colorado.edu/lab/krg).
+
+## Using Poetry
+
+This repository can be managed with Poetry. Poetry's configuration is in `pyproject.toml`.
+
+Installation and basic commands (see Poetry docs for platform-specific install):
+
+```bash
+# Install Poetry (see https://python-poetry.org/docs/#installation)
+poetry install    # install dependencies and create virtual environment
+poetry shell      # spawn a shell within the virtual environment
+poetry run python -m pip install --upgrade pip
+poetry lock       # (optional) refresh/produce `poetry.lock`
+poetry build      # build distribution packages
+```
+
+The existing `requirements.txt` and `setup.cfg` are left in the repository for reference.

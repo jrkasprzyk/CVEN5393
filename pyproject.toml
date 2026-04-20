@@ -1,3 +1,28 @@
+[tool.poetry]
+name = "CVEN5393-tools"
+version = "0.1.0"
+description = "Shared utilities for the CVEN5393 workspace"
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+streamlit = ">=1.32.0"
+ahpy = ">=1.2.0"
+pyyaml = ">=6.0"
+pandas = ">=2.0.0"
+numpy = ">=1.24.0"
+matplotlib = ">=3.7.0"
+scipy = ">=1.10.0"
+plotly = ">=5.15.0"
+promptukit = ">=0.1.450"
+ipywidgets = ">=8.0.0"
+
+notebook = "^6.5.0"
+
+[[tool.poetry.packages]]
+include = "cvtools"
+
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
