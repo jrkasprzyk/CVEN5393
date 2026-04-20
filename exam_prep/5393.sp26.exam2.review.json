@@ -1,7 +1,13 @@
 {
   "categories": [
     "Analytic Hierarchy Process",
-    "Colorado River"
+    "Colorado River",
+    "Multi-Criteria Decision Analysis",
+    "Tradeoff Analysis",
+    "Synthetic Streamflow Generation",
+    "Ensemble Processing",
+    "XLRM and Deep Uncertainty",
+    "Performance Metrics"
   ],
   "questions": [
     {
@@ -63,6 +69,66 @@
       "answer": 2,
       "quip_correct": "On Saaty's scale: 1=equal, 3=moderate, 5=strong, 7=very strong, 9=extreme.",
       "quip_wrong": "Strongly more important = 5 on Saaty's 1–9 scale."
+    },
+    {
+      "id": "Analytic Hierarchy Process_005",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "easy",
+      "prompt": "In AHP, at which levels of the hierarchy are pairwise comparisons performed?",
+      "choices": [
+        "Both criteria (relative to goal) and alternatives (relative to each criterion)",
+        "Only at the criteria level",
+        "Only at the alternatives level",
+        "Only between the goal and the top-ranked alternative"
+      ],
+      "answer": 0,
+      "quip_correct": "AHP compares criteria against each other AND alternatives against each other for each criterion — that's what makes it a full hierarchy.",
+      "quip_wrong": "AHP requires pairwise comparisons at both levels: among criteria and among alternatives under each criterion."
+    },
+    {
+      "id": "Analytic Hierarchy Process_006",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "medium",
+      "prompt": "The Consistency Ratio (CR) in AHP is calculated as CI divided by:",
+      "choices": [
+        "RI (the Random Index for that matrix size)",
+        "n (the number of criteria)",
+        "λmax (the principal eigenvalue)",
+        "The number of alternatives"
+      ],
+      "answer": 0,
+      "quip_correct": "CR = CI / RI, where RI is a table value based on matrix size n. This normalizes inconsistency against random chance.",
+      "quip_wrong": "CR = CI / RI. The Random Index RI accounts for expected inconsistency in a randomly filled matrix of the same size."
+    },
+    {
+      "id": "Analytic Hierarchy Process_007",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "medium",
+      "prompt": "On Saaty's 1–9 AHP scale, what value indicates that criterion A is 'very strongly more important' than criterion B?",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "answer": 2,
+      "quip_correct": "Saaty's anchors: 1=equal, 3=moderate, 5=strong, 7=very strong, 9=extreme. Even numbers are for intermediate judgments.",
+      "quip_wrong": "Very strongly more important = 7. Strong = 5, extreme = 9."
+    },
+    {
+      "id": "Analytic Hierarchy Process_008",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "hard",
+      "prompt": "If n=4 criteria are compared in AHP and λmax = 4.28, what is the Consistency Index (CI)?",
+      "choices": [
+        "0.028",
+        "0.056",
+        "0.084",
+        "0.093"
+      ],
+      "answer": 3,
+      "quip_correct": "CI = (λmax − n) / (n − 1) = (4.28 − 4) / 3 = 0.28 / 3 ≈ 0.093.",
+      "quip_wrong": "CI = (λmax − n) / (n − 1) = 0.28 / 3 ≈ 0.093. Compare this to RI to get the Consistency Ratio."
     },
     {
       "id": "Colorado River_001",
@@ -138,6 +204,696 @@
       "answer": 1,
       "quip_correct": "The delta is in Baja California and Sonora, Mexico. The river was effectively drained dry before the border for decades.",
       "quip_wrong": "The Colorado's delta is in Mexico. Flow has occasionally been restored there under environmental agreements."
+    },
+    {
+      "id": "Colorado River_006",
+      "category": "Colorado River",
+      "difficulty": "medium",
+      "prompt": "The Colorado River Basin is considered 'over-allocated' primarily because:",
+      "choices": [
+        "Upstream states consistently take more than their legal allocation each year",
+        "The river delta in Mexico requires most of the annual flow",
+        "Groundwater pumping has replaced most surface water withdrawals",
+        "The 1922 Compact allocated water based on an unusually wet period, exceeding the river's long-term average flow"
+      ],
+      "answer": 3,
+      "quip_correct": "The 1920s were wetter than average. The 15 MAF allocation has exceeded the river's actual mean flow of ~13–14 MAF for most of the 20th century.",
+      "quip_wrong": "Over-allocation stems from the 1922 Compact being signed during an unusually wet period — the river can't reliably deliver what was promised."
+    },
+    {
+      "id": "Colorado River_007",
+      "category": "Colorado River",
+      "difficulty": "hard",
+      "prompt": "In ensemble studies of the Colorado River Basin (e.g., Carpenter's research), stochastic streamflow ensembles were used primarily to:",
+      "choices": [
+        "Test reservoir operating policies across many plausible future streamflow sequences",
+        "Calibrate the RiverWare model to observed storage data at Lake Mead",
+        "Estimate the current legal water allocation for each basin state",
+        "Determine the annual release schedule for Glen Canyon Dam"
+      ],
+      "answer": 0,
+      "quip_correct": "The ensemble approach tests whether policies hold up across many possible futures — not just the historical record.",
+      "quip_wrong": "Stochastic ensembles stress-test operating policies across many futures, revealing vulnerabilities invisible in the historical record alone."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_001",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "easy",
+      "prompt": "In MCDA, what does 'a priori' mean with respect to preference articulation?",
+      "choices": [
+        "Preferences are expressed before alternatives are generated or evaluated",
+        "Preferences are expressed after seeing the full set of alternatives",
+        "Preferences are derived automatically from historical data",
+        "Preferences are expressed by multiple stakeholders simultaneously"
+      ],
+      "answer": 0,
+      "quip_correct": "A priori methods commit you to weights upfront — useful when stakeholders have clear values before seeing tradeoffs.",
+      "quip_wrong": "A priori = before. Preferences are set before alternatives are evaluated."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_002",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "easy",
+      "prompt": "What does MCDA stand for?",
+      "choices": [
+        "Multi-Component Design Analysis",
+        "Multi-Criteria Decision Analysis",
+        "Maximum Credible Decision Algorithm",
+        "Multi-Channel Data Architecture"
+      ],
+      "answer": 1,
+      "quip_correct": "MCDA is a broad family of methods for making decisions when multiple, often conflicting, criteria matter.",
+      "quip_wrong": "MCDA = Multi-Criteria Decision Analysis — structured approaches for weighing tradeoffs."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_003",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "medium",
+      "prompt": "In local scaling, how is each criterion value normalized?",
+      "choices": [
+        "Divided by the criterion's global theoretical maximum",
+        "Multiplied by the criterion's weight",
+        "Scaled to [0,1] using the minimum and maximum within the current solution set",
+        "Expressed as a percentage of the population mean"
+      ],
+      "answer": 2,
+      "quip_correct": "Local scaling uses the best and worst values in the solution set itself — so rankings can shift if new solutions are added.",
+      "quip_wrong": "Local scaling: (value − min) / (max − min), using the current solution set's range."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_004",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "medium",
+      "prompt": "What is a key limitation of a priori MCDA methods?",
+      "choices": [
+        "They cannot produce a ranked list of alternatives",
+        "They require large amounts of data to compute weights",
+        "They always produce too many non-dominated solutions",
+        "The decision-maker must commit to preference weights before knowing what tradeoffs exist"
+      ],
+      "answer": 3,
+      "quip_correct": "You're locking in preferences before you know the landscape — you might weight things differently once you see the tradeoffs.",
+      "quip_wrong": "A priori methods ask for weights upfront, which may not reflect what matters once you see the actual solution space."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_005",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "medium",
+      "prompt": "The Range Sensitivity Index (RSI) is primarily used to assess:",
+      "choices": [
+        "The consistency of a decision-maker's pairwise comparisons",
+        "The number of Pareto-optimal solutions in a set",
+        "The epsilon value needed to reduce a solution archive",
+        "How sensitive a solution's ranking is to changes in criterion weights"
+      ],
+      "answer": 3,
+      "quip_correct": "RSI reveals which weight assumptions matter most — high RSI means small weight changes could flip the preferred solution.",
+      "quip_wrong": "RSI measures rank sensitivity to weight changes, not AHP consistency or Pareto set size."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_006",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "easy",
+      "prompt": "In MCDA, a solution is called 'non-dominated' if:",
+      "choices": [
+        "It scores best on every criterion",
+        "No other solution is better on at least one criterion without being worse on another",
+        "It has the highest weighted sum score",
+        "It was generated by an optimization algorithm"
+      ],
+      "answer": 1,
+      "quip_correct": "Non-dominated solutions form the Pareto front — you can't improve one objective without sacrificing another.",
+      "quip_wrong": "Non-dominated means no other solution beats it on one criterion without a penalty elsewhere."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_007",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "medium",
+      "prompt": "Global scaling normalizes criteria values using:",
+      "choices": [
+        "The min and max of the current solution subset being compared",
+        "Weights derived from stakeholder surveys",
+        "Fixed reference points defined independently of the current solution set",
+        "The standard deviation of each criterion across all solutions"
+      ],
+      "answer": 2,
+      "quip_correct": "Global scaling uses pre-defined bounds (e.g., physical limits), so rankings stay stable as the solution set changes.",
+      "quip_wrong": "Global scaling uses fixed external reference points, not the min/max of the current solution set."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_008",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "hard",
+      "prompt": "Which statement correctly describes a posteriori multi-criteria methods?",
+      "choices": [
+        "They require the decision-maker to define weights before any alternatives are generated",
+        "They eliminate dominated solutions automatically without stakeholder input",
+        "They cannot handle more than two conflicting objectives",
+        "They generate the full set of non-dominated alternatives first, then involve the decision-maker in selection"
+      ],
+      "answer": 3,
+      "quip_correct": "A posteriori: explore first, decide later. The decision-maker sees the full tradeoff landscape before committing to a choice.",
+      "quip_wrong": "A posteriori methods show all Pareto-optimal options first — preferences come after, not before."
+    },
+    {
+      "id": "Tradeoff Analysis_001",
+      "category": "Tradeoff Analysis",
+      "difficulty": "easy",
+      "prompt": "Solution A dominates solution B (both minimization objectives) when:",
+      "choices": [
+        "A is no worse than B on all objectives and strictly better on at least one",
+        "A has a lower total weighted score than B",
+        "A was generated earlier in the optimization search",
+        "A has fewer objectives on which it scores worse than B"
+      ],
+      "answer": 0,
+      "quip_correct": "Domination requires being at least as good everywhere AND strictly better somewhere — both conditions must hold.",
+      "quip_wrong": "Domination: A ≤ B on all objectives and A < B on at least one. Weighted sums are irrelevant here."
+    },
+    {
+      "id": "Tradeoff Analysis_002",
+      "category": "Tradeoff Analysis",
+      "difficulty": "easy",
+      "prompt": "What interactive technique on a parallel coordinates plot highlights a subset of solutions to explore their values across all axes?",
+      "choices": [
+        "Normalization",
+        "Brushing",
+        "Filtering by weight",
+        "Epsilon pruning"
+      ],
+      "answer": 1,
+      "quip_correct": "Brushing lets you drag a window on one axis and see which solutions pass through — great for finding solutions strong on a specific criterion.",
+      "quip_wrong": "Brushing = selecting a range on one axis to highlight matching solutions across all other axes."
+    },
+    {
+      "id": "Tradeoff Analysis_003",
+      "category": "Tradeoff Analysis",
+      "difficulty": "medium",
+      "prompt": "Given solutions A=(1,10), B=(3,4), C=(2,12) where both objectives are minimized, which solutions are non-dominated?",
+      "choices": [
+        "Only A",
+        "Only B",
+        "A and B",
+        "All three"
+      ],
+      "answer": 2,
+      "quip_correct": "A dominates C (1<2 and 10<12). B cannot be dominated by A (3>1 on obj 1). A and B form the Pareto front.",
+      "quip_wrong": "A dominates C but not B. B dominates C but not A. So A and B are both non-dominated."
+    },
+    {
+      "id": "Tradeoff Analysis_004",
+      "category": "Tradeoff Analysis",
+      "difficulty": "medium",
+      "prompt": "Increasing the epsilon value in epsilon-dominance will:",
+      "choices": [
+        "Increase the resolution of the Pareto front",
+        "Leave the number of archived solutions unchanged",
+        "Double the number of solutions archived",
+        "Decrease the number of solutions, giving a coarser representation"
+      ],
+      "answer": 3,
+      "quip_correct": "Larger epsilon = coarser grid = fewer solutions retained. Think of it as zooming out on the tradeoff surface.",
+      "quip_wrong": "Larger epsilon → coarser resolution → fewer archived solutions. Smaller epsilon keeps more detail."
+    },
+    {
+      "id": "Tradeoff Analysis_005",
+      "category": "Tradeoff Analysis",
+      "difficulty": "easy",
+      "prompt": "A radar (spider) chart is particularly useful in tradeoff analysis for:",
+      "choices": [
+        "Showing the distribution of a single objective across all solutions",
+        "Comparing a small number of solutions across many criteria simultaneously",
+        "Ranking solutions by a weighted sum",
+        "Plotting all solutions in a two-dimensional objective space"
+      ],
+      "answer": 1,
+      "quip_correct": "Radar charts shine when comparing a few candidate solutions — each axis is a criterion, and the shape reveals the solution's profile.",
+      "quip_wrong": "Radar charts are best for comparing a handful of solutions across multiple criteria at once."
+    },
+    {
+      "id": "Tradeoff Analysis_006",
+      "category": "Tradeoff Analysis",
+      "difficulty": "medium",
+      "prompt": "Epsilon non-domination is preferred over strict Pareto non-domination for large optimization problems primarily because:",
+      "choices": [
+        "It finds a mathematically exact Pareto front",
+        "It archives a uniformly-spaced, manageable subset of near-optimal solutions",
+        "It assigns weights to objectives automatically",
+        "It eliminates the need for a simulation model"
+      ],
+      "answer": 1,
+      "quip_correct": "Strict Pareto can archive thousands of nearly identical solutions. Epsilon-dominance keeps a well-spread, decision-relevant subset.",
+      "quip_wrong": "Epsilon non-domination manages solution archive size by keeping only well-spaced representatives of the front."
+    },
+    {
+      "id": "Tradeoff Analysis_007",
+      "category": "Tradeoff Analysis",
+      "difficulty": "hard",
+      "prompt": "A scatter plot of Objective 1 vs. Objective 2 is most limited when:",
+      "choices": [
+        "The objectives have different units",
+        "There are only two solutions to compare",
+        "There are more than two objectives, requiring many separate 2D plots",
+        "Solutions are dominated"
+      ],
+      "answer": 2,
+      "quip_correct": "With 5 objectives you'd need 10 pairwise scatter plots. Parallel coordinates handle many objectives in one view.",
+      "quip_wrong": "2D scatter plots can't show more than 2 objectives at once — many objectives require many plots or a different visualization."
+    },
+    {
+      "id": "Tradeoff Analysis_008",
+      "category": "Tradeoff Analysis",
+      "difficulty": "hard",
+      "prompt": "Solution A formally dominates B if and only if:",
+      "choices": [
+        "A's weighted sum is lower than B's weighted sum",
+        "A scores higher on the most important criterion",
+        "A scores better than B on every single objective",
+        "A is no worse than B on all objectives AND strictly better on at least one"
+      ],
+      "answer": 3,
+      "quip_correct": "Both conditions are required: no worse anywhere, strictly better somewhere. 'Better on everything' is sufficient but not necessary.",
+      "quip_wrong": "Domination requires ≤ on all AND < on at least one. Being best on one criterion alone is not enough."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_001",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "easy",
+      "prompt": "What is the primary purpose of synthetic streamflow generation in water resources planning?",
+      "choices": [
+        "To calibrate reservoir simulation models against observed data",
+        "To calculate the probability of exceedance for peak flows",
+        "To estimate evaporation losses from reservoir surfaces",
+        "To extend the historical record with plausible alternative streamflow sequences for risk analysis"
+      ],
+      "answer": 3,
+      "quip_correct": "One historical record gives one possible future. Synthetic generation explores the full range of what could happen.",
+      "quip_wrong": "Synthetic streamflow generation creates many plausible futures beyond the single observed record."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_002",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "easy",
+      "prompt": "In the 'expanding brain' hierarchy of synthetic streamflow approaches, which represents the simplest baseline?",
+      "choices": [
+        "Multi-scenario ensembles using RCPs",
+        "The historical period of record used directly",
+        "Parametric statistical models (e.g., log-normal)",
+        "Climate-modified traces from GCM outputs"
+      ],
+      "answer": 1,
+      "quip_correct": "The period of record is the starting point — just replay history. Each step up adds complexity and variability.",
+      "quip_wrong": "The expanding brain starts with the historical record, then adds parametric models, climate modification, and multi-scenario ensembles."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_003",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "medium",
+      "prompt": "The Index Sequential Method (ISM) produces how many synthetic traces if there are T years in the historical record?",
+      "choices": [
+        "1 trace of length T",
+        "T/2 traces each of length 2T",
+        "T traces each of length T",
+        "2T traces each of length T/2"
+      ],
+      "answer": 2,
+      "quip_correct": "ISM starts at each of the T years as an entry point and wraps around, producing T traces of equal length T.",
+      "quip_wrong": "ISM: one trace per starting year, each of length T. T starting years → T traces."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_004",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "medium",
+      "prompt": "What does 'stationarity is dead' mean in the context of streamflow modeling?",
+      "choices": [
+        "All rivers eventually run dry due to consumptive use",
+        "Deterministic models have replaced stochastic models",
+        "The Index Sequential Method is no longer valid for any application",
+        "The statistical properties of streamflows are changing due to anthropogenic climate change"
+      ],
+      "answer": 3,
+      "quip_correct": "Milly et al. (2008) argued climate change breaks the assumption that past statistics predict future variability.",
+      "quip_wrong": "'Stationarity is dead' — the past is no longer a reliable guide to future hydrology under climate change."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_005",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "easy",
+      "prompt": "The Index Sequential Method (ISM) is classified as which type of streamflow model?",
+      "choices": [
+        "Non-parametric (resampling-based)",
+        "Parametric (distribution-fitting)",
+        "Deterministic (physics-based)",
+        "Spectral (frequency-domain)"
+      ],
+      "answer": 0,
+      "quip_correct": "ISM resamples the historical record directly — no distribution is fit. That makes it non-parametric.",
+      "quip_wrong": "ISM is non-parametric: it resamples historical data rather than fitting a statistical distribution."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_006",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "medium",
+      "prompt": "Nowak Disaggregation is used in synthetic streamflow generation to:",
+      "choices": [
+        "Distribute synthetic annual flows into monthly values using analog years from the historical record",
+        "Fit a parametric distribution to annual flow volumes",
+        "Remove the climate change signal from observed streamflows",
+        "Calculate the principal components of a multi-site flow matrix"
+      ],
+      "answer": 0,
+      "quip_correct": "Nowak picks K nearest-neighbor analog years and uses their monthly proportions to disaggregate annual synthetic totals.",
+      "quip_wrong": "Nowak Disaggregation uses analog year proportions to break annual synthetic flows into monthly values."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_007",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "hard",
+      "prompt": "Representative Concentration Pathways (RCPs) are primarily used in water resources planning to:",
+      "choices": [
+        "Define reservoir storage targets based on climate risk",
+        "Select the K nearest neighbors for Nowak Disaggregation",
+        "Represent plausible greenhouse gas emission and temperature trajectories for scenario analysis",
+        "Calibrate ISM traces against observed 20th-century flows"
+      ],
+      "answer": 2,
+      "quip_correct": "RCPs (e.g., RCP 4.5, RCP 8.5) describe emissions pathways — each drives different temperature and precipitation projections.",
+      "quip_wrong": "RCPs define greenhouse gas trajectories used as inputs to climate models, not reservoir targets or calibration steps."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_008",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "hard",
+      "prompt": "The CMIP (Coupled Model Intercomparison Project) ensembles are relevant to water resources planning because:",
+      "choices": [
+        "They provide real-time streamflow forecasts for major river basins",
+        "They define the Saaty pairwise scale used in AHP",
+        "They measure consistency in decision-maker preference elicitation",
+        "They provide multi-model climate projections used to generate climate-conditioned streamflow scenarios"
+      ],
+      "answer": 3,
+      "quip_correct": "CMIP3/5/6 ensembles capture model uncertainty across dozens of GCMs — a key input to climate-aware water planning.",
+      "quip_wrong": "CMIP provides multi-GCM climate projections. These are downscaled to generate climate-conditioned streamflow inputs."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_009",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "medium",
+      "prompt": "In ISM, the historical record is concatenated with itself so that:",
+      "choices": [
+        "The dataset is normalized to a standard length",
+        "Droughts that occurred only once are effectively removed",
+        "The resulting traces follow a normal distribution",
+        "Any starting year in the record can produce a full-length synthetic trace by wrapping around"
+      ],
+      "answer": 3,
+      "quip_correct": "Concatenation enables wrap-around: a trace starting in year T-5 continues from year 1, ensuring every start year produces a full T-year trace.",
+      "quip_wrong": "ISM concatenates the record with itself so traces starting near the end of the record can wrap to the beginning."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_010",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "medium",
+      "prompt": "Which correctly orders synthetic streamflow approaches from least to most complexity?",
+      "choices": [
+        "Multi-scenario RCPs → Parametric models → Period of record → ISM",
+        "Period of record → Parametric/non-parametric models → Climate-modified → Multi-scenario ensembles",
+        "ISM → Nowak Disaggregation → Parametric models → Period of record",
+        "Climate-modified traces → Period of record → ISM → Nowak Disaggregation"
+      ],
+      "answer": 1,
+      "quip_correct": "The expanding brain: replay history → fit a model → adjust for climate → combine multiple climate scenarios.",
+      "quip_wrong": "Complexity grows: period of record → parametric/non-parametric → climate-modified → multi-scenario ensembles."
+    },
+    {
+      "id": "Ensemble Processing_001",
+      "category": "Ensemble Processing",
+      "difficulty": "easy",
+      "prompt": "In ensemble-based reservoir modeling, each synthetic streamflow trace drives:",
+      "choices": [
+        "One separate RiverWare model run producing one set of outputs",
+        "The same RiverWare run, with outputs averaged across traces",
+        "A calibration check, not a forward simulation",
+        "A single performance metric calculation shared across all traces"
+      ],
+      "answer": 0,
+      "quip_correct": "One trace → one simulation → one set of performance metrics. N traces means N runs, yielding a distribution of outcomes.",
+      "quip_wrong": "Each trace is its own independent simulation — you get N separate results from N traces."
+    },
+    {
+      "id": "Ensemble Processing_002",
+      "category": "Ensemble Processing",
+      "difficulty": "easy",
+      "prompt": "What RiverWare tool is specifically designed to run the same model repeatedly with different input ensembles?",
+      "choices": [
+        "Policy Workspace",
+        "Multiple Run Management (MRM)",
+        "Output Dashboard",
+        "Ensemble Calibration Tool"
+      ],
+      "answer": 1,
+      "quip_correct": "MRM automates running the model N times with N input sets — essential for stochastic ensemble analysis.",
+      "quip_wrong": "Multiple Run Management (MRM) in RiverWare handles batch ensemble runs automatically."
+    },
+    {
+      "id": "Ensemble Processing_003",
+      "category": "Ensemble Processing",
+      "difficulty": "medium",
+      "prompt": "When ISM traces are assumed equally plausible, how should ensemble performance statistics be computed?",
+      "choices": [
+        "Weighted by the trace's distance from the historical mean flow",
+        "Using only the median trace as representative",
+        "With equal weights — a simple unweighted average or count across all traces",
+        "Using only the trace corresponding to the driest period"
+      ],
+      "answer": 2,
+      "quip_correct": "ISM's equal-plausibility assumption means no trace is more likely than another — so all get equal weight in summary statistics.",
+      "quip_wrong": "Equal plausibility → equal weights. Don't favor the median or driest trace."
+    },
+    {
+      "id": "Ensemble Processing_004",
+      "category": "Ensemble Processing",
+      "difficulty": "medium",
+      "prompt": "If 30 ISM traces are run through a RiverWare model and you report the minimum system reliability across all traces, this represents:",
+      "choices": [
+        "The average reliability across all futures",
+        "The most likely reliability outcome",
+        "The reliability of the median-flow trace",
+        "The worst-case reliability across all synthetic futures considered"
+      ],
+      "answer": 3,
+      "quip_correct": "Reporting the minimum gives you the worst-case scenario in your ensemble — important for risk-averse planning.",
+      "quip_wrong": "The minimum across traces = worst case. Compare to mean for average performance and max for best case."
+    },
+    {
+      "id": "Ensemble Processing_005",
+      "category": "Ensemble Processing",
+      "difficulty": "hard",
+      "prompt": "When climate scenario traces are NOT equally likely (e.g., some RCPs are more consistent with current emissions), the ensemble metric should be:",
+      "choices": [
+        "A probability-weighted average across traces",
+        "The minimum across all traces regardless of probability",
+        "An unweighted average",
+        "The value from the median-flow trace only"
+      ],
+      "answer": 0,
+      "quip_correct": "Unequal likelihoods → use weights. Traces from more probable scenarios count more in the summary statistic.",
+      "quip_wrong": "When traces have different probabilities, weight your summary statistics by those probabilities — don't average blindly."
+    },
+    {
+      "id": "Ensemble Processing_006",
+      "category": "Ensemble Processing",
+      "difficulty": "easy",
+      "prompt": "What is the primary reason to summarize an ensemble of N performance metric values with descriptive statistics (mean, min, max)?",
+      "choices": [
+        "To reduce N separate numbers to an interpretable summary for decision-making",
+        "To eliminate uncertainty from the analysis",
+        "To select the single best policy automatically",
+        "To validate the RiverWare model parameters"
+      ],
+      "answer": 0,
+      "quip_correct": "N numbers tell an incomplete story. Statistics like mean and min turn the ensemble into actionable information.",
+      "quip_wrong": "Descriptive statistics compress N results into a usable summary — they describe uncertainty, not remove it."
+    },
+    {
+      "id": "Ensemble Processing_007",
+      "category": "Ensemble Processing",
+      "difficulty": "hard",
+      "prompt": "What assumption about ISM traces underlies the practice of reporting unweighted statistics across an ISM ensemble?",
+      "choices": [
+        "ISM traces are ranked by proximity to the most recent historical climate",
+        "ISM traces were selected by a Bayesian model averaging procedure",
+        "Each ISM trace is equally plausible — no trace represents a more or less likely future",
+        "ISM traces are generated from a fitted parametric distribution"
+      ],
+      "answer": 2,
+      "quip_correct": "ISM makes no probabilistic claims about which historical sequence is more likely to recur — all are treated as equally possible.",
+      "quip_wrong": "Unweighted ISM statistics rest on equal plausibility — no Bayesian weights, no ranking by recency."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_001",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "easy",
+      "prompt": "In the XLRM framework, 'X' refers to:",
+      "choices": [
+        "The simulation model relating inputs to outputs",
+        "Exogenous uncertainties outside the decision-maker's control",
+        "Levers or policy variables the decision-maker can adjust",
+        "Performance measures used to evaluate outcomes"
+      ],
+      "answer": 1,
+      "quip_correct": "X = exogenous uncertainties like future streamflow, population growth, or climate — things you can plan for but not control.",
+      "quip_wrong": "X = exogenous uncertainties (e.g., streamflow, demand). L = levers, R = relationships, M = measures."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_002",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "easy",
+      "prompt": "In XLRM, reservoir operating rules (e.g., release targets, storage triggers) are classified as:",
+      "choices": [
+        "L — levers (policy/decision variables)",
+        "X — exogenous uncertainties",
+        "R — relationships (the model)",
+        "M — measures (performance metrics)"
+      ],
+      "answer": 0,
+      "quip_correct": "Levers are the knobs decision-makers can turn. Operating rules are deliberately chosen policies, so they're L.",
+      "quip_wrong": "Operating rules are L — levers. They're what the decision-maker controls, not external uncertainties."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_003",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "easy",
+      "prompt": "In XLRM, which component is represented by the RiverWare simulation model itself?",
+      "choices": [
+        "X — exogenous uncertainties",
+        "L — levers",
+        "R — relationships",
+        "M — measures"
+      ],
+      "answer": 2,
+      "quip_correct": "RiverWare is the R — it encodes the physical and operational relationships that translate inputs and policies into outputs.",
+      "quip_wrong": "RiverWare is R (relationships). It takes X inputs and L levers and produces outputs that become M measures."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_004",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "easy",
+      "prompt": "In XLRM, which component includes performance metrics such as reliability, resilience, and vulnerability?",
+      "choices": [
+        "X — exogenous uncertainties",
+        "L — levers",
+        "R — relationships",
+        "M — measures"
+      ],
+      "answer": 3,
+      "quip_correct": "M = measures. Reliability, resilience, and vulnerability are the yardsticks by which we judge how well policies perform.",
+      "quip_wrong": "Performance metrics are M — measures. They're how you evaluate whether the system succeeded."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_005",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "medium",
+      "prompt": "In DMDU (Decision Making Under Deep Uncertainty), Level 4 uncertainty is characterized by:",
+      "choices": [
+        "Futures can be enumerated but cannot be reliably ranked by probability",
+        "All probabilities are known with high confidence",
+        "Only one future scenario is considered plausible",
+        "The model structure is entirely unknown and cannot be simulated"
+      ],
+      "answer": 0,
+      "quip_correct": "Level 4: you can name the futures but can't say which is most likely. That's the deep uncertainty most water managers face.",
+      "quip_wrong": "Level 4 = can enumerate futures, cannot rank by probability. This is the classic DMDU situation."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_006",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "medium",
+      "prompt": "In DMDU, a 'robust' policy is one that:",
+      "choices": [
+        "Maximizes performance in the single most likely future scenario",
+        "Performs acceptably across a wide range of plausible futures, even if not optimal in any one",
+        "Minimizes the worst possible outcome regardless of probability",
+        "Is derived from a multi-criteria weighted-sum optimization"
+      ],
+      "answer": 1,
+      "quip_correct": "Robustness trades peak optimality for consistent adequacy — you sacrifice best-case to avoid bad surprises.",
+      "quip_wrong": "A robust policy is satisfactory across many futures, not optimal for one. Reliability beats optimality under uncertainty."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_007",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "medium",
+      "prompt": "Why is future streamflow classified as 'X' (exogenous uncertainty) rather than 'L' (lever) in XLRM for reservoir management?",
+      "choices": [
+        "Because streamflow is constant over time and does not vary",
+        "Because streamflow has already been fully allocated under prior appropriation",
+        "Because streamflow is outside human control in a water management context",
+        "Because streamflow data is too uncertain to include in a simulation model"
+      ],
+      "answer": 2,
+      "quip_correct": "You can manage how you respond to streamflow, but you can't control the rain. That's why it's X, not L.",
+      "quip_wrong": "Streamflow is X because it's exogenous — managers respond to it, they don't set it."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_008",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "hard",
+      "prompt": "DMDU methods are most applicable when:",
+      "choices": [
+        "All future scenarios are enumerable and have reliable probability estimates",
+        "The system is well-understood and historical statistics are stationary",
+        "The decision-maker has clear preferences and a single well-defined objective",
+        "Uncertainty is so deep that assigning reliable probabilities to competing futures is not feasible"
+      ],
+      "answer": 3,
+      "quip_correct": "DMDU is built for when you can't say 'scenario A is 3× more likely than B' — you need strategies that work regardless.",
+      "quip_wrong": "DMDU applies when probabilities can't be assigned reliably. If you have good probability estimates, standard risk analysis works."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_009",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "hard",
+      "prompt": "In XLRM, which component directly links X uncertainties and L levers to M measures?",
+      "choices": [
+        "M — performance measures",
+        "L — policy levers",
+        "X — exogenous inputs",
+        "R — the simulation model"
+      ],
+      "answer": 3,
+      "quip_correct": "R is the engine: it takes X inputs and L policy settings and computes outputs that become M measures.",
+      "quip_wrong": "R (relationships) is the model that transforms X and L into outputs, which are then summarized as M measures."
+    },
+    {
+      "id": "Performance Metrics_001",
+      "category": "Performance Metrics",
+      "difficulty": "easy",
+      "prompt": "In reservoir performance assessment, 'resilience' refers to:",
+      "choices": [
+        "The probability that the system meets demand in any given period",
+        "How quickly the system recovers after a failure event",
+        "The severity or magnitude of failures when they occur",
+        "The total volume of water stored over a planning horizon"
+      ],
+      "answer": 1,
+      "quip_correct": "Resilience is about recovery speed — a resilient system bounces back from deficits quickly.",
+      "quip_wrong": "Resilience = recovery rate. Reliability = probability of success. Vulnerability = magnitude of failure."
+    },
+    {
+      "id": "Performance Metrics_002",
+      "category": "Performance Metrics",
+      "difficulty": "easy",
+      "prompt": "In reservoir performance assessment, 'vulnerability' refers to:",
+      "choices": [
+        "The probability that reservoir storage falls below a critical threshold",
+        "How quickly the system recovers from a shortage event",
+        "The magnitude or severity of failures when they do occur",
+        "The frequency of times the reservoir spills"
+      ],
+      "answer": 2,
+      "quip_correct": "Vulnerability asks: when it fails, how bad is it? High vulnerability means failures are severe even if infrequent.",
+      "quip_wrong": "Vulnerability = severity of failure. Reliability = probability of success. Resilience = recovery speed."
     }
   ]
 }
