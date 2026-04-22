@@ -3,10 +3,15 @@
 This repository is for the course CVEN 5393: Water Resources Systems and Management, taught by Prof. Joseph Kasprzyk at the University of Colorado Boulder. The examples were started in Spring 2023 and have been continually updated.
 
 Currently the folder structure is:
-1. **Analytic Hierarchy Process**: Source code and example AHP setup files for a [Streamlit app](https://ahp-yaml.streamlit.app/) that enables in-browser AHP calculations.
-2. **Colab Notebooks**: These are Python notebooks intended to be opened in [Google Colab](https://colab.research.google.com/). Each notebook is self-contained and illustrates a principle in water resources and systems analysis. These can also be used on your own Jupyter notebook server.
+1. **AnalyticHierarchyProcess**: Source code and example AHP setup files for a [Streamlit app](https://ahp-yaml.streamlit.app/) that enables in-browser AHP calculations.
+2. **Colab Notebooks**: Python notebooks intended to be opened in [Google Colab](https://colab.research.google.com/). Each notebook is self-contained and illustrates a principle in water resources and systems analysis. These can also be used on your own Jupyter notebook server.
 3. **Data**: A few example datafiles that are used for loading into notebooks and elsewhere.
-4. **RiverWare Example Models** : Example models implemented in [RiverWare](https://riverware.org/), a river basin and reservoir model developed by the [Center for Advanced Decision Support for Water and Environmental Systems](https://www.colorado.edu/cadswes/) at the University of Colorado Boulder.
+4. **RiverWare Example Models**: Example models implemented in [RiverWare](https://riverware.org/), a river basin and reservoir model developed by the [Center for Advanced Decision Support for Water and Environmental Systems](https://www.colorado.edu/cadswes/) at the University of Colorado Boulder.
+5. **Training**: Lecture notes and explainers (git/GitHub, Python virtual environments, CDN and data distribution).
+6. **exam_prep**: Question bank JSON files (promptukit format) consumed by downstream trivia tooling via jsDelivr.
+7. **cvtools**: A small editable Python package of shared utilities for this workspace (installed via Poetry).
+8. **scripts**: Maintenance scripts, including `tag-release.sh` for cutting versioned releases.
+9. **archived**: Legacy `requirements.txt` and `setup.cfg`, kept for reference now that Poetry manages dependencies.
 
 For more information, consult the webpage of the [Kasprzyk Research Group](https://www.colorado.edu/lab/krg).
 
@@ -46,7 +51,7 @@ poetry lock       # (optional) refresh/produce `poetry.lock`
 poetry build      # build distribution packages
 ```
 
-The existing `requirements.txt` and `setup.cfg` are left in the repository for reference.
+The legacy `requirements.txt` and `setup.cfg` have been moved to `archived/` for reference; Poetry (`pyproject.toml` + `poetry.lock`) is now the source of truth for dependencies. Current dependencies include `promptukit` and `parasolpy` alongside the standard scientific Python stack.
 
 ## Poetry & promptukit workflow
 
