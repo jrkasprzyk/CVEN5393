@@ -163,3 +163,4 @@ cython_debug/
 
 # Private working folder
 .private/
+.claude/settings.local.json
