@@ -1,6 +1,4 @@
 {
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
-    "python.pythonPath": "${workspaceFolder}/.venv/Scripts/python.exe",
-    "python-envs.defaultEnvManager": "ms-python.python:poetry",
-    "python-envs.defaultPackageManager": "ms-python.python:poetry"
+    "python.pythonPath": "${workspaceFolder}/.venv/Scripts/python.exe"
 }
