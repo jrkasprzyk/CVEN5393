@@ -131,6 +131,29 @@
       "quip_wrong": "CI = (λmax − n) / (n − 1) = 0.28 / 3 ≈ 0.093. Compare this to RI to get the Consistency Ratio."
     },
     {
+      "id": "Analytic Hierarchy Process_009",
+      "question_type": "TrueFalse",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "easy",
+      "prompt": "In AHP, a Consistency Ratio (CR) of 0.10 or less is generally considered acceptable, indicating the decision-maker's pairwise comparisons are sufficiently consistent.",
+      "answer": true,
+      "quip_correct": "CR ≤ 0.10 is the conventional threshold. Above 0.10, the pairwise comparisons contradict themselves too much and should be revised.",
+      "quip_wrong": "CR ≤ 0.10 = acceptable. CR > 0.10 signals too much inconsistency."
+    },
+    {
+      "id": "Analytic Hierarchy Process_010",
+      "question_type": "FillInTheBlank",
+      "category": "Analytic Hierarchy Process",
+      "difficulty": "medium",
+      "prompt": "In AHP, the Consistency Ratio is defined as CR = ___ / ___, where the numerator is computed from the principal eigenvalue and the denominator is a table value based on matrix size.",
+      "answers": [
+        "CI",
+        "RI"
+      ],
+      "quip_correct": "CR = CI / RI. CI = (λmax − n)/(n − 1); RI depends on n.",
+      "quip_wrong": "CR = CI / RI. CI captures observed inconsistency; RI normalizes against random."
+    },
+    {
       "id": "Colorado River_001",
       "category": "Colorado River",
       "difficulty": "easy",
@@ -234,6 +257,16 @@
       "answer": 0,
       "quip_correct": "The ensemble approach tests whether policies hold up across many possible futures — not just the historical record.",
       "quip_wrong": "Stochastic ensembles stress-test operating policies across many futures, revealing vulnerabilities invisible in the historical record alone."
+    },
+    {
+      "id": "Colorado River_008",
+      "question_type": "TrueFalse",
+      "category": "Colorado River",
+      "difficulty": "medium",
+      "prompt": "The over-allocation of the Colorado River traces in large part to the 1922 Compact being negotiated during an unusually wet period, which caused the 15 MAF allocation to exceed the river's long-term average flow.",
+      "answer": true,
+      "quip_correct": "1920s flows were above average. Long-term mean is ~13–14 MAF — less than the 15 MAF the Compact divided.",
+      "quip_wrong": "The Compact's 15 MAF split exceeds the river's long-term flow because the 1920s were unusually wet."
     },
     {
       "id": "Multi-Criteria Decision Analysis_001",
@@ -626,6 +659,29 @@
       "quip_wrong": "Complexity grows: period of record → parametric/non-parametric → climate-modified → multi-scenario ensembles."
     },
     {
+      "id": "Synthetic Streamflow Generation_011",
+      "question_type": "TrueFalse",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "easy",
+      "prompt": "The Index Sequential Method (ISM) is a parametric approach that fits a statistical distribution (e.g., log-normal) to the historical streamflow record.",
+      "answer": false,
+      "quip_correct": "ISM is non-parametric — it resamples the historical record directly with wrap-around, no distribution fitting.",
+      "quip_wrong": "ISM is non-parametric resampling, not distribution fitting. Parametric methods (log-normal, AR models) are a separate family."
+    },
+    {
+      "id": "Synthetic Streamflow Generation_012",
+      "question_type": "FillInTheBlank",
+      "category": "Synthetic Streamflow Generation",
+      "difficulty": "easy",
+      "prompt": "The ___ ___ Method generates synthetic streamflow traces by using each year of the historical record as a starting point and wrapping around, producing T traces of length T.",
+      "answers": [
+        "Index",
+        "Sequential"
+      ],
+      "quip_correct": "ISM — non-parametric, concatenates the record with itself for wrap-around.",
+      "quip_wrong": "Index Sequential Method (ISM). T starting years → T traces of length T."
+    },
+    {
       "id": "Ensemble Processing_001",
       "category": "Ensemble Processing",
       "difficulty": "easy",
@@ -729,6 +785,18 @@
       "answer": 2,
       "quip_correct": "ISM makes no probabilistic claims about which historical sequence is more likely to recur — all are treated as equally possible.",
       "quip_wrong": "Unweighted ISM statistics rest on equal plausibility — no Bayesian weights, no ranking by recency."
+    },
+    {
+      "id": "Ensemble Processing_008",
+      "question_type": "FillInTheBlank",
+      "category": "Ensemble Processing",
+      "difficulty": "medium",
+      "prompt": "In RiverWare, the tool designed to automate running the same model repeatedly with different input ensembles is called ___ (acronym).",
+      "answers": [
+        "MRM"
+      ],
+      "quip_correct": "MRM = Multiple Run Management. Batch runs across a stochastic ensemble.",
+      "quip_wrong": "MRM — Multiple Run Management. Runs the model N times for N input sets."
     },
     {
       "id": "XLRM and Deep Uncertainty_001",
@@ -866,6 +934,31 @@
       "quip_wrong": "R (relationships) is the model that transforms X and L into outputs, which are then summarized as M measures."
     },
     {
+      "id": "XLRM and Deep Uncertainty_010",
+      "question_type": "TrueFalse",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "medium",
+      "prompt": "In the XLRM framework, future streamflow is classified as an L (lever) because water managers decide how to release and allocate it.",
+      "answer": false,
+      "quip_correct": "Streamflow is X (exogenous) — managers respond to it but don't control the rain. Release policies are L.",
+      "quip_wrong": "Streamflow = X. Operating rules and releases = L. Managers control the response, not the inflow."
+    },
+    {
+      "id": "XLRM and Deep Uncertainty_011",
+      "question_type": "FillInTheBlank",
+      "category": "XLRM and Deep Uncertainty",
+      "difficulty": "easy",
+      "prompt": "In the XLRM framework: X stands for ___, L stands for ___, R stands for ___, and M stands for ___.",
+      "answers": [
+        "exogenous uncertainties",
+        "levers",
+        "relationships",
+        "measures"
+      ],
+      "quip_correct": "X = outside control, L = policy knobs, R = the model, M = how you judge outcomes.",
+      "quip_wrong": "X exogenous uncertainties, L levers, R relationships (the model), M measures (performance metrics)."
+    },
+    {
       "id": "Performance Metrics_001",
       "category": "Performance Metrics",
       "difficulty": "easy",
@@ -894,6 +987,30 @@
       "answer": 2,
       "quip_correct": "Vulnerability asks: when it fails, how bad is it? High vulnerability means failures are severe even if infrequent.",
       "quip_wrong": "Vulnerability = severity of failure. Reliability = probability of success. Resilience = recovery speed."
+    },
+    {
+      "id": "Performance Metrics_003",
+      "question_type": "TrueFalse",
+      "category": "Performance Metrics",
+      "difficulty": "medium",
+      "prompt": "Resilience measures the severity of reservoir failures, while vulnerability measures how quickly the system recovers from a failure.",
+      "answer": false,
+      "quip_correct": "Swapped. Resilience = recovery speed. Vulnerability = severity of failure. Reliability = probability of success.",
+      "quip_wrong": "Definitions swapped. Resilience = recovery rate; vulnerability = failure magnitude."
+    },
+    {
+      "id": "Performance Metrics_004",
+      "question_type": "FillInTheBlank",
+      "category": "Performance Metrics",
+      "difficulty": "easy",
+      "prompt": "In reservoir performance assessment, ___ measures the probability that demand is met in any given period, ___ measures how quickly the system recovers after a failure, and ___ measures the magnitude of failures when they occur.",
+      "answers": [
+        "reliability",
+        "resilience",
+        "vulnerability"
+      ],
+      "quip_correct": "Three classic Hashimoto metrics: reliability (probability), resilience (recovery), vulnerability (severity).",
+      "quip_wrong": "Reliability = probability of success. Resilience = recovery speed. Vulnerability = failure severity."
     }
   ]
 }
