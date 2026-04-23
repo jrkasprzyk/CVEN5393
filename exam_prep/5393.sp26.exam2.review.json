@@ -34,7 +34,7 @@
         "5",
         "7",
         "9",
-        "100"
+        "11"
       ],
       "answer": 2,
       "quip_correct": "1 means equal importance; 9 means extreme importance of one criterion over another.",
@@ -222,7 +222,7 @@
         "United States",
         "Mexico",
         "Both the U.S. and Mexico equally",
-        "The river always reaches the sea"
+        "The delta is located in southern California"
       ],
       "answer": 1,
       "quip_correct": "The delta is in Baja California and Sonora, Mexico. The river was effectively drained dry before the border for decades.",
@@ -387,21 +387,6 @@
       "answer": 3,
       "quip_correct": "A posteriori: explore first, decide later. The decision-maker sees the full tradeoff landscape before committing to a choice.",
       "quip_wrong": "A posteriori methods show all Pareto-optimal options first — preferences come after, not before."
-    },
-    {
-      "id": "Tradeoff Analysis_001",
-      "category": "Tradeoff Analysis",
-      "difficulty": "easy",
-      "prompt": "Solution A dominates solution B (both minimization objectives) when:",
-      "choices": [
-        "A is no worse than B on all objectives and strictly better on at least one",
-        "A has a lower total weighted score than B",
-        "A was generated earlier in the optimization search",
-        "A has fewer objectives on which it scores worse than B"
-      ],
-      "answer": 0,
-      "quip_correct": "Domination requires being at least as good everywhere AND strictly better somewhere — both conditions must hold.",
-      "quip_wrong": "Domination: A ≤ B on all objectives and A < B on at least one. Weighted sums are irrelevant here."
     },
     {
       "id": "Tradeoff Analysis_002",
