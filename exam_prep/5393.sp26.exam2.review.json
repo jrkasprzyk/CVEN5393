@@ -117,21 +117,6 @@
     },
     {
       "id": "Analytic Hierarchy Process_008",
-      "category": "Analytic Hierarchy Process",
-      "difficulty": "hard",
-      "prompt": "If n=4 criteria are compared in AHP and λmax = 4.28, what is the Consistency Index (CI)?",
-      "choices": [
-        "0.028",
-        "0.056",
-        "0.084",
-        "0.093"
-      ],
-      "answer": 3,
-      "quip_correct": "CI = (λmax − n) / (n − 1) = (4.28 − 4) / 3 = 0.28 / 3 ≈ 0.093.",
-      "quip_wrong": "CI = (λmax − n) / (n − 1) = 0.28 / 3 ≈ 0.093. Compare this to RI to get the Consistency Ratio."
-    },
-    {
-      "id": "Analytic Hierarchy Process_009",
       "question_type": "TrueFalse",
       "category": "Analytic Hierarchy Process",
       "difficulty": "easy",
@@ -141,10 +126,10 @@
       "quip_wrong": "CR ≤ 0.10 = acceptable. CR > 0.10 signals too much inconsistency."
     },
     {
-      "id": "Analytic Hierarchy Process_010",
+      "id": "Analytic Hierarchy Process_009",
       "question_type": "FillInTheBlank",
       "category": "Analytic Hierarchy Process",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "prompt": "In AHP, the Consistency Ratio is defined as CR = ___ / ___, where the numerator is computed from the principal eigenvalue and the denominator is a table value based on matrix size.",
       "answers": [
         "CI",
@@ -387,6 +372,18 @@
       "answer": 3,
       "quip_correct": "A posteriori: explore first, decide later. The decision-maker sees the full tradeoff landscape before committing to a choice.",
       "quip_wrong": "A posteriori methods show all Pareto-optimal options first — preferences come after, not before."
+    },
+    {
+      "id": "Multi-Criteria Decision Analysis_009",
+      "question_type": "FillInTheBlank",
+      "category": "Multi-Criteria Decision Analysis",
+      "difficulty": "medium",
+      "prompt": "Multi-Criteria Decision Analysis can be considered a form of ___ decision analysis, meaning preferences are expressed before alternative performance is shown.",
+      "answers": [
+        "a priori"
+      ],
+      "quip_correct": "A priori means 'before'",
+      "quip_wrong": "The assumption of a priori decision analysis is that preferences are separate from the values of performance that alternatives exhibit"
     },
     {
       "id": "Tradeoff Analysis_002",

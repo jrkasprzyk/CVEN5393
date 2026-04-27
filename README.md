@@ -55,19 +55,9 @@ The legacy `requirements.txt` and `setup.cfg` have been moved to `archived/` for
 
 ## Poetry & promptukit workflow
 
-Short guidance for updating and consuming `promptukit` in this project.
+The package version constraint is in `pyproject.toml`, and `poetry.lock` records which specific packages are currently installed. Both are committed to the GitHub repo.
 
-- **Publish (maintainer)**: bump the version in the `promptukit` repo (for example `poetry version patch` or `poetry version 0.1.550`), then build and publish:
-
-```bash
-python -m build
-python -m twine upload dist/*
-# or: poetry publish --build --repository <name>
-```
-
-Ensure the package's distributed metadata (for example `promptukit.__version__`) matches the release tag.
-
-- **Consumer (this repo)**: keep a reasonable constraint in `pyproject.toml` and commit `poetry.lock` for reproducible installs. Update and install the new release with:
+Within this project, update and install the new `promptukit` release with:
 
 ```bash
 poetry update promptukit        # update lock and install newest matching release
@@ -100,5 +90,31 @@ poetry show promptukit
 poetry run python -c "import importlib.metadata as m; print(m.version('promptukit'))"
 ```
 
-- **Practical rules**: commit `poetry.lock` for reproducible installs; prefer `poetry add`/`poetry update` over manual edits to `pyproject.toml`; use VCS/path deps while developing versions that are not yet published.
+## Using promptukit
+
+Some sample commands assuming that `poetry` is installed and used to manage the environment.
+
+Add a question to the `5393.sp26.exam2.review.json` question bank:
+
+```bash
+poetry run add-question ./exam_prep/5393.sp26.exam2.review.json
+```
+
+Open the `promptukit` graphical user interface (GUI) on the same bank:
+
+```bash
+poetry run promptukit-gui -f ./exam_prep/5393.sp26.exam2.review.json
+```
+
+Extract selected questions from a source bank (`--src`) to a new bank (`--dest`):
+
+```bash
+poetry run question-bank extract -i --src path/to/full/bank --dest path/to/extracted/bank
+```
+
+Create an exam PDF:
+
+```bash
+poetry run python -m promptukit.exams.create_exam -q name_of_bank.json -o name_of_exam.pdf
+```
 
