@@ -3973,14 +3973,14 @@ wcwidth = "*"
 
 [[package]]
 name = "promptukit"
-version = "0.5.2"
+version = "0.5.3"
 description = "Utilities for building question banks and generating exam documents."
 optional = false
 python-versions = "<4.0,>=3.12"
 groups = ["main"]
 files = [
-    {file = "promptukit-0.5.2-py3-none-any.whl", hash = "sha256:17f9b31b937df3e8f3f5ad80bc653c7dcb46ff008eec3778491c9398403cdaff"},
-    {file = "promptukit-0.5.2.tar.gz", hash = "sha256:e24381f456b8cd5cb6eab35cc4b2b1553ff3f8b69e271ccf8fd9638726b66789"},
+    {file = "promptukit-0.5.3-py3-none-any.whl", hash = "sha256:802b17c39768ad9a58ab4ceef20bd1a0003842c79896215dea54ee62a35030ab"},
+    {file = "promptukit-0.5.3.tar.gz", hash = "sha256:eeec6786c2fcdd1234eddf16ba97fefaaadb27c10d210ce2d08af6cda956e101"},
 ]
 
 [package.dependencies]
@@ -6295,4 +6295,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "40039c3bc6ee397440b3fe6af3a07155c12a73a313539c1bf46f17f2af73438b"
+content-hash = "47c1b9807f356024a5ed39a23780e14303a5faa6aed3323c67a7595b0efa8769"
