@@ -3973,20 +3973,21 @@ wcwidth = "*"
 
 [[package]]
 name = "promptukit"
-version = "0.5.3"
+version = "0.5.4"
 description = "Utilities for building question banks and generating exam documents."
 optional = false
 python-versions = "<4.0,>=3.12"
 groups = ["main"]
 files = [
-    {file = "promptukit-0.5.3-py3-none-any.whl", hash = "sha256:802b17c39768ad9a58ab4ceef20bd1a0003842c79896215dea54ee62a35030ab"},
-    {file = "promptukit-0.5.3.tar.gz", hash = "sha256:eeec6786c2fcdd1234eddf16ba97fefaaadb27c10d210ce2d08af6cda956e101"},
+    {file = "promptukit-0.5.4-py3-none-any.whl", hash = "sha256:e39577c6ba5e0221ba9d9fc0154d45a98158bdfd8cae8c895bd71d538b3bcd09"},
+    {file = "promptukit-0.5.4.tar.gz", hash = "sha256:aa27fd095316c3efbcd8c88eb7ff30c2b88808c8a93cd02f7bf29459f754c557"},
 ]
 
 [package.dependencies]
 build = ">=1.4.3,<2.0.0"
 nicegui = ">=3.10.0,<4.0.0"
 parasolpy = ">=0.1.1,<0.2.0"
+python-pptx = ">=1.0.2,<2.0.0"
 reportlab = ">=4.4.10,<5.0.0"
 twine = ">=6.2.0,<7.0.0"
 
@@ -4570,6 +4571,24 @@ files = [
     {file = "python_multipart-0.0.27-py3-none-any.whl", hash = "sha256:6fccfad17a27334bd0193681b369f476eda3409f17381a2d65aa7df3f7275645"},
     {file = "python_multipart-0.0.27.tar.gz", hash = "sha256:9870a6a8c5a20a5bf4f07c017bd1489006ff8836cff097b6933355ee2b49b602"},
 ]
+
+[[package]]
+name = "python-pptx"
+version = "1.0.2"
+description = "Create, read, and update PowerPoint 2007+ (.pptx) files."
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "python_pptx-1.0.2-py3-none-any.whl", hash = "sha256:160838e0b8565a8b1f67947675886e9fea18aa5e795db7ae531606d68e785cba"},
+    {file = "python_pptx-1.0.2.tar.gz", hash = "sha256:479a8af0eaf0f0d76b6f00b0887732874ad2e3188230315290cd1f9dd9cc7095"},
+]
+
+[package.dependencies]
+lxml = ">=3.1.0"
+Pillow = ">=3.3.2"
+typing-extensions = ">=4.9.0"
+XlsxWriter = ">=0.5.7"
 
 [[package]]
 name = "python-socketio"
@@ -6130,6 +6149,18 @@ files = [
 h11 = ">=0.16.0,<1"
 
 [[package]]
+name = "xlsxwriter"
+version = "3.2.9"
+description = "A Python module for creating Excel XLSX files."
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "xlsxwriter-3.2.9-py3-none-any.whl", hash = "sha256:9a5db42bc5dff014806c58a20b9eae7322a134abb6fce3c92c181bfb275ec5b3"},
+    {file = "xlsxwriter-3.2.9.tar.gz", hash = "sha256:254b1c37a368c444eac6e2f867405cc9e461b0ed97a3233b2ac1e574efb4140c"},
+]
+
+[[package]]
 name = "yarl"
 version = "1.23.0"
 description = "Yet another URL library"
@@ -6295,4 +6326,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "47c1b9807f356024a5ed39a23780e14303a5faa6aed3323c67a7595b0efa8769"
+content-hash = "a95f484bccc4e57f8c88e23bf4085de55d111be110e617d8fba3313b4faf4cc1"
